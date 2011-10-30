@@ -1,8 +1,8 @@
 //
-//	wgMaterial.js
+//	wgObject.js
 //	Webgine
 //
-//	Created by Nils Daumann on 29.10.11.
+//	Created by Nils Daumann on 30.10.11.
 //	Copyright (c) 2011 Nils Daumann
 
 //	Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -23,8 +23,24 @@
 //	OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 //	THE SOFTWARE.
 
-function wgMaterial()
+function wgObject()
 {
-    this.texture = 0;
-    this.shader = 0;
+    this.prev = 0;
+    this.next = 0;
+
+    this.pos = {x : 0, y : 0};
+    this.size = {x : 128, y : 128};
+    
+    this.mesh = 0;
+    this.material = 0;
 }
+
+wgObject.prototype.addObject = function()
+{
+    var temp = new wgObject;
+    temp.next = this.next;
+    this.next.prev = temp;
+    this.next = temp;
+    this.next.prev = this;
+    return this.next;
+};

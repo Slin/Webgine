@@ -25,6 +25,8 @@
 
 var wgRenderer = new function()
 {
+    this.first_obj = new wgObject();
+
     this.render = function()
     {
         // Hintergrund loeschen
@@ -32,22 +34,30 @@ var wgRenderer = new function()
         wgMain.gl.clearColor(0.5, 0.7, 0.8, 1.0);
         wgMain.gl.clear(wgMain.gl.COLOR_BUFFER_BIT|wgMain.gl.DEPTH_BUFFER_BIT);
         
-        wgMain.gl.blendFunc(wgMain.gl.ONE, wgMain.gl.ZERO);
-        wgMain.gl.disable(wgMain.gl.BLEND);
-        wgMain.gl.enable(wgMain.gl.DEPTH_TEST);
+        wgMain.gl.blendFunc(wgMain.gl.SRC_ALPHA, wgMain.gl.ONE_MINUS_SRC_ALPHA);
+        wgMain.gl.enable(wgMain.gl.BLEND);
+        wgMain.gl.disable(wgMain.gl.DEPTH_TEST);
         
-        wgMain.gl.useProgram(shadid);
-        
-        wgMain.gl.activeTexture(wgMain.gl.TEXTURE0);
-        wgMain.gl.bindTexture(wgMain.gl.TEXTURE_2D, texid);
-        wgMain.gl.uniform1i(shadid.texloc, 0);
-        
-        wgMain.gl.uniform3f(shadid.projloc, canvassizex, canvassizey, scalefactor);
-        wgMain.gl.uniform4f(shadid.objloc, posx, posy, sizex, sizey);
-        
-        wgMain.gl.bindBuffer(wgMain.gl.ARRAY_BUFFER, vbo);
-        wgMain.gl.vertexAttribPointer(shadid.posloc, 2, wgMain.gl.FLOAT, false, 0, 0);
-        wgMain.gl.enableVertexAttribArray(shadid.posloc);
-        wgMain.gl.drawArrays(wgMain.gl.TRIANGLES, 0, 6);
+        var tempobj = this.first_obj.next;
+        while(tempobj != 0)
+        {        
+            wgMain.gl.useProgram(tempobj.material.shader);
+            
+            wgMain.gl.activeTexture(wgMain.gl.TEXTURE0);
+            wgMain.gl.bindTexture(wgMain.gl.TEXTURE_2D, tempobj.material.texture);
+            wgMain.gl.uniform1i(tempobj.material.shader.texloc, 0);
+            
+            wgMain.gl.uniform3f(tempobj.material.shader.projloc, canvassizex, canvassizey, scalefactor);
+            wgMain.gl.uniform4f(tempobj.material.shader.objloc, tempobj.pos.x, tempobj.pos.y, tempobj.size.x, tempobj.size.y);
+            
+//            alert("posx: "+tempobj.pos.x);
+            
+            wgMain.gl.bindBuffer(wgMain.gl.ARRAY_BUFFER, tempobj.mesh);
+            wgMain.gl.vertexAttribPointer(tempobj.material.shader.posloc, 2, wgMain.gl.FLOAT, false, 0, 0);
+            wgMain.gl.enableVertexAttribArray(tempobj.material.shader.posloc);
+            wgMain.gl.drawArrays(wgMain.gl.TRIANGLES, 0, 6);
+            
+            tempobj = tempobj.next;
+        }
     };
 };

@@ -32,7 +32,7 @@ var wgTexture = new function()
         var image = new Image();
         image.onload = function()
         {
-            wgMain.gl.bindTexture(wgMain.gl.TEXTURE_2D, texid);
+            wgMain.gl.bindTexture(wgMain.gl.TEXTURE_2D, id);
             wgMain.gl.pixelStorei(wgMain.gl.UNPACK_FLIP_Y_WEBGL, true);
             wgMain.gl.texParameteri(wgMain.gl.TEXTURE_2D, wgMain.gl.TEXTURE_MAG_FILTER, wgMain.gl.LINEAR);
             wgMain.gl.texParameteri(wgMain.gl.TEXTURE_2D, wgMain.gl.TEXTURE_MIN_FILTER, wgMain.gl.LINEAR);
