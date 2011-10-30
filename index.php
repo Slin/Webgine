@@ -3,7 +3,7 @@ function ListFolder($path)
 {
     //using the opendir function
     $dir_handle = @opendir($path) or die("Unable to open $path");
-   
+    
     //Leave only the lastest folder name
     $dirname = end(explode("/", $path));
    
