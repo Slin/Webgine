@@ -23,14 +23,17 @@
 //	OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 //	THE SOFTWARE.
 
-var lasttime = 0;
-var newtime = 0;
-var timestep = 0;
-
-function getTime()
+var wgTimer = new function()
 {
-    newtime = new Date().getTime();
-    timestep = newtime-lasttime;
-    if(timestep > 100.0){timestep = 0;}
-    lasttime = newtime;
-}
+    this.lasttime = 0;
+    this.newtime = 0;
+    this.timestep = 0;
+
+    this.getTime = function()
+    {
+        this.newtime = new Date().getTime();
+        this.timestep = this.newtime-this.lasttime;
+        if(this.timestep > 100.0){this.timestep = 0;}
+        this.lasttime = this.newtime;
+    };
+};

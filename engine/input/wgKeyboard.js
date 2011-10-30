@@ -23,80 +23,86 @@
 //	OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 //	THE SOFTWARE.
 
-var key = {'left' : 0, 'right' : 0, 'up' : 0, 'down' : 0};
-
-function keyDown(event)
+var wgKeyboard = new function()
 {
-    switch(event.keyCode)
+    this.left = 0;
+    this.up = 0;
+    this.right = 0;
+    this.down = 0;
+
+    this.keyDown = function(event)
     {
-        case 37: // cursor links
-            key.left = 1;
-            break;
-        case 38: // cursor hoch
-            key.up = 1;
-            break;
-        case 39: // cursor rechts
-            key.right = 1;
-            break;
-        case 40: // cursor runter
-            key.down = 1;
-            break;
-           
-        case 87: //w
-            key.up = 1;
-            break;
-        case 65: //a
-            key.left = 1;
-            break;
-        case 83: //s
-            key.down = 1;
-            break;
-        case 68: //d
-            key.right = 1;
-            break;
-            
-        default:
-            break;
-    }
-}
+        switch(event.keyCode)
+        {
+            case 37: // cursor links
+                wgKeyboard.left = 1;
+                break;
+            case 38: // cursor hoch
+                wgKeyboard.up = 1;
+                break;
+            case 39: // cursor rechts
+                wgKeyboard.right = 1;
+                break;
+            case 40: // cursor runter
+                wgKeyboard.down = 1;
+                break;
+               
+            case 87: //w
+                wgKeyboard.up = 1;
+                break;
+            case 65: //a
+                wgKeyboard.left = 1;
+                break;
+            case 83: //s
+                wgKeyboard.down = 1;
+                break;
+            case 68: //d
+                wgKeyboard.right = 1;
+                break;
+                
+            default:
+                break;
+        }
+    };
 
-function keyUp(event)
-{
-    switch(event.keyCode)
+    this.keyUp = function(event)
     {
-        case 37: // cursor links
-            key.left = 0;
-            break;
-        case 38: // cursor hoch
-            key.up = 0;
-            break;
-        case 39: // cursor rechts
-            key.right = 0;
-            break;
-        case 40: // cursor runter
-            key.down = 0;
-            break;
-            
-        case 87: //w
-            key.up = 0;
-            break;
-        case 65: //a
-            key.left = 0;
-            break;
-        case 83: //s
-            key.down = 0;
-            break;
-        case 68: //d
-            key.right = 0;
-            break;
-            
-        default:
-            break;
-    }
-}
+        switch(event.keyCode)
+        {
+            case 37: // cursor links
+                wgKeyboard.left = 0;
+                break;
+            case 38: // cursor hoch
+                wgKeyboard.up = 0;
+                break;
+            case 39: // cursor rechts
+                wgKeyboard.right = 0;
+                break;
+            case 40: // cursor runter
+                wgKeyboard.down = 0;
+                break;
+                
+            case 87: //w
+                wgKeyboard.up = 0;
+                break;
+            case 65: //a
+                wgKeyboard.left = 0;
+                break;
+            case 83: //s
+                wgKeyboard.down = 0;
+                break;
+            case 68: //d
+                wgKeyboard.right = 0;
+                break;
+                
+            default:
+                break;
+        }
+    };
 
-function initKeyboard()
-{
-    document.addEventListener("keydown", keyDown, false);
-    document.addEventListener("keyup", keyUp, false);
-}
+    this.initKeyboard = function()
+    {
+        document.addEventListener("keydown", wgKeyboard.keyDown, false);
+        document.addEventListener("keyup", wgKeyboard.keyUp, false);
+    };
+};

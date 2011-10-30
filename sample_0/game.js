@@ -1,8 +1,8 @@
 //
-//	wgMesh.js
+//	wgMain.js
 //	Webgine
 //
-//	Created by Nils Daumann on 29.10.11.
+//	Created by Nils Daumann on 30.10.11.
 //	Copyright (c) 2011 Nils Daumann
 
 //	Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -23,22 +23,35 @@
 //	OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 //	THE SOFTWARE.
 
-var wgMesh = new function()
+var speed = 2.0;
+var fallspeed = 0.0;
+function gameevent(ts)
 {
-    this.getMesh = function()
+    posx += (wgKeyboard.right-wgKeyboard.left)*speed*ts;
+    
+    if(posy > -300)
     {
-        var vVertices = new Float32Array(
-            [0.0, 1.0,
-             1.0, 0.0,
-             0.0, 0.0,
-             0.0, 1.0,
-             1.0, 0.0,
-             1.0, 1.0]);
+        fallspeed -= ts*0.01;
+    }else
+    {
+        fallspeed = 0.0;
+    }
+    if(wgKeyboard.up && fallspeed == 0)
+        fallspeed = 2.0;
         
-        var vboid = wgMain.gl.createBuffer();
-        wgMain.gl.bindBuffer(wgMain.gl.ARRAY_BUFFER, vboid);
-        wgMain.gl.bufferData(wgMain.gl.ARRAY_BUFFER, vVertices, wgMain.gl.STATIC_DRAW);
-        
-        return vboid;
-    };
-};
+    posy += fallspeed*ts;
+    
+    if(posy < -300)
+        posy = -300;
+}
+
+function main()
+{
+    wgMain.initWebgine(gameevent);
+    
+    shadid = wgShader.getShader();
+    vbo = wgMesh.getMesh();
+    texid = wgTexture.getTexture("sample_0/grass.png");
+    
+    wgMain.mainLoop();
+}

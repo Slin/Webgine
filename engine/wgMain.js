@@ -23,8 +23,6 @@
 //	OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 //	THE SOFTWARE.
 
-var canvas;
-var gl;
 var texid;
 var shadid;
 var vbo;
@@ -35,62 +33,35 @@ var posx = 0;
 var posy = 0;
 var sizex = 256;
 var sizey = 256;
-var gameeventhandler;
 
-function mainLoop()
+var wgMain = new function()
 {
-    window.requestAnimFrame(mainLoop, canvas);
-    
-    getTime();
-    gameeventhandler(timestep);
-    
-    render();
-}
+    this.canvas = 0;
+    this.gl = 0;
+//    this.gameeventhandler = ;
 
-function throwOnGLError(err, funcName, args)
-{
-    throw WebGLDebugUtils.glEnumToString(err) + " was caused by call to" + funcName;
-}
-
-function initWebgine(event)
-{
-    // canvas ist die "Leinwand" auf die gezeichnet werden kann
-    canvas = document.getElementById("wgCanvas");
-    initKeyboard();
-    gl = WebGLUtils.setupWebGL(canvas);
-    WebGLDebugUtils.makeDebugContext(gl, throwOnGLError);
-    gameeventhandler = event;
-}
-
-var speed = 2.0;
-var fallspeed = 0.0;
-function gameevent(ts)
-{
-    posx += (key.right-key.left)*speed*ts;
-    
-    if(posy > -300)
+    this.mainLoop = function()
     {
-        fallspeed -= ts*0.01;
-    }else
-    {
-        fallspeed = 0.0;
-    }
-    if(key.up && fallspeed == 0)
-        fallspeed = 2.0;
+        window.requestAnimFrame(wgMain.mainLoop, this.canvas);
         
-    posy += fallspeed*ts;
-    
-    if(posy < -300)
-        posy = -300;
-}
+        wgTimer.getTime();
+        wgMain.gameeventhandler(wgTimer.timestep);
+        
+        wgRenderer.render();
+    };
 
-function main()
-{
-    initWebgine(gameevent);
-    
-    shadid = getShader();
-    vbo = getMesh();
-    texid = getTexture("sample_0/grass.png");
-    
-    mainLoop();
-}
+    this.throwOnGLError = function(err, funcName, args)
+    {
+        throw WebGLDebugUtils.glEnumToString(err) + " was caused by call to" + funcName;
+    };
+
+    this.initWebgine = function(event)
+    {
+        // canvas ist die "Leinwand" auf die gezeichnet werden kann
+        this.canvas = document.getElementById("wgCanvas");
+        wgKeyboard.initKeyboard();
+        this.gl = WebGLUtils.setupWebGL(this.canvas);
+        WebGLDebugUtils.makeDebugContext(this.gl, this.throwOnGLError);
+        wgMain.gameeventhandler = event;
+    };
+};

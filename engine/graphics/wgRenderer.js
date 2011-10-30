@@ -23,28 +23,31 @@
 //	OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 //	THE SOFTWARE.
 
-function render()
+var wgRenderer = new function()
 {
-    // Hintergrund loeschen
-    gl.clearDepth(1.0);
-    gl.clearColor(0.5, 0.7, 0.8, 1.0);
-    gl.clear(gl.COLOR_BUFFER_BIT|gl.DEPTH_BUFFER_BIT);
-    
-    gl.blendFunc(gl.ONE, gl.ZERO);
-    gl.disable(gl.BLEND);
-    gl.enable(gl.DEPTH_TEST);
-    
-    gl.useProgram(shadid);
-    
-    gl.activeTexture(gl.TEXTURE0);
-    gl.bindTexture(gl.TEXTURE_2D, texid);
-    gl.uniform1i(shadid.texloc, 0);
-    
-    gl.uniform3f(shadid.projloc, canvassizex, canvassizey, scalefactor);
-    gl.uniform4f(shadid.objloc, posx, posy, sizex, sizey);
-    
-    gl.bindBuffer(gl.ARRAY_BUFFER, vbo);
-    gl.vertexAttribPointer(shadid.posloc, 2, gl.FLOAT, false, 0, 0);
-    gl.enableVertexAttribArray(shadid.posloc);
-    gl.drawArrays(gl.TRIANGLES, 0, 6);
-}
+    this.render = function()
+    {
+        // Hintergrund loeschen
+        wgMain.gl.clearDepth(1.0);
+        wgMain.gl.clearColor(0.5, 0.7, 0.8, 1.0);
+        wgMain.gl.clear(wgMain.gl.COLOR_BUFFER_BIT|wgMain.gl.DEPTH_BUFFER_BIT);
+        
+        wgMain.gl.blendFunc(wgMain.gl.ONE, wgMain.gl.ZERO);
+        wgMain.gl.disable(wgMain.gl.BLEND);
+        wgMain.gl.enable(wgMain.gl.DEPTH_TEST);
+        
+        wgMain.gl.useProgram(shadid);
+        
+        wgMain.gl.activeTexture(wgMain.gl.TEXTURE0);
+        wgMain.gl.bindTexture(wgMain.gl.TEXTURE_2D, texid);
+        wgMain.gl.uniform1i(shadid.texloc, 0);
+        
+        wgMain.gl.uniform3f(shadid.projloc, canvassizex, canvassizey, scalefactor);
+        wgMain.gl.uniform4f(shadid.objloc, posx, posy, sizex, sizey);
+        
+        wgMain.gl.bindBuffer(wgMain.gl.ARRAY_BUFFER, vbo);
+        wgMain.gl.vertexAttribPointer(shadid.posloc, 2, wgMain.gl.FLOAT, false, 0, 0);
+        wgMain.gl.enableVertexAttribArray(shadid.posloc);
+        wgMain.gl.drawArrays(wgMain.gl.TRIANGLES, 0, 6);
+    };
+};
