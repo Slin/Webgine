@@ -6,7 +6,7 @@ function ListFolder($path)
     
     //Leave only the lastest folder name
     $dirname = end(explode("/", $path));
-   
+    
     //display the target folder.
     while (false !== ($file = readdir($dir_handle)))
     {
