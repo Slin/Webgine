@@ -22,6 +22,7 @@
 //	LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 //	OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 //	THE SOFTWARE.
+<<<<<<< HEAD
  
 
 var wgTexture = new function()
@@ -32,13 +33,24 @@ var wgTexture = new function()
     {
 
         if(!textures[filename]) {
+=======
+
+var wgTexture = new function()
+{
+    this.textures = new Array();
+
+    this.getTexture = function(filename)
+    {
+        if(!this.textures[filename])
+        {
+>>>>>>> f301585e0f44f0187727ddfe8cb025b7a23b5bb1
             //erstellen und laden einer Textur...
             var texid = wgMain.gl.createTexture();
             var image = new Image();
             
             image.onload = function()
             {
-                wgMain.gl.bindTexture(wgMain.gl.TEXTURE_2D, texid);
+                wgMain.gl.bindTexture(wgMain.gl.TEXTURE_2D, id);
                 wgMain.gl.pixelStorei(wgMain.gl.UNPACK_FLIP_Y_WEBGL, true);
                 wgMain.gl.texParameteri(wgMain.gl.TEXTURE_2D, wgMain.gl.TEXTURE_MAG_FILTER, wgMain.gl.LINEAR);
                 wgMain.gl.texParameteri(wgMain.gl.TEXTURE_2D, wgMain.gl.TEXTURE_MIN_FILTER, wgMain.gl.LINEAR);
@@ -56,7 +68,17 @@ var wgTexture = new function()
             
             image.src = filename;
             
+<<<<<<< HEAD
             textures[filename] = texid;
+=======
+            this.textures[filename] = id;
+            return id;
+        }
+        else
+        {
+            alert("BAM!");
+            return this.textures[filename];
+>>>>>>> f301585e0f44f0187727ddfe8cb025b7a23b5bb1
         }
 
         return textures[filename];
