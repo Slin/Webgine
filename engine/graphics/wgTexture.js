@@ -23,29 +23,39 @@
 //	OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 //	THE SOFTWARE.
 
+var Textures = new Array();
+
 var wgTexture = new function()
 {
     this.getTexture = function(filename)
     {
-        //erstellen und laden einer Textur...
-        var id = wgMain.gl.createTexture();
-        var image = new Image();
-        image.onload = function()
-        {
-            wgMain.gl.bindTexture(wgMain.gl.TEXTURE_2D, texid);
-            wgMain.gl.pixelStorei(wgMain.gl.UNPACK_FLIP_Y_WEBGL, true);
-            wgMain.gl.texParameteri(wgMain.gl.TEXTURE_2D, wgMain.gl.TEXTURE_MAG_FILTER, wgMain.gl.LINEAR);
-            wgMain.gl.texParameteri(wgMain.gl.TEXTURE_2D, wgMain.gl.TEXTURE_MIN_FILTER, wgMain.gl.LINEAR);
-            wgMain.gl.texParameteri(wgMain.gl.TEXTURE_2D, wgMain.gl.TEXTURE_WRAP_S, wgMain.gl.CLAMP_TO_EDGE);
-            wgMain.gl.texParameteri(wgMain.gl.TEXTURE_2D, wgMain.gl.TEXTURE_WRAP_T, wgMain.gl.CLAMP_TO_EDGE);
-            wgMain.gl.texImage2D(wgMain.gl.TEXTURE_2D, 0, wgMain.gl.RGBA, wgMain.gl.RGBA, wgMain.gl.UNSIGNED_BYTE, image);
-            wgMain.gl.bindTexture(wgMain.gl.TEXTURE_2D, null);
+        if(!Textures[filename]) {
+            //erstellen und laden einer Textur...
+            var id = wgMain.gl.createTexture();
+            var image = new Image();
+            image.onload = function()
+            {
+                wgMain.gl.bindTexture(wgMain.gl.TEXTURE_2D, texid);
+                wgMain.gl.pixelStorei(wgMain.gl.UNPACK_FLIP_Y_WEBGL, true);
+                wgMain.gl.texParameteri(wgMain.gl.TEXTURE_2D, wgMain.gl.TEXTURE_MAG_FILTER, wgMain.gl.LINEAR);
+                wgMain.gl.texParameteri(wgMain.gl.TEXTURE_2D, wgMain.gl.TEXTURE_MIN_FILTER, wgMain.gl.LINEAR);
+                wgMain.gl.texParameteri(wgMain.gl.TEXTURE_2D, wgMain.gl.TEXTURE_WRAP_S, wgMain.gl.CLAMP_TO_EDGE);
+                wgMain.gl.texParameteri(wgMain.gl.TEXTURE_2D, wgMain.gl.TEXTURE_WRAP_T, wgMain.gl.CLAMP_TO_EDGE);
+                wgMain.gl.texImage2D(wgMain.gl.TEXTURE_2D, 0, wgMain.gl.RGBA, wgMain.gl.RGBA, wgMain.gl.UNSIGNED_BYTE, image);
+                wgMain.gl.bindTexture(wgMain.gl.TEXTURE_2D, null);
+            }
+            image.onerror = function()
+            {
+                alert("Couldn´t load texture "+image.src);
+            }
+            image.src = filename;
+            
+            Textures[filename] = id;
+            return id;
         }
-        image.onerror = function()
+        else
         {
-            alert("Couldn´t load texture "+image.src);
+            return Texture[filename];
         }
-        image.src = filename;
-        return id;
     };
 };
