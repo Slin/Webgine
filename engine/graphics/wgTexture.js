@@ -29,6 +29,7 @@ var wgTexture = new function()
 {
     this.getTexture = function(filename)
     {
+<<<<<<< HEAD
         if(!Textures[filename]) {
             //erstellen und laden einer Textur...
             var id = wgMain.gl.createTexture();
@@ -52,6 +53,21 @@ var wgTexture = new function()
             
             Textures[filename] = id;
             return id;
+=======
+        //erstellen und laden einer Textur...
+        var id = wgMain.gl.createTexture();
+        var image = new Image();
+        image.onload = function()
+        {
+            wgMain.gl.bindTexture(wgMain.gl.TEXTURE_2D, id);
+            wgMain.gl.pixelStorei(wgMain.gl.UNPACK_FLIP_Y_WEBGL, true);
+            wgMain.gl.texParameteri(wgMain.gl.TEXTURE_2D, wgMain.gl.TEXTURE_MAG_FILTER, wgMain.gl.LINEAR);
+            wgMain.gl.texParameteri(wgMain.gl.TEXTURE_2D, wgMain.gl.TEXTURE_MIN_FILTER, wgMain.gl.LINEAR);
+            wgMain.gl.texParameteri(wgMain.gl.TEXTURE_2D, wgMain.gl.TEXTURE_WRAP_S, wgMain.gl.CLAMP_TO_EDGE);
+            wgMain.gl.texParameteri(wgMain.gl.TEXTURE_2D, wgMain.gl.TEXTURE_WRAP_T, wgMain.gl.CLAMP_TO_EDGE);
+            wgMain.gl.texImage2D(wgMain.gl.TEXTURE_2D, 0, wgMain.gl.RGBA, wgMain.gl.RGBA, wgMain.gl.UNSIGNED_BYTE, image);
+            wgMain.gl.bindTexture(wgMain.gl.TEXTURE_2D, null);
+>>>>>>> 0ce4ec399566034253d3700a8ff8930e150b8533
         }
         else
         {

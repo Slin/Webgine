@@ -23,16 +23,9 @@
 //	OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 //	THE SOFTWARE.
 
-var texid;
-var shadid;
-var vbo;
 var scalefactor = 1.0;
 var canvassizex = 800;
 var canvassizey = 400;
-var posx = 0;
-var posy = 0;
-var sizex = 256;
-var sizey = 256;
 
 var wgMain = new function()
 {
@@ -58,7 +51,7 @@ var wgMain = new function()
     this.initWebgine = function(event)
     {
         // canvas ist die "Leinwand" auf die gezeichnet werden kann
-        this.canvas = document.getElementById("wgCanvas");
+        this.canvas = document.getElementById("wgCanvas", {alpha : false});
         wgKeyboard.initKeyboard();
         this.gl = WebGLUtils.setupWebGL(this.canvas);
         WebGLDebugUtils.makeDebugContext(this.gl, this.throwOnGLError);

@@ -25,11 +25,12 @@
 
 var speed = 2.0;
 var fallspeed = 0.0;
+var player;
 function gameevent(ts)
 {
-    posx += (wgKeyboard.right-wgKeyboard.left)*speed*ts;
+    player.pos.x += (wgKeyboard.right-wgKeyboard.left)*speed*ts;
     
-    if(posy > -300)
+    if(player.pos.y > -300)
     {
         fallspeed -= ts*0.01;
     }else
@@ -39,19 +40,36 @@ function gameevent(ts)
     if(wgKeyboard.up && fallspeed == 0)
         fallspeed = 2.0;
         
-    posy += fallspeed*ts;
+    player.pos.y += fallspeed*ts;
     
-    if(posy < -300)
-        posy = -300;
+    if(player.pos.y < -300)
+        player.pos.y = -300;
 }
 
 function main()
 {
     wgMain.initWebgine(gameevent);
+    var shadid = wgShader.getShader();
+    var spritemesh = wgMesh.getMesh();
+    var grmat = new wgMaterial();
+    grmat.shader = shadid;
+    grmat.texture = wgTexture.getTexture("sample_0/grass.png");
     
-    shadid = wgShader.getShader();
-    vbo = wgMesh.getMesh();
-    texid = wgTexture.getTexture("sample_0/grass.png");
+    var ground;
+    for(var x = -800; x < 800; x += 128)
+    {
+        ground = wgRenderer.first_obj.addObject();
+        ground.mesh = spritemesh;
+        ground.material = grmat;
+        ground.pos.x = x;
+        ground.pos.y = -428;
+    }
+    
+    player = wgRenderer.first_obj.addObject();
+    player.mesh = spritemesh;
+    player.material = new wgMaterial();
+    player.material.shader = shadid;
+    player.material.texture = wgTexture.getTexture("sample_0/player.png");
     
     wgMain.mainLoop();
 }
