@@ -52,6 +52,7 @@ function main()
     var shadid = wgShader.getShader();
     var spritemesh = wgMesh.getMesh();
     var grmat = new wgMaterial();
+    
     grmat.shader = shadid;
     grmat.texture = wgTexture.getTexture("sample_0/grass.png");
     
