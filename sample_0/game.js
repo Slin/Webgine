@@ -53,34 +53,26 @@ function main()
     wgRessource.load(RESSOURCE.TEXTURE, "sample_0/grass.png");
     wgRessource.load(RESSOURCE.TEXTURE, "sample_0/edt.png");
     
-    wgRessource.load(RESSOURCE.SHADER, "test");
-    
-    // load material - parameter: filename, texid, shaderid
-    wgRessource.load(RESSOURCE.MATERIAL, "testaa", wgRessource.getTexture("sample_0/grass.png"), wgRessource.getShader("test"));   
-    var test = wgRessource.get(RESSOURCE.SHADER, "testaa");
-    
     var shadid = wgShader.getShader();
     var spritemesh = wgMesh.getMesh();
-    var grmat = new wgMaterial();
     
-    grmat.shader = shadid;
-    grmat.texture = wgRessource.getTexture("sample_0/grass.png");
+    // load material - parameter: filename, texid, shaderid
+    wgRessource.load(RESSOURCE.MATERIAL, "grmat", wgRessource.get("sample_0/grass.png"), shadid);
+    wgRessource.load(RESSOURCE.MATERIAL, "plmat", wgRessource.get("sample_0/edt.png"), shadid);
     
     var ground;
     for(var x = -800; x < 800; x += 128)
     {
         ground = wgRenderer.first_obj.addObject();
         ground.mesh = spritemesh;
-        ground.material = grmat;
+        ground.material = wgRessource.get("grmat");
         ground.pos.x = x;
         ground.pos.y = -428;
     }
     
     player = wgRenderer.first_obj.addObject();
     player.mesh = spritemesh;
-    player.material = new wgMaterial();
-    player.material.shader = shadid;
-    player.material.texture = wgRessource.get(RESSOURCE.TEXTURE, "sample_0/edt.png");
+    player.material = wgRessource.get("plmat");
     
     wgMain.mainLoop();
 }

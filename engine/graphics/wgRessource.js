@@ -39,10 +39,11 @@ var wgRessource = new function()
                     break;
                 
                 case RESSOURCE.MATERIAL:
-                        ressources[filename] = {
-                            type  : t,
-                            data  : new wgMaterial
-                        };
+                    ressources[filename] = {
+                        type  : t,
+                        data  : new wgMaterial
+                    };
+                    
                     ressources[filename].data.texture = this.load.arguments[2];
                     ressources[filename].data.shader  = this.load.arguments[3];
                     break;
@@ -53,25 +54,9 @@ var wgRessource = new function()
         }
     }
     
-    this.get = function(t, filename) 
+    this.get = function(filename) 
     {
         if(ressources[filename])
             return ressources[filename].data;
     }
-    
-    this.getShader = function(filename) 
-    {
-        return this.get(RESSOURCE.SHADER, filename);
-    }
-    
-    this.getTexture = function(filename) 
-    {
-        return this.get(RESSOURCE.TEXTURE, filename);
-    }
-    
-    this.getMaterial = function(filename) 
-    {
-        return this.get(RESSOURCE.MATERIAL, filename);
-    }
-    
 };
