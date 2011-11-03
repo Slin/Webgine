@@ -30,10 +30,11 @@ function gameevent(ts)
 {
     player.pos.x += (wgKeyboard.right-wgKeyboard.left)*speed*ts;
     
-    if(player.pos.y > -300)
+    if(player.pos.y > -300) 
     {
         fallspeed -= ts*0.01;
-    }else
+    }
+    else
     {
         fallspeed = 0.0;
     }
@@ -49,12 +50,21 @@ function gameevent(ts)
 function main()
 {
     wgMain.initWebgine(gameevent);
+    wgRessource.load(RESSOURCE.TEXTURE, "sample_0/grass.png");
+    wgRessource.load(RESSOURCE.TEXTURE, "sample_0/edt.png");
+    
+    wgRessource.load(RESSOURCE.SHADER, "test");
+    
+    // load material - parameter: filename, texid, shaderid
+    wgRessource.load(RESSOURCE.MATERIAL, "testaa", wgRessource.getTexture("sample_0/grass.png"), wgRessource.getShader("test"));   
+    var test = wgRessource.get(RESSOURCE.SHADER, "testaa");
+    
     var shadid = wgShader.getShader();
     var spritemesh = wgMesh.getMesh();
     var grmat = new wgMaterial();
     
     grmat.shader = shadid;
-    grmat.texture = wgTexture.getTexture("sample_0/grass.png");
+    grmat.texture = wgRessource.getTexture("sample_0/grass.png");
     
     var ground;
     for(var x = -800; x < 800; x += 128)
@@ -70,7 +80,7 @@ function main()
     player.mesh = spritemesh;
     player.material = new wgMaterial();
     player.material.shader = shadid;
-    player.material.texture = wgTexture.getTexture("sample_0/player.png");
+    player.material.texture = wgRessource.get(RESSOURCE.TEXTURE, "sample_0/edt.png");
     
     wgMain.mainLoop();
 }
