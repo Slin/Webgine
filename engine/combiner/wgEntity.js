@@ -1,8 +1,8 @@
 //
-//	wgMain.js
+//	wgEntity.js
 //	Webgine
 //
-//	Created by Nils Daumann on 28.10.11.
+//	Created by Nils Daumann on 03.11.11.
 //	Copyright (c) 2011 Nils Daumann
 
 //	Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -23,39 +23,29 @@
 //	OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 //	THE SOFTWARE.
 
-var scalefactor = 1.0;
-var canvassizex = 800;
-var canvassizey = 400;
-
-var wgMain = new function()
+function wgAction()
 {
-    this.canvas = 0;
-    this.gl = 0;
-	this.first_ent = new wgEntity();
-//    this.gameeventhandler = ;
+	this.onUpdate = 0;
+	this.onInit = 0;
+}
 
-    this.mainLoop = function()
-    {
-        window.requestAnimFrame(wgMain.mainLoop, this.canvas);
-        
-        wgTimer.getTime();
-        wgMain.gameeventhandler(wgTimer.timestep);
-        
-        wgRenderer.render();
-    };
+function wgEntity()
+{
+	this.action = 0;
+	this.object = 0;
+	
+	this.next = 0;
+	this.prev = 0;
+}
 
-    this.throwOnGLError = function(err, funcName, args)
-    {
-        throw WebGLDebugUtils.glEnumToString(err) + " was caused by call to" + funcName;
-    };
-
-    this.initWebgine = function(event)
-    {
-        // canvas ist die "Leinwand" auf die gezeichnet werden kann
-        this.canvas = document.getElementById("wgCanvas", {alpha : false});
-        wgKeyboard.initKeyboard();
-        this.gl = WebGLUtils.setupWebGL(this.canvas);
-        WebGLDebugUtils.makeDebugContext(this.gl, this.throwOnGLError);
-        wgMain.gameeventhandler = event;
-    };
+wgEntity.prototype.addEntity = function(texfile)
+{
+	var temp = new wgEntity();
+    temp.next = this.next;
+    this.next.prev = temp;
+    this.next = temp;
+    this.next.prev = this;
+	
+	temp.object = wgRenderer.first_obj.addObject(texfile);
+	return this.next;
 };

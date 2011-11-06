@@ -50,8 +50,6 @@ var wgRenderer = new function()
             wgMain.gl.uniform3f(tempobj.material.shader.projloc, canvassizex, canvassizey, scalefactor);
             wgMain.gl.uniform4f(tempobj.material.shader.objloc, tempobj.pos.x, tempobj.pos.y, tempobj.size.x, tempobj.size.y);
             
-//            alert("posx: "+tempobj.pos.x);
-            
             wgMain.gl.bindBuffer(wgMain.gl.ARRAY_BUFFER, tempobj.mesh);
             wgMain.gl.vertexAttribPointer(tempobj.material.shader.posloc, 2, wgMain.gl.FLOAT, false, 0, 0);
             wgMain.gl.enableVertexAttribArray(tempobj.material.shader.posloc);

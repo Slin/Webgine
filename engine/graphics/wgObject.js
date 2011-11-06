@@ -35,12 +35,18 @@ function wgObject()
     this.material = 0;
 }
 
-wgObject.prototype.addObject = function()
+wgObject.prototype.addObject = function(texfile)
 {
     var temp = new wgObject;
     temp.next = this.next;
     this.next.prev = temp;
     this.next = temp;
     this.next.prev = this;
-    return this.next;
+	
+	temp.material = new wgMaterial();
+	temp.material.texture = wgTexture.getTexture(texfile);
+	temp.material.shader = wgShader.getShader();
+	temp.mesh = wgMesh.getMesh();
+	
+    return temp;
 };

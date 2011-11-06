@@ -23,54 +23,49 @@
 //	OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 //	THE SOFTWARE.
 
-var speed = 2.0;
+var speed = 1.0;
 var fallspeed = 0.0;
-var player;
+var player = 0;
 function gameevent(ts)
 {
-    player.pos.x += (wgKeyboard.right-wgKeyboard.left)*speed*ts;
-    
-    if(player.pos.y > -300)
-    {
-        fallspeed -= ts*0.01;
-    }else
-    {
-        fallspeed = 0.0;
-    }
-    if(wgKeyboard.up && fallspeed == 0)
-        fallspeed = 2.0;
-        
-    player.pos.y += fallspeed*ts;
-    
-    if(player.pos.y < -300)
-        player.pos.y = -300;
+	if(player != 0 && player.object != 0)
+	{
+		player.object.pos.x += (wgKeyboard.right-wgKeyboard.left)*speed*ts;
+		
+		if(player.object.pos.y > -300)
+		{
+			fallspeed -= ts*0.01;
+		}else
+		{
+			fallspeed = 0.0;
+		}
+		if(wgKeyboard.up && fallspeed == 0)
+			fallspeed = 2.0;
+			
+		player.object.pos.y += fallspeed*ts;
+		
+		if(player.object.pos.y < -300)
+			player.object.pos.y = -300;
+			
+		if(player.object.pos.x < -800)
+			player.object.pos.x = -800;
+		if(player.object.pos.x > 672)
+			player.object.pos.x = 672;
+	}
 }
 
 function main()
 {
     wgMain.initWebgine(gameevent);
-    var shadid = wgShader.getShader();
-    var spritemesh = wgMesh.getMesh();
-    var grmat = new wgMaterial();
-    
-    grmat.shader = shadid;
-    grmat.texture = wgTexture.getTexture("sample_0/grass.png");
     
     var ground;
     for(var x = -800; x < 800; x += 128)
     {
-        ground = wgRenderer.first_obj.addObject();
-        ground.mesh = spritemesh;
-        ground.material = grmat;
-        ground.pos.x = x;
-        ground.pos.y = -428;
+        ground = wgMain.first_ent.addEntity("sample_0/grass.png");
+        ground.object.pos.x = x;
+        ground.object.pos.y = -428;
     }
     
-    player = wgRenderer.first_obj.addObject();
-    player.mesh = spritemesh;
-    player.material = new wgMaterial();
-    player.material.shader = shadid;
-    player.material.texture = wgTexture.getTexture("sample_0/player.png");
-    
+    player = wgMain.first_ent.addEntity("sample_0/player.png");
     wgMain.mainLoop();
 }
