@@ -37,17 +37,22 @@ function main()
 {
     wgMain.initWebgine(gameevent);
     
-    var ground;
-    for(var x = -800; x < 800; x += 128)
-    {
-        ground = wgMain.first_ent.addEntity("sample_0/grass.png", 0);
-        ground.object.pos.x = x;
-        ground.object.pos.y = -428;
-    }
-    
     gGlobals.player = wgMain.first_ent.addEntity("sample_0/player.png", new aPlayer());
-	gGlobals.player.object.pos.x = 400;
-	wgMain.first_ent.addEntity("sample_0/edt.png", new aEnemy());
+    gGlobals.player.object.pos.x = 400;
+    wgMain.first_ent.addEntity("sample_0/edt.png", new aEnemy());
+	
+    
+    wgTileMap.tiledata[2] = "sample_0/grass0.png";
+    wgTileMap.tiledata[1] = "sample_0/grass.png";
+    wgTileMap.offset.x = -800;
+    wgTileMap.offset.y = -170;
+    wgTileMap.width = 13;
+    wgTileMap.height = 3;
+    wgTileMap.data = new Array( 0,0,0,2,0,2,0,0,0,0,0,0,0,
+                                2,0,2,1,0,1,0,0,2,2,0,0,0,
+                                1,2,1,1,2,1,2,2,1,1,2,2,2);
+    
+    wgTileMap.generate();
 	
     wgMain.mainLoop();
 }
