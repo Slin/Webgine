@@ -23,28 +23,17 @@
 //	OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 //	THE SOFTWARE.
 
-function aPlayer()
+function aEnemy()
 {
-	this.speed = 0.5;
+	this.speed = 0.3;
 	this.fallspeed = 0.0;
-	
-	this.health = 100;
 	
 	this.ent = 0;
 }
 
-aPlayer.prototype.onUpdate = function(ts)
+aEnemy.prototype.onUpdate = function(ts)
 {
-	if(this.health == 0)
-	{
-		this.health = -1;
-		alert("GAME OVER!!!!111");
-	}
-	
-	if(this.health <= 0)
-		return;
-
-	this.ent.object.pos.x += (wgKeyboard.right-wgKeyboard.left)*this.speed*ts;
+	this.ent.object.pos.x += this.speed*ts;
 	
 	if(this.ent.object.pos.y > -300)
 	{
@@ -53,8 +42,8 @@ aPlayer.prototype.onUpdate = function(ts)
 	{
 		this.fallspeed = 0.0;
 	}
-	if(wgKeyboard.up && this.fallspeed == 0)
-		this.fallspeed = 2.0;
+/*	if(wgKeyboard.up && this.fallspeed == 0)
+		this.fallspeed = 2.0;*/
 	
 	this.ent.object.pos.y += this.fallspeed*ts;
 	
@@ -62,7 +51,21 @@ aPlayer.prototype.onUpdate = function(ts)
 		this.ent.object.pos.y = -300;
 		
 	if(this.ent.object.pos.x < -800)
+	{
 		this.ent.object.pos.x = -800;
+		this.speed *= -1;
+	}
 	if(this.ent.object.pos.x > 672)
+	{
 		this.ent.object.pos.x = 672;
+		this.speed *= -1;
+	}
+	
+	var dir = {x : gGlobals.player.object.pos.x-this.ent.object.pos.x, y : gGlobals.player.object.pos.y-this.ent.object.pos.y};
+	var dist = dir.x*dir.x+dir.y*dir.y;
+//	dist = sqrt(dist);
+	if(dist < 20 && gGlobals.player.action.health > 0)
+	{
+		gGlobals.player.action.health = 0;
+	}
 };

@@ -37,7 +37,7 @@ function wgEntity()
 	this.prev = 0;
 }
 
-wgEntity.prototype.addEntity = function(texfile)
+wgEntity.prototype.addEntity = function(texfile, act)
 {
 	var temp = new wgEntity();
     temp.next = this.next;
@@ -46,5 +46,11 @@ wgEntity.prototype.addEntity = function(texfile)
     this.next = temp;
 	
 	temp.object = wgRenderer.first_obj.addObject(texfile);
+	temp.action = act;
+	temp.action.ent = temp;
+	if(temp.action && temp.action.onInit)
+	{
+		temp.action.onInit();
+	}
 	return temp;
 };

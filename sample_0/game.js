@@ -23,6 +23,11 @@
 //	OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 //	THE SOFTWARE.
 
+var gGlobals = new function()
+{
+	this.player = 0;
+};
+
 function gameevent(ts)
 {
 	
@@ -35,13 +40,14 @@ function main()
     var ground;
     for(var x = -800; x < 800; x += 128)
     {
-        ground = wgMain.first_ent.addEntity("sample_0/grass.png");
+        ground = wgMain.first_ent.addEntity("sample_0/grass.png", 0);
         ground.object.pos.x = x;
         ground.object.pos.y = -428;
     }
     
-    var player = wgMain.first_ent.addEntity("sample_0/player.png");
-	player.action = new aPlayer();
-	player.action.ent = player;
+    gGlobals.player = wgMain.first_ent.addEntity("sample_0/player.png", new aPlayer());
+	gGlobals.player.object.pos.x = 400;
+	wgMain.first_ent.addEntity("sample_0/edt.png", new aEnemy());
+	
     wgMain.mainLoop();
 }
