@@ -26,7 +26,6 @@
 function wgAction()
 {
 	this.onUpdate = 0;
-	this.onInit = 0;
 }
 
 function wgEntity()
@@ -42,10 +41,10 @@ wgEntity.prototype.addEntity = function(texfile)
 {
 	var temp = new wgEntity();
     temp.next = this.next;
-    this.next.prev = temp;
+    temp.next.prev = temp;
+	temp.prev = this;
     this.next = temp;
-    this.next.prev = this;
 	
 	temp.object = wgRenderer.first_obj.addObject(texfile);
-	return this.next;
+	return temp;
 };

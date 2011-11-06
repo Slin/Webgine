@@ -1,8 +1,8 @@
 //
-//	wgMain.js
+//	player.js
 //	Webgine
 //
-//	Created by Nils Daumann on 30.10.11.
+//	Created by Nils Daumann on 06.11.11.
 //	Copyright (c) 2011 Nils Daumann
 
 //	Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -23,25 +23,35 @@
 //	OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 //	THE SOFTWARE.
 
-function gameevent(ts)
+function aPlayer()
 {
+	this.speed = 1.0;
+	this.fallspeed = 0.0;
 	
+	this.ent = 0;
 }
 
-function main()
+aPlayer.prototype.onUpdate = function(ts)
 {
-    wgMain.initWebgine(gameevent);
-    
-    var ground;
-    for(var x = -800; x < 800; x += 128)
-    {
-        ground = wgMain.first_ent.addEntity("sample_0/grass.png");
-        ground.object.pos.x = x;
-        ground.object.pos.y = -428;
-    }
-    
-    var player = wgMain.first_ent.addEntity("sample_0/player.png");
-	player.action = new aPlayer();
-	player.action.ent = player;
-    wgMain.mainLoop();
-}
+	this.ent.object.pos.x += (wgKeyboard.right-wgKeyboard.left)*this.speed*ts;
+	
+	if(this.ent.object.pos.y > -300)
+	{
+		this.fallspeed -= ts*0.01;
+	}else
+	{
+		this.fallspeed = 0.0;
+	}
+	if(wgKeyboard.up && this.fallspeed == 0)
+		this.fallspeed = 2.0;
+	
+	this.ent.object.pos.y += this.fallspeed*ts;
+	
+	if(this.ent.object.pos.y < -300)
+		this.ent.object.pos.y = -300;
+		
+	if(this.ent.object.pos.x < -800)
+		this.ent.object.pos.x = -800;
+	if(this.ent.object.pos.x > 672)
+		this.ent.object.pos.x = 672;
+};

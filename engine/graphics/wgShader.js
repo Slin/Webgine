@@ -40,36 +40,41 @@ var wgShader = new function()
 
     this.getShader = function()
     {
-        var vShaderQuellcode = "attribute vec2 vPosition;"+
-            "uniform vec3 projection;"+
-            "uniform vec4 object;"+
-            "varying vec2 texcoord0;"+
-            "void main()"+
-            "{"+
-            "    texcoord0 = vPosition;"+
-            "    gl_Position = vec4((object.xy+vPosition*object.zw)/projection.xy, 0.0, projection.z);"+
-            "}" ;
-            
-        var fShaderQuellcode = "precision mediump float;"+
-            "uniform lowp sampler2D tex0;"+
-            "varying mediump vec2 texcoord0;"+
-            "void main()"+
-            "{"+
-            "    gl_FragColor = texture2D(tex0, texcoord0);"+
-            "}";
+		if(!wgResource.getResource("shader"))
+		{
+			var vShaderQuellcode = "attribute vec2 vPosition;"+
+				"uniform vec3 projection;"+
+				"uniform vec4 object;"+
+				"varying vec2 texcoord0;"+
+				"void main()"+
+				"{"+
+				"    texcoord0 = vPosition;"+
+				"    gl_Position = vec4((object.xy+vPosition*object.zw)/projection.xy, 0.0, projection.z);"+
+				"}" ;
+				
+			var fShaderQuellcode = "precision mediump float;"+
+				"uniform lowp sampler2D tex0;"+
+				"varying mediump vec2 texcoord0;"+
+				"void main()"+
+				"{"+
+				"    gl_FragColor = texture2D(tex0, texcoord0);"+
+				"}";
 
-        var id = wgMain.gl.createProgram();
-        var vShader = this.compileShader(wgMain.gl.VERTEX_SHADER, vShaderQuellcode);
-        wgMain.gl.attachShader(id, vShader);
-        var fShader = this.compileShader(wgMain.gl.FRAGMENT_SHADER, fShaderQuellcode);
-        wgMain.gl.attachShader(id, fShader);
-        wgMain.gl.linkProgram(id);
+			var id = wgMain.gl.createProgram();
+			var vShader = this.compileShader(wgMain.gl.VERTEX_SHADER, vShaderQuellcode);
+			wgMain.gl.attachShader(id, vShader);
+			var fShader = this.compileShader(wgMain.gl.FRAGMENT_SHADER, fShaderQuellcode);
+			wgMain.gl.attachShader(id, fShader);
+			wgMain.gl.linkProgram(id);
+			
+			id.posloc = wgMain.gl.getAttribLocation(id, "vPosition");
+			id.projloc = wgMain.gl.getUniformLocation(id, "projection");
+			id.objloc = wgMain.gl.getUniformLocation(id, "object");
+			id.texloc = wgMain.gl.getUniformLocation(id, "tex0");
+			
+			wgResource.addResource("shader", id);
+		}
         
-        id.posloc = wgMain.gl.getAttribLocation(id, "vPosition");
-        id.projloc = wgMain.gl.getUniformLocation(id, "projection");
-        id.objloc = wgMain.gl.getUniformLocation(id, "object");
-        id.texloc = wgMain.gl.getUniformLocation(id, "tex0");
-        
-        return id;
+        return wgResource.getResource("shader");
     };
 };

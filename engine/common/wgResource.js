@@ -1,9 +1,9 @@
 //
-//	wgMain.js
+//	wgResource.js
 //	Webgine
 //
-//	Created by Nils Daumann on 30.10.11.
-//	Copyright (c) 2011 Nils Daumann
+//	Created by Nils Daumann on 03.11.11.
+//	Copyright (c) 2011 Simon Schmudde
 
 //	Permission is hereby granted, free of charge, to any person obtaining a copy
 //	of this software and associated documentation files (the "Software"), to deal
@@ -23,25 +23,17 @@
 //	OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 //	THE SOFTWARE.
 
-function gameevent(ts)
+var wgResource = new function()
 {
+    var resources = new Array();
 	
-}
-
-function main()
-{
-    wgMain.initWebgine(gameevent);
-    
-    var ground;
-    for(var x = -800; x < 800; x += 128)
-    {
-        ground = wgMain.first_ent.addEntity("sample_0/grass.png");
-        ground.object.pos.x = x;
-        ground.object.pos.y = -428;
-    }
-    
-    var player = wgMain.first_ent.addEntity("sample_0/player.png");
-	player.action = new aPlayer();
-	player.action.ent = player;
-    wgMain.mainLoop();
-}
+	this.getResource = function(filename)
+	{
+		return resources[filename];
+	};
+	
+	this.addResource = function(filename, res)
+	{
+		resources[filename] = res;
+	};
+};

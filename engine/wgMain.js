@@ -32,7 +32,7 @@ var wgMain = new function()
     this.canvas = 0;
     this.gl = 0;
 	this.first_ent = new wgEntity();
-//    this.gameeventhandler = ;
+    this.gameeventhandler = 0;
 
     this.mainLoop = function()
     {
@@ -40,6 +40,19 @@ var wgMain = new function()
         
         wgTimer.getTime();
         wgMain.gameeventhandler(wgTimer.timestep);
+		
+		var tempent = wgMain.first_ent.next;
+		while(tempent)
+		{
+			if(tempent.action)
+			{
+				if(tempent.action.onUpdate)
+				{
+					tempent.action.onUpdate(wgTimer.timestep);
+				}
+			}
+			tempent = tempent.next;
+		}
         
         wgRenderer.render();
     };

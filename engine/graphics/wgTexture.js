@@ -26,11 +26,10 @@
 
 var wgTexture = new function()
 {
-    var textures = new Array();
-    
     this.getTexture = function(filename)
     {
-        if(!textures[filename]) {
+        if(!wgResource.getResource(filename))
+		{
             //erstellen und laden einer Textur...
             var texid = wgMain.gl.createTexture();
             var image = new Image();
@@ -39,10 +38,12 @@ var wgTexture = new function()
             {
                 wgMain.gl.bindTexture(wgMain.gl.TEXTURE_2D, texid);
                 wgMain.gl.pixelStorei(wgMain.gl.UNPACK_FLIP_Y_WEBGL, true);
+                
                 wgMain.gl.texParameteri(wgMain.gl.TEXTURE_2D, wgMain.gl.TEXTURE_MAG_FILTER, wgMain.gl.LINEAR);
                 wgMain.gl.texParameteri(wgMain.gl.TEXTURE_2D, wgMain.gl.TEXTURE_MIN_FILTER, wgMain.gl.LINEAR);
                 wgMain.gl.texParameteri(wgMain.gl.TEXTURE_2D, wgMain.gl.TEXTURE_WRAP_S, wgMain.gl.CLAMP_TO_EDGE);
                 wgMain.gl.texParameteri(wgMain.gl.TEXTURE_2D, wgMain.gl.TEXTURE_WRAP_T, wgMain.gl.CLAMP_TO_EDGE);
+                
                 wgMain.gl.texImage2D(wgMain.gl.TEXTURE_2D, 0, wgMain.gl.RGBA, wgMain.gl.RGBA, wgMain.gl.UNSIGNED_BYTE, image);
                 wgMain.gl.bindTexture(wgMain.gl.TEXTURE_2D, null);
             }
@@ -54,9 +55,9 @@ var wgTexture = new function()
             }
             
             image.src = filename;
-            textures[filename] = texid;
+            wgResource.addResource(filename, texid);
         }
         
-        return textures[filename];
+        return wgResource.getResource(filename);
     };
 };

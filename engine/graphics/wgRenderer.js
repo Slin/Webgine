@@ -38,11 +38,11 @@ var wgRenderer = new function()
         wgMain.gl.enable(wgMain.gl.BLEND);
         wgMain.gl.disable(wgMain.gl.DEPTH_TEST);
         
-        var tempobj = this.first_obj.next;
+        var tempobj = wgRenderer.first_obj.next;
         while(tempobj != 0)
-        {        
+        {
             wgMain.gl.useProgram(tempobj.material.shader);
-            
+			
             wgMain.gl.activeTexture(wgMain.gl.TEXTURE0);
             wgMain.gl.bindTexture(wgMain.gl.TEXTURE_2D, tempobj.material.texture);
             wgMain.gl.uniform1i(tempobj.material.shader.texloc, 0);
