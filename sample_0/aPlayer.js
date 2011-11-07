@@ -97,4 +97,7 @@ aPlayer.prototype.onUpdate = function(ts)
 		this.ent.object.pos.x = -800;
 	if(this.ent.object.pos.x > 672)
 		this.ent.object.pos.x = 672;
+		
+		//update Camera
+		wgCamera.update(this.ent.object.pos.x,this.ent.object.pos.y);
 };

@@ -25,12 +25,11 @@
 
 var wgTileMap = new function()
 {
-    // Tile Datatype: Array of texturenames (!!! to be extended for tile informations...)
-    this.tiledata = new Array();
-	this.texture = 0;
-	this.texinfo = {cols : 2, rows : 2, width : 256, height : 256};
+    this.texture = 0;
+    this.texinfo = {cols : 2, rows : 2, width : 256, height : 256};
+    this.tiles = new Array();
     
-    // Level Data
+    // Level Data Array
     this.data = 0;
     
     this.offset = { x : 0, y : 0 };
@@ -39,7 +38,20 @@ var wgTileMap = new function()
     
     // dimension of a box
     this.dimx = 128;
-    this.dimy = 124;
+    this.dimy = 128;
+    
+    
+    // addTile(id,atlasid[from, atlasid to, time, cycle])
+    this.addTile = function(id, atlasid)
+    {
+        if(!this.tiles[id])
+        if(this.addTile.arguments.length==5) {
+            this.tiles[id] = new Array(this.addTile.arguments[1],this.addTile.arguments[2],this.addTile.arguments[3],this.addTile.arguments[4]);
+        }
+        else
+            this.tiles[id] = new Array(-1, atlasid);
+        
+    }
     
     this.generate = function()
     {
@@ -47,20 +59,28 @@ var wgTileMap = new function()
         
         var tile;
         for(var i = 0; i < this.data.length; i++)
-		{
-            if(this.data[i]>0)// && this.data[i]<this.tiledata.length)
-			{
+        {
+            if(this.tiles[this.data[i]])
+            {
                 tile = wgMain.first_ent.addEntity(this.texture, 0);
-				
-				tile.object.material.initAtlas(this.texinfo.cols, this.texinfo.rows, this.texinfo.width, this.texinfo.height, 0, 0);
-				tile.object.material.setAtlas(this.data[i]-1);
-            
+                
+                tile.object.material.initAtlas(this.texinfo.cols, this.texinfo.rows, this.texinfo.width, this.texinfo.height, 0, 0);
+                tile.object.material.setAtlas(this.tiles[this.data[i]][1]);
+                
+                if(this.tiles[this.data[i]][0]!=-1) 
+                {
+                    tile.object.material.setAnimation(this.tiles[this.data[i]][0],
+                                                      this.tiles[this.data[i]][1],
+                                                      this.tiles[this.data[i]][2],
+                                                      this.tiles[this.data[i]][3]);
+                }
+                
                 tile.object.pos.x = this.offset.x-col*this.dimx*-1;
                 tile.object.pos.y = this.offset.y-row*this.dimy;
             }
             
             if(col>=this.width-1)
-			{
+            {
                 row++;
                 col = 0;
             }
