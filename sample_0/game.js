@@ -37,13 +37,6 @@ function main()
 {
     wgMain.initWebgine(gameevent);
     
-    gGlobals.player = wgMain.first_ent.addEntity("sample_0/playeratlas.png", new aPlayer());
-	gGlobals.player.object.material.initAtlas(2, 4, 256, 512, 0, 0);
-	gGlobals.player.object.material.setAtlas(2);
-	gGlobals.player.object.pos.x = 400;
-	
-	wgMain.first_ent.addEntity("sample_0/edt.png", new aEnemy());
-    
     wgTileMap.texture = "sample_0/worldatlas.png";
     wgTileMap.offset.x = -1000;
     wgTileMap.offset.y = +370;
@@ -51,6 +44,14 @@ function main()
     wgTileMap.height = 9;
     wgTileMap.data = new Array( 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 3, 3, 3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 3, 3, 3, 3, 3, 0, 0, 0, 3, 3, 3, 2, 2, 2, 3, 3, 3, 3, 3, 3, 3, 0, 0, 0, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 0, 0, 0, 3, 3, 3, 3, 3, 3, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1);
     wgTileMap.generate();
+	
+	gGlobals.player = wgMain.first_ent.addEntity("sample_0/playeratlas.png", new aPlayer());
+	gGlobals.player.object.material.initAtlas(2, 4, 256, 512, 0, 0);
+	gGlobals.player.object.material.setAtlas(2);
+	gGlobals.player.object.pos.x = -400;
+	gGlobals.player.object.pos.y = 300;
+	
+	wgMain.first_ent.addEntity("sample_0/edt.png", new aEnemy());
 	
     wgMain.mainLoop();
 }

@@ -35,11 +35,14 @@ aEnemy.prototype.onUpdate = function(ts)
 {
 	this.ent.object.pos.x += this.speed*ts;
 	
-	if(this.ent.object.pos.y > -300)
+	var collinfo = wgCollision.checkParallelQuadsList(this.ent.object.pos.x, this.ent.object.pos.y+30, this.ent.object.pos.x+this.ent.object.size.x, this.ent.object.pos.y-10000, this.ent.next.next);
+//	alert("collx: "+collinfo.dist.x+" colly: "+collinfo.dist.y);
+	if(-collinfo.dist.y > 32)//this.ent.object.pos.y > -300)
 	{
 		this.fallspeed -= ts*0.01;
 	}else
 	{
+		this.ent.object.pos.y -= -collinfo.dist.y-30;
 		this.fallspeed = 0.0;
 	}
 /*	if(wgKeyboard.up && this.fallspeed == 0)
@@ -47,17 +50,10 @@ aEnemy.prototype.onUpdate = function(ts)
 	
 	this.ent.object.pos.y += this.fallspeed*ts;
 	
-	if(this.ent.object.pos.y < -300)
-		this.ent.object.pos.y = -300;
-		
-	if(this.ent.object.pos.x < -800)
+	collinfo = wgCollision.checkParallelQuadsList(this.ent.object.pos.x+this.ent.object.size.x*0.5, this.ent.object.pos.y+10, this.ent.object.pos.x+this.ent.object.size.x*0.5+(this.ent.object.size.x*0.5+10)*((this.speed > 0)? 1.0:-1.0), this.ent.object.pos.y+this.ent.object.size.y, this.ent.next.next);
+	
+	if(collinfo.hit != 0)
 	{
-		this.ent.object.pos.x = -800;
-		this.speed *= -1;
-	}
-	if(this.ent.object.pos.x > 672)
-	{
-		this.ent.object.pos.x = 672;
 		this.speed *= -1;
 	}
 	

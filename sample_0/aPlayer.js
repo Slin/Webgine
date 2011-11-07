@@ -47,7 +47,12 @@ aPlayer.prototype.onUpdate = function(ts)
 		return;
 	
 	var input = (wgKeyboard.right-wgKeyboard.left);
-	this.ent.object.pos.x += input*this.speed*ts;
+	
+	var collinfo = wgCollision.checkParallelQuadsList(this.ent.object.pos.x+this.ent.object.size.x*0.5, this.ent.object.pos.y+10, this.ent.object.pos.x+this.ent.object.size.x*0.5+(this.ent.object.size.x*0.5+this.speed*ts)*input, this.ent.object.pos.y+this.ent.object.size.y, this.ent.next);
+	if(collinfo.hit == 0)
+		this.ent.object.pos.x += input*this.speed*ts;
+	else
+		input = 0;
 	
 	if(this.fallspeed == 0)
 	{
@@ -65,11 +70,14 @@ aPlayer.prototype.onUpdate = function(ts)
 		}
 	}
 	
-	if(this.ent.object.pos.y > -300)
+	collinfo = wgCollision.checkParallelQuadsList(this.ent.object.pos.x, this.ent.object.pos.y+30, this.ent.object.pos.x+this.ent.object.size.x, this.ent.object.pos.y-10000, this.ent.next);
+//	alert("collx: "+collinfo.dist.x+" colly: "+collinfo.dist.y);
+	if(-collinfo.dist.y > 32)//this.ent.object.pos.y > -300)
 	{
 		this.fallspeed -= ts*0.01;
 	}else
 	{
+		this.ent.object.pos.y -= -collinfo.dist.y-30;
 		this.fallspeed = 0.0;
 	}
 	
@@ -82,8 +90,8 @@ aPlayer.prototype.onUpdate = function(ts)
 	
 	this.ent.object.pos.y += this.fallspeed*ts;
 	
-	if(this.ent.object.pos.y < -300)
-		this.ent.object.pos.y = -300;
+//	if(this.ent.object.pos.y < -300)
+//		this.ent.object.pos.y = -300;
 		
 	if(this.ent.object.pos.x < -800)
 		this.ent.object.pos.x = -800;
