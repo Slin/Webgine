@@ -72,8 +72,7 @@ aPlayer.prototype.onUpdate = function(ts)
 	}
 	
 	collinfo = wgCollision.checkParallelQuadsList(this.ent.object.pos.x, this.ent.object.pos.y+30, this.ent.object.pos.x+this.ent.object.size.x, this.ent.object.pos.y-10000, this.ent.next);
-//	alert("collx: "+collinfo.dist.x+" colly: "+collinfo.dist.y);
-	if(-collinfo.dist.y > 32)//this.ent.object.pos.y > -300)
+	if(-collinfo.dist.y > 32 || collinfo.hit == 0)
 	{
 		this.fallspeed -= ts*0.01;
 	}else
@@ -90,12 +89,7 @@ aPlayer.prototype.onUpdate = function(ts)
 	}
 	
 	this.ent.object.pos.y += this.fallspeed*ts;
-	
-//	if(this.ent.object.pos.y < -300)
-//		this.ent.object.pos.y = -300;
 		
-	if(this.ent.object.pos.x < -800)
-		this.ent.object.pos.x = -800;
-	if(this.ent.object.pos.x > 672)
-		this.ent.object.pos.x = 672;
+	//update Camera
+	wgCamera.update(this.ent.object.pos.x,this.ent.object.pos.y);
 };
