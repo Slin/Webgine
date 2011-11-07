@@ -27,7 +27,7 @@ var wgRenderer = new function()
 {
     this.first_obj = new wgObject();
 
-    this.render = function()
+    this.render = function(ts)
     {
         // Hintergrund loeschen
         wgMain.gl.clearDepth(1.0);
@@ -41,6 +41,8 @@ var wgRenderer = new function()
         var tempobj = wgRenderer.first_obj.next;
         while(tempobj != 0)
         {
+			tempobj.material.updateAnimation(ts);
+		
             wgMain.gl.useProgram(tempobj.material.shader);
 			
             wgMain.gl.activeTexture(wgMain.gl.TEXTURE0);
@@ -48,7 +50,9 @@ var wgRenderer = new function()
             wgMain.gl.uniform1i(tempobj.material.shader.texloc, 0);
             
             wgMain.gl.uniform3f(tempobj.material.shader.projloc, canvassizex, canvassizey, scalefactor);
-            wgMain.gl.uniform4f(tempobj.material.shader.objloc, tempobj.pos.x, tempobj.pos.y, tempobj.size.x, tempobj.size.y);
+            wgMain.gl.uniform4f(tempobj.material.shader.objloc, Math.round(tempobj.pos.x), Math.round(tempobj.pos.y), tempobj.size.x, tempobj.size.y);
+			
+			wgMain.gl.uniform4f(tempobj.material.shader.atlasloc, tempobj.material.atlas.width, tempobj.material.atlas.height, tempobj.material.atlas.posx, tempobj.material.atlas.posy);
             
             wgMain.gl.bindBuffer(wgMain.gl.ARRAY_BUFFER, tempobj.mesh);
             wgMain.gl.vertexAttribPointer(tempobj.material.shader.posloc, 2, wgMain.gl.FLOAT, false, 0, 0);

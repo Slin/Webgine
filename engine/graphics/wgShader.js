@@ -45,10 +45,11 @@ var wgShader = new function()
 			var vShaderQuellcode = "attribute vec2 vPosition;"+
 				"uniform vec3 projection;"+
 				"uniform vec4 object;"+
+				"uniform vec4 atlasinfo;"+
 				"varying vec2 texcoord0;"+
 				"void main()"+
 				"{"+
-				"    texcoord0 = vPosition;"+
+				"    texcoord0 = vPosition*atlasinfo.xy+atlasinfo.zw;"+
 				"    gl_Position = vec4((object.xy+vPosition*object.zw)/projection.xy, 0.0, projection.z);"+
 				"}" ;
 				
@@ -70,6 +71,7 @@ var wgShader = new function()
 			id.posloc = wgMain.gl.getAttribLocation(id, "vPosition");
 			id.projloc = wgMain.gl.getUniformLocation(id, "projection");
 			id.objloc = wgMain.gl.getUniformLocation(id, "object");
+			id.atlasloc = wgMain.gl.getUniformLocation(id, "atlasinfo");
 			id.texloc = wgMain.gl.getUniformLocation(id, "tex0");
 			
 			wgResource.addResource("shader", id);

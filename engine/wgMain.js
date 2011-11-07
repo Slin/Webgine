@@ -54,7 +54,7 @@ var wgMain = new function()
 			tempent = tempent.next;
 		}
         
-        wgRenderer.render();
+        wgRenderer.render(wgTimer.timestep);
     };
 
     this.throwOnGLError = function(err, funcName, args)

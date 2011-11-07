@@ -31,6 +31,8 @@ function aPlayer()
 	this.health = 100;
 	
 	this.ent = 0;
+	
+	this.lastdir = 0;
 }
 
 aPlayer.prototype.onUpdate = function(ts)
@@ -38,13 +40,30 @@ aPlayer.prototype.onUpdate = function(ts)
 	if(this.health == 0)
 	{
 		this.health = -1;
-		alert("GAME OVER!!!!111");
+		this.ent.object.material.setAnimation(4, 6, 0.1, 0);
 	}
 	
 	if(this.health <= 0)
 		return;
-
-	this.ent.object.pos.x += (wgKeyboard.right-wgKeyboard.left)*this.speed*ts;
+	
+	var input = (wgKeyboard.right-wgKeyboard.left);
+	this.ent.object.pos.x += input*this.speed*ts;
+	
+	if(this.fallspeed == 0)
+	{
+		if(input != 0)
+		{
+			if(this.lastdir != input)
+			{
+				this.ent.object.material.setAnimation(0, 1, 0.4, 1);
+				this.lastdir = input;
+			}
+		}else
+		{
+			this.lastdir = input;
+			this.ent.object.material.setAnimation(0, 0, 0.0, 1);
+		}
+	}
 	
 	if(this.ent.object.pos.y > -300)
 	{
@@ -53,8 +72,12 @@ aPlayer.prototype.onUpdate = function(ts)
 	{
 		this.fallspeed = 0.0;
 	}
+	
 	if(wgKeyboard.up && this.fallspeed == 0)
+	{
+		this.ent.object.material.setAnimation(2, 3, 0.4, 0);
 		this.fallspeed = 2.0;
+	}
 	
 	this.ent.object.pos.y += this.fallspeed*ts;
 	
