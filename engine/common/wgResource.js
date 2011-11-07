@@ -2,7 +2,7 @@
 //	wgResource.js
 //	Webgine
 //
-//	Created by Nils Daumann on 03.11.11.
+//	Created by Simon Schmudde on 03.11.11.
 //	Copyright (c) 2011 Simon Schmudde
 
 //	Permission is hereby granted, free of charge, to any person obtaining a copy

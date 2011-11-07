@@ -40,7 +40,7 @@ aPlayer.prototype.onUpdate = function(ts)
 	if(this.health == 0)
 	{
 		this.health = -1;
-		this.ent.object.material.setAnimation(4, 6, 0.1, 0);
+		this.ent.object.material.setAnimation(4, 6, 0.14, 0);
 	}
 	
 	if(this.health <= 0)
@@ -61,7 +61,7 @@ aPlayer.prototype.onUpdate = function(ts)
 		}else
 		{
 			this.lastdir = input;
-			this.ent.object.material.setAnimation(0, 0, 0.0, 1);
+			this.ent.object.material.setAnimation(0, 0, 0, 0);
 		}
 	}
 	
@@ -77,6 +77,7 @@ aPlayer.prototype.onUpdate = function(ts)
 	{
 		this.ent.object.material.setAnimation(2, 3, 0.4, 0);
 		this.fallspeed = 2.0;
+		this.lastdir = -100;
 	}
 	
 	this.ent.object.pos.y += this.fallspeed*ts;
