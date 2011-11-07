@@ -39,6 +39,7 @@ aPlayer.prototype.onUpdate = function(ts)
 {
 	if(this.health == 0)
 	{
+		wgAudio.playSound("death");
 		this.health = -1;
 		this.ent.object.material.setAnimation(4, 6, 0.14, 0);
 	}

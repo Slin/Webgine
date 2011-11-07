@@ -53,5 +53,7 @@ function main()
 	
 	wgMain.first_ent.addEntity("sample_0/edt.png", new aEnemy());
 	
+	wgAudio.playAudio("song0");
+	
     wgMain.mainLoop();
 }
