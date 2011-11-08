@@ -25,19 +25,33 @@
 
 function aEnemy()
 {
-	this.speed = 0.3;
+	this.speed = -0.3;
 	this.fallspeed = 0.0;
+	
+	this.health = 100;
 	
 	this.ent = 0;
 }
 
 aEnemy.prototype.onUpdate = function(ts)
 {
+	if(this.health <= 0)
+	{
+		this.ent.object.pos.y -= 500;
+		return;
+	}
+
+	//movement
+	var collinfo = wgCollision.checkParallelQuadsList(this.ent.object.pos.x+this.ent.object.size.x*0.5, this.ent.object.pos.y+10, this.ent.object.pos.x+this.ent.object.size.x*0.5+(this.ent.object.size.x*0.5+10)*((this.speed > 0)? 1.0:-1.0), this.ent.object.pos.y+this.ent.object.size.y, this.ent.next.next);
+	if(collinfo.hit != 0)
+	{
+		this.speed *= -1;
+	}
 	this.ent.object.pos.x += this.speed*ts;
 	
-	var collinfo = wgCollision.checkParallelQuadsList(this.ent.object.pos.x, this.ent.object.pos.y+30, this.ent.object.pos.x+this.ent.object.size.x, this.ent.object.pos.y-10000, this.ent.next.next);
-//	alert("collx: "+collinfo.dist.x+" colly: "+collinfo.dist.y);
-	if(-collinfo.dist.y > 32)//this.ent.object.pos.y > -300)
+	//gravity
+	collinfo = wgCollision.checkParallelQuadsList(this.ent.object.pos.x, this.ent.object.pos.y+30, this.ent.object.pos.x+this.ent.object.size.x, this.ent.object.pos.y-10000, this.ent.next.next);
+	if(-collinfo.dist.y > 32)
 	{
 		this.fallspeed -= ts*0.01;
 	}else
@@ -45,23 +59,21 @@ aEnemy.prototype.onUpdate = function(ts)
 		this.ent.object.pos.y -= -collinfo.dist.y-30;
 		this.fallspeed = 0.0;
 	}
-/*	if(wgKeyboard.up && this.fallspeed == 0)
-		this.fallspeed = 2.0;*/
-	
 	this.ent.object.pos.y += this.fallspeed*ts;
 	
-	collinfo = wgCollision.checkParallelQuadsList(this.ent.object.pos.x+this.ent.object.size.x*0.5, this.ent.object.pos.y+10, this.ent.object.pos.x+this.ent.object.size.x*0.5+(this.ent.object.size.x*0.5+10)*((this.speed > 0)? 1.0:-1.0), this.ent.object.pos.y+this.ent.object.size.y, this.ent.next.next);
-	
-	if(collinfo.hit != 0)
-	{
-		this.speed *= -1;
-	}
-	
+	//kill player
 	var dir = {x : gGlobals.player.object.pos.x-this.ent.object.pos.x, y : gGlobals.player.object.pos.y-this.ent.object.pos.y};
 	var dist = dir.x*dir.x+dir.y*dir.y;
-//	dist = sqrt(dist);
-	if(dist < 20 && gGlobals.player.action.health > 0)
+	dist = Math.sqrt(dist);
+	dir.y /= dist;
+	if(dist < 64 && gGlobals.player.action.health > 0)
 	{
-		gGlobals.player.action.health = 0;
+		if(dir.y < 0.8)
+		{
+			gGlobals.player.action.health = 0;
+		}else
+		{
+			this.health = 0;
+		}
 	}
 };

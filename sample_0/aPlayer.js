@@ -37,24 +37,25 @@ function aPlayer()
 
 aPlayer.prototype.onUpdate = function(ts)
 {
+	//killed
 	if(this.health == 0)
 	{
 		wgAudio.playSound("death");
 		this.health = -1;
 		this.ent.object.material.setAnimation(4, 6, 0.14, 0);
 	}
-	
 	if(this.health <= 0)
 		return;
 	
+	//movement
 	var input = (wgKeyboard.right-wgKeyboard.left);
-	
 	var collinfo = wgCollision.checkParallelQuadsList(this.ent.object.pos.x+this.ent.object.size.x*0.5, this.ent.object.pos.y+10, this.ent.object.pos.x+this.ent.object.size.x*0.5+(this.ent.object.size.x*0.5+this.speed*ts)*input, this.ent.object.pos.y+this.ent.object.size.y, this.ent.next);
 	if(collinfo.hit == 0)
 		this.ent.object.pos.x += input*this.speed*ts;
 	else
 		input = 0;
 	
+	//animations
 	if(this.fallspeed == 0)
 	{
 		if(input != 0)
@@ -71,6 +72,7 @@ aPlayer.prototype.onUpdate = function(ts)
 		}
 	}
 	
+	//gravity
 	collinfo = wgCollision.checkParallelQuadsList(this.ent.object.pos.x, this.ent.object.pos.y+30, this.ent.object.pos.x+this.ent.object.size.x, this.ent.object.pos.y-10000, this.ent.next);
 	if(-collinfo.dist.y > 32 || collinfo.hit == 0)
 	{
