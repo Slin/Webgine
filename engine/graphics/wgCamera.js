@@ -26,11 +26,23 @@
 var wgCamera = new function() 
 {
     this.pos = {x: 0, y: 0};
-    this.adjusthigh = +200;
+    this.dir = 0;
     
-    this.update = function(x,y)
-	{
-        this.pos.x = x;
-        this.pos.y = y+this.adjusthigh;
-    };
+    this.update = function(x,y) {
+      //document.getElementById("info").innerHTML = x-this.pos.x+'<br/>'+(y-this.pos.y);
+        
+        if(y-this.pos.y>200)
+          this.pos.y+=10;
+          
+        if(y-this.pos.y<-100)
+          this.pos.y-=20;
+        
+        if(wgKeyboard.left&&this.dir>-200)
+          this.dir-=5;
+        
+        if(wgKeyboard.right&&this.dir<200)
+          this.dir+=5;
+        
+          this.pos.x=x+this.dir;
+    }
 };
