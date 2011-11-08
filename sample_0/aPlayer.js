@@ -73,21 +73,38 @@ aPlayer.prototype.onUpdate = function(ts)
 	}
 	
 	//gravity
-	collinfo = wgCollision.checkParallelQuadsList(this.ent.object.pos.x, this.ent.object.pos.y+30, this.ent.object.pos.x+this.ent.object.size.x, this.ent.object.pos.y-10000, this.ent.next);
+	collinfo = wgCollision.checkParallelQuadsList(this.ent.object.pos.x+20, this.ent.object.pos.y+30, this.ent.object.pos.x+this.ent.object.size.x-20, this.ent.object.pos.y-10000, this.ent.next);
 	if(-collinfo.dist.y > 32 || collinfo.hit == 0)
 	{
-		this.fallspeed -= ts*0.01;
+		this.fallspeed -= ts*0.005;
 	}else
 	{
-		this.ent.object.pos.y -= -collinfo.dist.y-30;
-		this.fallspeed = 0.0;
+		if(this.fallspeed <= 0)
+		{
+			this.ent.object.pos.y -= -collinfo.dist.y-30;
+			this.fallspeed = 0.0;
+		}
 	}
 	
+	//jumping
 	if(wgKeyboard.up && this.fallspeed == 0)
 	{
-		this.ent.object.material.setAnimation(2, 3, 0.4, 0);
-		this.fallspeed = 2.0;
-		this.lastdir = -100;
+		collinfo = wgCollision.checkParallelQuadsList(this.ent.object.pos.x+20, this.ent.object.pos.y+30, this.ent.object.pos.x+this.ent.object.size.x-20, this.ent.object.pos.y+140, this.ent.next);
+		if(collinfo.hit == 0)
+		{
+			this.ent.object.material.setAnimation(2, 3, 0.4, 0);
+			this.fallspeed = 2.0;
+			this.lastdir = -100;
+		}
+	}
+	
+	if(this.fallspeed > 0.0)
+	{
+		collinfo = wgCollision.checkParallelQuadsList(this.ent.object.pos.x+20, this.ent.object.pos.y+30, this.ent.object.pos.x+this.ent.object.size.x-20, this.ent.object.pos.y+140, this.ent.next);
+		if(collinfo.hit != 0)
+		{
+			this.fallspeed = 0;
+		}
 	}
 	
 	this.ent.object.pos.y += this.fallspeed*ts;
