@@ -40,16 +40,17 @@ var wgTileMap = new function()
     this.dimx = 128;
     this.dimy = 128;
     
+    this.enemy = new Array();
     
-    // addTile(id,atlasid[from, atlasid to, time, cycle])
-    this.addTile = function(id, atlasid)
+    // addTile(id, 0 / animated / object, atlasid[from, atlasid to, time, cycle])
+    this.addTile = function(id, obj)
     {
         if(!this.tiles[id])
-        if(this.addTile.arguments.length==5) {
-            this.tiles[id] = new Array(this.addTile.arguments[1],this.addTile.arguments[2],this.addTile.arguments[3],this.addTile.arguments[4]);
+        if(this.addTile.arguments.length==6) {
+            this.tiles[id] = new Array(obj,this.addTile.arguments[2],this.addTile.arguments[3],this.addTile.arguments[4],this.addTile.arguments[5]);
         }
         else
-            this.tiles[id] = new Array(-1, atlasid);
+            this.tiles[id] = new Array(obj, this.addTile.arguments[2]);
         
     }
     
@@ -58,26 +59,47 @@ var wgTileMap = new function()
         var row = 0, col = 0;
         
         var tile;
+        
+        for(var j = 0; j < 3; j++) {
+        row = 0;
+        col = 0;
+        
+        
         for(var i = 0; i < this.data.length; i++)
         {
-            if(this.tiles[this.data[i]])
+        
+        if(this.tiles[this.data[i]]) {
+        
+            if(j==0&&this.tiles[this.data[i]][0]==0)
             {
-                tile = wgMain.first_ent.addEntity(this.texture, 0);
-                
-                tile.object.material.initAtlas(this.texinfo.cols, this.texinfo.rows, this.texinfo.width, this.texinfo.height, 0, 0);
-                tile.object.material.setAtlas(this.tiles[this.data[i]][1]);
-                
-                if(this.tiles[this.data[i]][0]!=-1) 
-                {
-                    tile.object.material.setAnimation(this.tiles[this.data[i]][0],
-                                                      this.tiles[this.data[i]][1],
-                                                      this.tiles[this.data[i]][2],
-                                                      this.tiles[this.data[i]][3]);
-                }
-                
+                tile = wgMain.first_ent.addEntity(this.texture, this.tiles[this.data[i]][0]);
                 tile.object.pos.x = this.offset.x-col*this.dimx*-1;
                 tile.object.pos.y = this.offset.y-row*this.dimy;
             }
+            else if(j==1&&this.tiles[this.data[i]][0]==1) {
+                tile = wgMain.first_ent.addEntity(this.texture, this.tiles[this.data[i]][0]);
+                tile.object.pos.x = this.offset.x-col*this.dimx*-1;
+                tile.object.pos.y = this.offset.y-row*this.dimy;
+                
+                tile.object.material.setAnimation(this.tiles[this.data[i]][1],
+                                                  this.tiles[this.data[i]][2],
+                                                  this.tiles[this.data[i]][3],
+                                                  this.tiles[this.data[i]][4]);
+            }
+            else if(j==2&&this.tiles[this.data[i]][0]==2) {
+                tile = wgMain.first_ent.addEntity(this.tiles[this.data[i]][1], new aEnemy());
+                tile.object.pos.x = this.offset.x-col*this.dimx*-1;//-300;
+                tile.object.pos.y = this.offset.y-row*this.dimy;//300;
+                document.getElementById("info").innerHTML += "add";
+            }
+            
+            //enemy has own texture atlas
+            if(j!=2&&this.tiles[this.data[i]][0]!=2) {
+                    tile.object.material.initAtlas(this.texinfo.cols, this.texinfo.rows, this.texinfo.width, this.texinfo.height, 0, 0);
+                    tile.object.material.setAtlas(this.tiles[this.data[i]][1]);
+            }
+                
+         }
             
             if(col>=this.width-1)
             {
@@ -86,6 +108,8 @@ var wgTileMap = new function()
             }
             else
                 col++;
+        }
+        
         }
     }
 };
