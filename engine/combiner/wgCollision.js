@@ -82,14 +82,14 @@ var wgCollision = new function()
 		}
 	};
 	
-	this.checkParallelQuadsList = function(fromx, fromy, tox, toy, ents)
+	this.checkParallelQuadsList = function(fromx, fromy, tox, toy, ents, group)
 	{
 		var tempent = ents;
 		var collinfo = new wgCollInfo();
 		var tempinfo = 0;
 		while(tempent != 0)
 		{
-			if(tempent.object != 0)
+			if(tempent.object != 0 && tempent.group == group)
 			{
 				tempinfo = this.checkParallelQuads(fromx, fromy, tox, toy, tempent.object);
 				if(tempinfo.hit != 0)

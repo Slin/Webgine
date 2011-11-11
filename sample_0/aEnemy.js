@@ -42,7 +42,7 @@ aEnemy.prototype.onUpdate = function(ts)
 	}
 
 	//movement
-	var collinfo = wgCollision.checkParallelQuadsList(this.ent.object.pos.x+this.ent.object.size.x*0.5, this.ent.object.pos.y+10, this.ent.object.pos.x+this.ent.object.size.x*0.5+(this.ent.object.size.x*0.5+10)*((this.speed > 0)? 1.0:-1.0), this.ent.object.pos.y+this.ent.object.size.y, this.ent.next.next);
+	var collinfo = wgCollision.checkParallelQuadsList(this.ent.object.pos.x+this.ent.object.size.x*0.5, this.ent.object.pos.y+10, this.ent.object.pos.x+this.ent.object.size.x*0.5+(this.ent.object.size.x*0.5+10)*((this.speed > 0)? 1.0:-1.0), this.ent.object.pos.y+this.ent.object.size.y, wgMain.first_ent, 0);
 	if(collinfo.hit != 0)
 	{
 		this.speed *= -1;
@@ -50,7 +50,7 @@ aEnemy.prototype.onUpdate = function(ts)
 	this.ent.object.pos.x += this.speed*ts;
 	
 	//gravity
-	collinfo = wgCollision.checkParallelQuadsList(this.ent.object.pos.x, this.ent.object.pos.y+30, this.ent.object.pos.x+this.ent.object.size.x, this.ent.object.pos.y-10000, this.ent.next.next);
+	collinfo = wgCollision.checkParallelQuadsList(this.ent.object.pos.x, this.ent.object.pos.y+30, this.ent.object.pos.x+this.ent.object.size.x, this.ent.object.pos.y-10000, wgMain.first_ent, 0);
 	if(-collinfo.dist.y > 32)
 	{
 		this.fallspeed -= ts*0.01;

@@ -49,7 +49,7 @@ aPlayer.prototype.onUpdate = function(ts)
 	
 	//movement
 	var input = (wgKeyboard.right-wgKeyboard.left);
-	var collinfo = wgCollision.checkParallelQuadsList(this.ent.object.pos.x+this.ent.object.size.x*0.5, this.ent.object.pos.y+10, this.ent.object.pos.x+this.ent.object.size.x*0.5+(this.ent.object.size.x*0.5+this.speed*ts)*input, this.ent.object.pos.y+this.ent.object.size.y, this.ent.next);
+	var collinfo = wgCollision.checkParallelQuadsList(this.ent.object.pos.x+this.ent.object.size.x*0.5, this.ent.object.pos.y+10, this.ent.object.pos.x+this.ent.object.size.x*0.5+(this.ent.object.size.x*0.5+this.speed*ts)*input, this.ent.object.pos.y+this.ent.object.size.y, wgMain.first_ent, 0);
 	if(collinfo.hit == 0)
 		this.ent.object.pos.x += input*this.speed*ts;
 	else
@@ -73,7 +73,7 @@ aPlayer.prototype.onUpdate = function(ts)
 	}
 	
 	//gravity
-	collinfo = wgCollision.checkParallelQuadsList(this.ent.object.pos.x+20, this.ent.object.pos.y+30, this.ent.object.pos.x+this.ent.object.size.x-20, this.ent.object.pos.y-10000, this.ent.next);
+	collinfo = wgCollision.checkParallelQuadsList(this.ent.object.pos.x+20, this.ent.object.pos.y+30, this.ent.object.pos.x+this.ent.object.size.x-20, this.ent.object.pos.y-10000, wgMain.first_ent, 0);
 	if(-collinfo.dist.y > 32 || collinfo.hit == 0)
 	{
 		this.fallspeed -= ts*0.005;
@@ -89,18 +89,18 @@ aPlayer.prototype.onUpdate = function(ts)
 	//jumping
 	if(wgKeyboard.up && this.fallspeed == 0)
 	{
-		collinfo = wgCollision.checkParallelQuadsList(this.ent.object.pos.x+20, this.ent.object.pos.y+30, this.ent.object.pos.x+this.ent.object.size.x-20, this.ent.object.pos.y+140, this.ent.next);
+		collinfo = wgCollision.checkParallelQuadsList(this.ent.object.pos.x+20, this.ent.object.pos.y+30, this.ent.object.pos.x+this.ent.object.size.x-20, this.ent.object.pos.y+140, wgMain.first_ent, 0);
 		if(collinfo.hit == 0)
 		{
 			this.ent.object.material.setAnimation(2, 3, 0.4, 0);
-			this.fallspeed = 2.0;
+			this.fallspeed = 1.5;
 			this.lastdir = -100;
 		}
 	}
 	
 	if(this.fallspeed > 0.0)
 	{
-		collinfo = wgCollision.checkParallelQuadsList(this.ent.object.pos.x+20, this.ent.object.pos.y+30, this.ent.object.pos.x+this.ent.object.size.x-20, this.ent.object.pos.y+140, this.ent.next);
+		collinfo = wgCollision.checkParallelQuadsList(this.ent.object.pos.x+20, this.ent.object.pos.y+30, this.ent.object.pos.x+this.ent.object.size.x-20, this.ent.object.pos.y+140, wgMain.first_ent, 0);
 		if(collinfo.hit != 0)
 		{
 			this.fallspeed = 0;

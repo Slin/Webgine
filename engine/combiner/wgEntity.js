@@ -33,6 +33,8 @@ function wgEntity()
 	this.action = 0;
 	this.object = 0;
 	
+	this.group = 0;
+	
 	this.next = 0;
 	this.prev = 0;
 }

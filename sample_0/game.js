@@ -65,7 +65,7 @@ function main()
 	gGlobals.player.object.material.setAtlas(2);
 	gGlobals.player.object.pos.x = -400;
 	gGlobals.player.object.pos.y = 300;
-  
+	gGlobals.player.group = 1;
 
 	wgAudio.playAudio("song0");
 	
