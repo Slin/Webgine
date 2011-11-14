@@ -89,6 +89,7 @@ var wgTileMap = new function()
             else if(j==2&&this.tiles[this.data[i]][0]==2) {
                 tile = wgMain.first_ent.addEntity(this.tiles[this.data[i]][1], new aEnemy());
 				tile.group = 1;
+				tile.action.type = 1;
                 tile.object.pos.x = this.offset.x-col*this.dimx*-1;
                 tile.object.pos.y = this.offset.y-row*this.dimy;
             }

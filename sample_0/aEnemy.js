@@ -28,6 +28,8 @@ function aEnemy()
 	this.speed = -0.1;
 	this.fallspeed = 0.0;
 	
+	this.type = 0;
+	
 	this.health = 100;
 	
 	this.ent = 0;
@@ -47,6 +49,7 @@ aEnemy.prototype.onUpdate = function(ts)
 	{
 		this.speed *= -1;
 	}
+	
 	this.ent.object.pos.x += this.speed*ts;
 	
 	//gravity
@@ -75,5 +78,10 @@ aEnemy.prototype.onUpdate = function(ts)
 		{
 			this.health = 0;
 		}
+	}
+	
+	if(this.type == 1 && dist < 256 && ((this.speed > 0)? 1:-1) != ((dir.x > 0)? 1:-1))
+	{
+		this.speed *= -1;
 	}
 };
