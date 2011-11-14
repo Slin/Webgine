@@ -37,8 +37,8 @@ var wgTileMap = new function()
     this.height;
     
     // dimension of a box
-    this.dimx = 128;
-    this.dimy = 128;
+    this.dimx = 64;
+    this.dimy = 64;
     
     this.enemy = new Array();
     
@@ -89,9 +89,8 @@ var wgTileMap = new function()
             else if(j==2&&this.tiles[this.data[i]][0]==2) {
                 tile = wgMain.first_ent.addEntity(this.tiles[this.data[i]][1], new aEnemy());
 				tile.group = 1;
-                tile.object.pos.x = this.offset.x-col*this.dimx*-1;//-300;
-                tile.object.pos.y = this.offset.y-row*this.dimy;//300;
-                document.getElementById("info").innerHTML += "add";
+                tile.object.pos.x = this.offset.x-col*this.dimx*-1;
+                tile.object.pos.y = this.offset.y-row*this.dimy;
             }
             
             //enemy has own texture atlas

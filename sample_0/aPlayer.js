@@ -25,7 +25,7 @@
 
 function aPlayer()
 {
-	this.speed = 0.5;
+	this.speed = 0.25;
 	this.fallspeed = 0.0;
 	
 	this.health = 100;
@@ -76,7 +76,7 @@ aPlayer.prototype.onUpdate = function(ts)
 	collinfo = wgCollision.checkParallelQuadsList(this.ent.object.pos.x+20, this.ent.object.pos.y+30, this.ent.object.pos.x+this.ent.object.size.x-20, this.ent.object.pos.y-10000, wgMain.first_ent, 0);
 	if(-collinfo.dist.y > 32 || collinfo.hit == 0)
 	{
-		this.fallspeed -= ts*0.005;
+		this.fallspeed -= ts*0.0035;
 	}else
 	{
 		if(this.fallspeed <= 0)
@@ -93,7 +93,7 @@ aPlayer.prototype.onUpdate = function(ts)
 		if(collinfo.hit == 0)
 		{
 			this.ent.object.material.setAnimation(2, 3, 0.4, 0);
-			this.fallspeed = 1.5;
+			this.fallspeed = 1.0;
 			this.lastdir = -100;
 		}
 	}

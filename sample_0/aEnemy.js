@@ -25,7 +25,7 @@
 
 function aEnemy()
 {
-	this.speed = -0.3;
+	this.speed = -0.1;
 	this.fallspeed = 0.0;
 	
 	this.health = 100;
@@ -68,7 +68,7 @@ aEnemy.prototype.onUpdate = function(ts)
 	dir.y /= dist;
 	if(dist < 64 && gGlobals.player.action.health > 0)
 	{
-		if(dir.y < 0.8)
+		if(dir.y < 0.5)
 		{
 			gGlobals.player.action.health = 0;
 		}else

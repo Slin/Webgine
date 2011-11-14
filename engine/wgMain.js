@@ -70,5 +70,7 @@ var wgMain = new function()
         this.gl = WebGLUtils.setupWebGL(this.canvas);
         WebGLDebugUtils.makeDebugContext(this.gl, this.throwOnGLError);
         wgMain.gameeventhandler = event;
+		canvassizex = this.canvas.width;
+		canvassizey = this.canvas.height;
     };
 };

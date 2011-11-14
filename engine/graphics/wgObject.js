@@ -29,7 +29,7 @@ function wgObject()
     this.next = 0;
 
     this.pos = {x : 0, y : 0};
-    this.size = {x : 128, y : 128};
+    this.size = {x : 64, y : 64};
     
     this.mesh = 0;
     this.material = 0;
