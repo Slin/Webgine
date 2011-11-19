@@ -39,7 +39,7 @@ function wgEntity()
 	this.prev = 0;
 }
 
-wgEntity.prototype.addEntity = function(texfile, act)
+wgEntity.prototype.addEntity = function(texfile, act,mode)
 {
 	var temp = new wgEntity();
     temp.next = this.next;
@@ -47,7 +47,7 @@ wgEntity.prototype.addEntity = function(texfile, act)
 	temp.prev = this;
     this.next = temp;
 	
-	temp.object = wgRenderer.first_obj.addObject(texfile);
+	temp.object = wgRenderer.first_obj.addObject(texfile,mode);
 	temp.action = act;
 	temp.action.ent = temp;
 	if(temp.action && temp.action.onInit)
@@ -56,3 +56,10 @@ wgEntity.prototype.addEntity = function(texfile, act)
 	}
 	return temp;
 };
+
+wgEntity.prototype.destroy = function() 
+{
+  this.object.destroy();
+	this.prev.next = this.next; 
+	this.next.prev = this.prev;
+}

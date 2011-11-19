@@ -23,7 +23,7 @@
 //	OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 //	THE SOFTWARE.
 
-var scalefactor = 1.0;
+var scalefactor = 1;
 var canvassizex = 800;
 var canvassizey = 400;
 

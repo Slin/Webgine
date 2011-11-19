@@ -29,18 +29,16 @@ var wgCamera = new function()
     this.dir = 0;
     
     this.update = function(x,y) {
-      //document.getElementById("info").innerHTML = x-this.pos.x+'<br/>'+(y-this.pos.y);
-        
-        if(y-this.pos.y>200)
+        if(y-this.pos.y>100)
           this.pos.y+=10;
           
         if(y-this.pos.y<-100)
-          this.pos.y-=20;
+          this.pos.y-=10;
         
-        if(wgKeyboard.left&&this.dir>-200)
+        if(wgKeyboard.left&&this.dir>-100)
           this.dir-=5;
         
-        if(wgKeyboard.right&&this.dir<200)
+        if(wgKeyboard.right&&this.dir<100)
           this.dir+=5;
         
           this.pos.x=x+this.dir;

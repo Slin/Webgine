@@ -42,7 +42,7 @@ aPlayer.prototype.onUpdate = function(ts)
 	{
 		wgAudio.playSound("death");
 		this.health = -1;
-		this.ent.object.material.setAnimation(4, 6, 0.14, 0);
+		this.ent.object.material.setAnimation(1, 0, 0, 0);
 	}
 	if(this.health <= 0)
 		return;
@@ -62,7 +62,7 @@ aPlayer.prototype.onUpdate = function(ts)
 		{
 			if(this.lastdir != input)
 			{
-				this.ent.object.material.setAnimation(0, 1, 0.4, 1);
+				this.ent.object.material.setAnimation(2, 9, 0.12, 1);
 				this.lastdir = input;
 			}
 		}else

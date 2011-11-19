@@ -35,7 +35,7 @@ function wgObject()
     this.material = 0;
 }
 
-wgObject.prototype.addObject = function(texfile)
+wgObject.prototype.addObject = function(texfile,mode)
 {
     var temp = new wgObject;
     temp.next = this.next;
@@ -44,9 +44,15 @@ wgObject.prototype.addObject = function(texfile)
     this.next.prev = this;
 	
 	temp.material = new wgMaterial();
-	temp.material.texture = wgTexture.getTexture(texfile);
+	temp.material.texture = wgTexture.getTexture(texfile,mode);
 	temp.material.shader = wgShader.getShader();
 	temp.mesh = wgMesh.getMesh();
 	
     return temp;
 };
+
+wgObject.prototype.destroy = function() 
+{
+	this.prev.next = this.next; 
+	this.next.prev = this.prev;
+}

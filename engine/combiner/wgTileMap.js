@@ -25,10 +25,8 @@
 
 var wgTileMap = new function()
 {
-    this.texture = 0;
-    this.texinfo = {cols : 2, rows : 2, width : 256, height : 256};
     this.tiles = new Array();
-    
+
     // Level Data Array
     this.data = 0;
     
@@ -43,66 +41,78 @@ var wgTileMap = new function()
     this.enemy = new Array();
     
     // addTile(id, 0 / animated / object, atlasid[from, atlasid to, time, cycle])
-    this.addTile = function(id, obj)
+    this.addTile = function(id)
     {
         if(!this.tiles[id])
-        if(this.addTile.arguments.length==6) {
-            this.tiles[id] = new Array(obj,this.addTile.arguments[2],this.addTile.arguments[3],this.addTile.arguments[4],this.addTile.arguments[5]);
-        }
-        else
-            this.tiles[id] = new Array(obj, this.addTile.arguments[2]);
-        
+            this.tiles[id] = this.addTile.arguments;
     }
     
     this.generate = function()
     {
         var row = 0, col = 0;
-        
-        var tile;
-        
-        for(var j = 0; j < 3; j++) {
-        row = 0;
-        col = 0;
+        var tile, args;
+
+        if(this.width*this.height!=this.data.length) {
+          alert("Error: Level data is corrupt.");
+          return;
+        }
         
         
         for(var i = 0; i < this.data.length; i++)
         {
-        
-        if(this.tiles[this.data[i]]) {
-        
-            if(j==0&&this.tiles[this.data[i]][0]==0)
-            {
-                tile = wgMain.first_ent.addEntity(this.texture, this.tiles[this.data[i]][0]);
-                tile.object.pos.x = this.offset.x-col*this.dimx*-1;
-                tile.object.pos.y = this.offset.y-row*this.dimy;
-            }
-            else if(j==1&&this.tiles[this.data[i]][0]==1) {
-                tile = wgMain.first_ent.addEntity(this.texture, this.tiles[this.data[i]][0]);
+            args = new Array();
+            
+            if(this.tiles[this.data[i]]!=undefined) {
+                
+                //there may not only be one texture but multiple textures: top,topleft,topright,left,right,default
+                if(this.tiles[this.data[i]].length>=7) {
+                    
+                    
+                    // choose the right tile, depending on neighbours
+                    if((!this.data[(row-1)*this.width+(col)] && !this.data[(row)*this.width+(col-1)]) || !this.data[(row)*this.width+(col-1)]&&this.tiles[this.data[(row-1)*this.width+(col)]]!=this.tiles[this.data[(row)*this.width+(col)]])
+                      args = this.tiles[this.data[i]][2];   //topleft
+                    else if((!this.data[(row-1)*this.width+(col)] && !this.data[(row)*this.width+(col+1)]) || !this.data[(row)*this.width+(col+1)]&&this.tiles[this.data[(row-1)*this.width+(col)]]!=this.tiles[this.data[(row)*this.width+(col)]])
+                      args = this.tiles[this.data[i]][4];   //topright
+                    else if(!this.data[(row-1)*this.width+(col)] || this.tiles[this.data[(row-1)*this.width+(col)]]!=this.tiles[this.data[(row)*this.width+(col)]])
+                      args = this.tiles[this.data[i]][3];   //top
+                    else if(!this.data[(row)*this.width+(col-1)])
+                      args = this.tiles[this.data[i]][5];   //left
+                    else if(!this.data[(row)*this.width+(col+1)])
+                      args = this.tiles[this.data[i]][6];   //right
+                    else if(this.tiles[this.data[i]].length>7) {
+                      var min=7;
+                      var max=this.tiles[this.data[i]].length;
+                      var rand = Math.floor(Math.random()*(max-min))+min;
+                      
+                      args = this.tiles[this.data[i]][rand];   // random default tiles
+                    }
+                    else
+                      args = this.tiles[this.data[i]][7];   //default
+                } else
+                    args = this.tiles[this.data[i]][2];
+                
+                tile = wgMain.first_ent.addEntity(args.tex, new (this.tiles[this.data[i]][1])());
+                
                 tile.object.pos.x = this.offset.x-col*this.dimx*-1;
                 tile.object.pos.y = this.offset.y-row*this.dimy;
                 
-                tile.object.material.setAnimation(this.tiles[this.data[i]][1],
-                                                  this.tiles[this.data[i]][2],
-                                                  this.tiles[this.data[i]][3],
-                                                  this.tiles[this.data[i]][4]);
-            }
-            else if(j==2&&this.tiles[this.data[i]][0]==2) {
-                tile = wgMain.first_ent.addEntity(this.tiles[this.data[i]][1], new aEnemy());
-				tile.group = 1;
-				tile.action.type = 1;
-                tile.object.pos.x = this.offset.x-col*this.dimx*-1;
-                tile.object.pos.y = this.offset.y-row*this.dimy;
-            }
-            
-            //enemy has own texture atlas
-            if(j!=2&&this.tiles[this.data[i]][0]!=2) {
-                    tile.object.material.initAtlas(this.texinfo.cols, this.texinfo.rows, this.texinfo.width, this.texinfo.height, 0, 0);
-                    tile.object.material.setAtlas(this.tiles[this.data[i]][1]);
-            }
+                if(args.group)
+                  tile.group = args.group;
                 
-         }
+                if(args.atype)
+                  tile.action.type = args.atype;
+                
+                if(args.texinfo) {
+                    tile.object.material.initAtlas(args.texinfo.cols, args.texinfo.rows, args.texinfo.width, args.texinfo.height, 0, 0);
+                    tile.object.material.setAtlas(args.texinfo.set);
+                }
+                
+                if(args.texani)
+                    tile.object.material.setAnimation(args.texani.from, args.texani.to, args.texani.speed, args.texani.cycle);
+                
+            }
             
-            if(col>=this.width-1)
+            if(col==this.width-1)
             {
                 row++;
                 col = 0;
@@ -111,7 +121,6 @@ var wgTileMap = new function()
                 col++;
         }
         
-        }
     }
 };
 

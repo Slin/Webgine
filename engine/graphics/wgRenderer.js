@@ -42,16 +42,16 @@ var wgRenderer = new function()
         while(tempobj != 0)
         {
             tempobj.material.updateAnimation(ts);
-		
+            
             wgMain.gl.useProgram(tempobj.material.shader);
-			
+            
             wgMain.gl.activeTexture(wgMain.gl.TEXTURE0);
             wgMain.gl.bindTexture(wgMain.gl.TEXTURE_2D, tempobj.material.texture);
             wgMain.gl.uniform1i(tempobj.material.shader.texloc, 0);
             
             wgMain.gl.uniform3f(tempobj.material.shader.projloc, canvassizex, canvassizey, scalefactor/2.0);
             wgMain.gl.uniform4f(tempobj.material.shader.objloc, Math.floor(tempobj.pos.x-wgCamera.pos.x), Math.floor(tempobj.pos.y-wgCamera.pos.y), tempobj.size.x, tempobj.size.y);
-			
+            
             wgMain.gl.uniform4f(tempobj.material.shader.atlasloc, tempobj.material.atlas.width, tempobj.material.atlas.height, tempobj.material.atlas.posx, tempobj.material.atlas.posy);
             
             wgMain.gl.bindBuffer(wgMain.gl.ARRAY_BUFFER, tempobj.mesh);

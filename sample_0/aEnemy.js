@@ -39,7 +39,7 @@ aEnemy.prototype.onUpdate = function(ts)
 {
 	if(this.health <= 0)
 	{
-		this.ent.object.pos.y -= 500;
+		this.ent.destroy();
 		return;
 	}
 
