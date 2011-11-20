@@ -46,6 +46,7 @@ var wgShader = new function()
 				"uniform vec3 projection;"+
 				"uniform vec4 object;"+
 				"uniform vec4 atlasinfo;"+
+//				"uniform bool inverttexcoordx"+
 				"varying vec2 texcoord0;"+
 				"void main()"+
 				"{"+

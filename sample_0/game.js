@@ -30,27 +30,17 @@ var gGlobals = new function()
 
 function gameevent(ts)
 {
-
+	
 }
 
 function main()
 {
 	wgMain.initWebgine(gameevent);
-  
-	gGlobals.player = wgMain.first_ent.addEntity("sample_0/playeratlas.png", new aPlayer());
-	gGlobals.player.object.material.initAtlas(2, 5, 256, 640, 0, 0);
-	gGlobals.player.object.material.setAtlas(2);
-	gGlobals.player.object.size.x = 96;
-	gGlobals.player.object.size.y = 96;
-	gGlobals.player.object.pos.x = -400;
-	gGlobals.player.object.pos.y = 300;
-	gGlobals.player.group = 1;
-  
-  level1();
-  
+	
+	level1();
+	
 	wgAudio.playAudio("song0");
 	var test = new wgText();
-	test.addText("Hallo wie geht es dir??///#",1,1);
 	test.set("lilly beta");
 	wgMain.mainLoop();
 }

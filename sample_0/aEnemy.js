@@ -37,6 +37,9 @@ function aEnemy()
 
 aEnemy.prototype.onUpdate = function(ts)
 {
+	if(gGlobals.player == 0)
+		return;
+
 	if(this.health <= 0)
 	{
 		this.ent.destroy();

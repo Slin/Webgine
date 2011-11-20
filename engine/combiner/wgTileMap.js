@@ -52,47 +52,62 @@ var wgTileMap = new function()
         var row = 0, col = 0;
         var tile, args;
 
-        if(this.width*this.height!=this.data.length) {
+		/**
+        if(this.width*this.height!=this.data.length*2+4) {
           alert("Error: Level data is corrupt.");
           return;
         }
-        
-        
-        for(var i = 0; i < this.data.length; i++)
+        **/
+		
+		var tdata = this.data.split(" ");
+        this.width = tdata[0];
+		this.height = tdata[1];
+		tdata = tdata.slice(2,tdata.length);
+
+		for(var i = 0; i < tdata.length; i++) {
+			tdata[i]=parseInt(tdata[i]);
+		}
+		
+        for(var i = 0; i < tdata.length; i++)
         {
             args = new Array();
             
-            if(this.tiles[this.data[i]]!=undefined) {
+            if(this.tiles[tdata[i]]!=undefined) {
                 
                 //there may not only be one texture but multiple textures: top,topleft,topright,left,right,default
-                if(this.tiles[this.data[i]].length>=7) {
-                    
+                if(this.tiles[tdata[i]].length>=7) {
                     
                     // choose the right tile, depending on neighbours
-                    if((!this.data[(row-1)*this.width+(col)] && !this.data[(row)*this.width+(col-1)]) || !this.data[(row)*this.width+(col-1)]&&this.tiles[this.data[(row-1)*this.width+(col)]]!=this.tiles[this.data[(row)*this.width+(col)]])
-                      args = this.tiles[this.data[i]][2];   //topleft
-                    else if((!this.data[(row-1)*this.width+(col)] && !this.data[(row)*this.width+(col+1)]) || !this.data[(row)*this.width+(col+1)]&&this.tiles[this.data[(row-1)*this.width+(col)]]!=this.tiles[this.data[(row)*this.width+(col)]])
-                      args = this.tiles[this.data[i]][4];   //topright
-                    else if(!this.data[(row-1)*this.width+(col)] || this.tiles[this.data[(row-1)*this.width+(col)]]!=this.tiles[this.data[(row)*this.width+(col)]])
-                      args = this.tiles[this.data[i]][3];   //top
-                    else if(!this.data[(row)*this.width+(col-1)])
-                      args = this.tiles[this.data[i]][5];   //left
-                    else if(!this.data[(row)*this.width+(col+1)])
-                      args = this.tiles[this.data[i]][6];   //right
-                    else if(this.tiles[this.data[i]].length>7) {
+                    if((!tdata[(row-1)*this.width+(col)] && !tdata[(row)*this.width+(col-1)]) || !tdata[(row)*this.width+(col-1)]&&this.tiles[tdata[(row-1)*this.width+(col)]]!=this.tiles[tdata[(row)*this.width+(col)]])
+                      args = this.tiles[tdata[i]][2];   //topleft
+                    else if((!tdata[(row-1)*this.width+(col)] && !tdata[(row)*this.width+(col+1)]) || !tdata[(row)*this.width+(col+1)]&&this.tiles[tdata[(row-1)*this.width+(col)]]!=this.tiles[tdata[(row)*this.width+(col)]])
+                      args = this.tiles[tdata[i]][4];   //topright
+                    else if(!tdata[(row-1)*this.width+(col)] || this.tiles[tdata[(row-1)*this.width+(col)]]!=this.tiles[tdata[(row)*this.width+(col)]])
+                      args = this.tiles[tdata[i]][3];   //top
+                    else if(!tdata[(row)*this.width+(col-1)])
+                      args = this.tiles[tdata[i]][5];   //left
+                    else if(!tdata[(row)*this.width+(col+1)])
+                      args = this.tiles[tdata[i]][6];   //right
+                    else if(this.tiles[tdata[i]].length>7) {
                       var min=7;
-                      var max=this.tiles[this.data[i]].length;
+                      var max=this.tiles[tdata[i]].length;
                       var rand = Math.floor(Math.random()*(max-min))+min;
                       
-                      args = this.tiles[this.data[i]][rand];   // random default tiles
+                      args = this.tiles[tdata[i]][rand];   // random default tiles
                     }
                     else
-                      args = this.tiles[this.data[i]][7];   //default
+                      args = this.tiles[tdata[i]][7];   //default
                 } else
-                    args = this.tiles[this.data[i]][2];
+                    args = this.tiles[tdata[i]][2];
                 
-                tile = wgMain.first_ent.addEntity(args.tex, new (this.tiles[this.data[i]][1])());
+				
+				var func = new (this.tiles[tdata[i]][1])();
+					
+                tile = wgMain.first_ent.addEntity(args.tex, func);
                 
+				if(func.id=="aPlayer")
+					gGlobals.player = tile;
+				
                 tile.object.pos.x = this.offset.x-col*this.dimx*-1;
                 tile.object.pos.y = this.offset.y-row*this.dimy;
                 
@@ -110,6 +125,10 @@ var wgTileMap = new function()
                 if(args.texani)
                     tile.object.material.setAnimation(args.texani.from, args.texani.to, args.texani.speed, args.texani.cycle);
                 
+				if(args.size) {
+					tile.object.size.x = args.size.x;
+					tile.object.size.y = args.size.y;
+				}
             }
             
             if(col==this.width-1)

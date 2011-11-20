@@ -29,11 +29,16 @@ var wgCamera = new function()
     this.dir = 0;
     
     this.update = function(x,y) {
+		if(this.pos.x==0||this.pos.y==0) {
+			this.pos.x=x;
+			this.pos.y=y;
+		}
+	
         if(y-this.pos.y>100)
-          this.pos.y+=10;
+          this.pos.y+=20;
           
         if(y-this.pos.y<-100)
-          this.pos.y-=10;
+          this.pos.y-=20;
         
         if(wgKeyboard.left&&this.dir>-100)
           this.dir-=5;
