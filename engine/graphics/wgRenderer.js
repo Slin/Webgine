@@ -53,7 +53,8 @@ var wgRenderer = new function()
             wgMain.gl.uniform4f(tempobj.material.shader.objloc, Math.floor(tempobj.pos.x-wgCamera.pos.x), Math.floor(tempobj.pos.y-wgCamera.pos.y), tempobj.size.x, tempobj.size.y);
             
             wgMain.gl.uniform4f(tempobj.material.shader.atlasloc, tempobj.material.atlas.width, tempobj.material.atlas.height, tempobj.material.atlas.posx, tempobj.material.atlas.posy);
-            
+            wgMain.gl.uniform1f(tempobj.material.shader.inverttexx, tempobj.material.inverttexx);
+			
             wgMain.gl.bindBuffer(wgMain.gl.ARRAY_BUFFER, tempobj.mesh);
             wgMain.gl.vertexAttribPointer(tempobj.material.shader.posloc, 2, wgMain.gl.FLOAT, false, 0, 0);
             wgMain.gl.enableVertexAttribArray(tempobj.material.shader.posloc);

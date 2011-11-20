@@ -76,6 +76,10 @@ aPlayer.prototype.onUpdate = function(ts)
 			if(this.lastdir != input)
 			{
 				this.ent.object.material.setAnimation(2, 9, 0.12, 1);
+				if(input < 0)
+					this.ent.object.material.inverttexx = 1.0;
+				else
+					this.ent.object.material.inverttexx = 0.0;
 				this.lastdir = input;
 			}
 		}else

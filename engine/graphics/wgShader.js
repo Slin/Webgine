@@ -46,11 +46,14 @@ var wgShader = new function()
 				"uniform vec3 projection;"+
 				"uniform vec4 object;"+
 				"uniform vec4 atlasinfo;"+
-//				"uniform bool inverttexcoordx"+
+				"uniform float inverttexcoordx;"+
 				"varying vec2 texcoord0;"+
 				"void main()"+
 				"{"+
-				"    texcoord0 = vPosition*atlasinfo.xy+atlasinfo.zw;"+
+				"	texcoord0 = vPosition;"+
+				"	if(inverttexcoordx > 0.1)"+
+				"		texcoord0.x = 1.0-texcoord0.x;"+
+				"    texcoord0 = texcoord0*atlasinfo.xy+atlasinfo.zw;"+
 				"    gl_Position = vec4((object.xy+vPosition*object.zw)/projection.xy, 0.0, projection.z);"+
 				"}" ;
 				
@@ -73,6 +76,7 @@ var wgShader = new function()
 			id.projloc = wgMain.gl.getUniformLocation(id, "projection");
 			id.objloc = wgMain.gl.getUniformLocation(id, "object");
 			id.atlasloc = wgMain.gl.getUniformLocation(id, "atlasinfo");
+			id.inverttexx = wgMain.gl.getUniformLocation(id, "inverttexcoordx");
 			id.texloc = wgMain.gl.getUniformLocation(id, "tex0");
 			
 			wgResource.addResource("shader", id);
