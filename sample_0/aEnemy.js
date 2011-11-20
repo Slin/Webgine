@@ -54,13 +54,17 @@ aEnemy.prototype.onUpdate = function(ts)
 	
 	//gravity
 	collinfo = wgCollision.checkParallelQuadsList(this.ent.object.pos.x, this.ent.object.pos.y+30, this.ent.object.pos.x+this.ent.object.size.x, this.ent.object.pos.y-10000, wgMain.first_ent, 0);
-	if(-collinfo.dist.y > 32)
+	if(-collinfo.dist.y > 32 || collinfo.hit == 0)
 	{
 		this.fallspeed -= ts*0.01;
 	}else
 	{
 		this.ent.object.pos.y -= -collinfo.dist.y-30;
 		this.fallspeed = 0.0;
+	}
+	if(this.fallspeed < 0 && this.fallspeed*ts < (collinfo.dist.y+30) && collinfo.hit != 0)
+	{
+		this.fallspeed = (collinfo.dist.y+30)/ts;
 	}
 	this.ent.object.pos.y += this.fallspeed*ts;
 	

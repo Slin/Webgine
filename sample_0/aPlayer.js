@@ -85,6 +85,10 @@ aPlayer.prototype.onUpdate = function(ts)
 			this.fallspeed = 0.0;
 		}
 	}
+	if(this.fallspeed < 0 && this.fallspeed*ts < (collinfo.dist.y+30) && collinfo.hit != 0)
+	{
+		this.fallspeed = (collinfo.dist.y+30)/ts;
+	}
 	
 	//jumping
 	if(wgKeyboard.up && this.fallspeed == 0)
