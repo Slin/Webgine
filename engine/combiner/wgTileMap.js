@@ -99,10 +99,7 @@ var wgTileMap = new function()
                     args = this.tiles[tdata[i]][2];
                 
 				
-				var func = new (this.tiles[tdata[i]][1])();
-				
-                
-                
+				var func = new (this.tiles[tdata[i]][1])();                
 				if(func.id=="aPlayer") {
 					tile = wgMain.first_ent.addEntity(args.tex, func);
 					gGlobals.player = tile;
@@ -127,8 +124,17 @@ var wgTileMap = new function()
                     tile.object.material.setAnimation(args.texani.from, args.texani.to, args.texani.speed, args.texani.cycle);
                 
 				if(args.size) {
+					if(args.size.rand&&args.size.min&&args.size.max) {
+						var min = args.size.min;
+						var max = args.size.max;
+						var tmp = Math.random()*(max-min)+min;
+						
+						tile.object.size.x = tmp*args.size.x;
+						tile.object.size.y = tmp*args.size.y;
+					} else {
 					tile.object.size.x = args.size.x;
 					tile.object.size.y = args.size.y;
+					}
 				} else {
 					tile.object.size.x = this.dimx;
 					tile.object.size.y = this.dimy;
