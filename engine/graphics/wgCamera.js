@@ -34,10 +34,8 @@ var wgCamera = new function()
 			this.pos.y=y;
 		}
 	
-        //if(y-this.pos.y>100)
-          this.pos.y=y;
-          
-        //if(y-this.pos.y<-100)
+        
+        if(y>gGlobals.lvlbd+300)
           this.pos.y=y;
         
         if(wgKeyboard.left&&this.dir>-100)

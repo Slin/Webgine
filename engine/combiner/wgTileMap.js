@@ -66,6 +66,12 @@ var wgTileMap = new function()
           return;
         }
 		
+		gGlobals.lvlbl = this.offset.x;
+		gGlobals.lvlbr = this.offset.x+this.dimx*this.width;
+		gGlobals.lvlbt = this.offset.y;
+		gGlobals.lvlbd = this.offset.y-this.dimy*this.height;
+		
+		
         for(var i = 0; i < tdata.length; i++)
         {
             args = new Array();
@@ -106,8 +112,8 @@ var wgTileMap = new function()
 				} else
 					tile = wgMain.first_ent.addEntity(args.tex, func,1);
 				
-                tile.object.pos.x = this.offset.x-col*this.dimx*-1;
-                tile.object.pos.y = this.offset.y-row*this.dimy;
+                tile.object.pos.x = -col*this.dimx*-1;
+                tile.object.pos.y = -row*this.dimy;
                 
                 if(args.group)
                   tile.group = args.group;

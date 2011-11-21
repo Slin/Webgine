@@ -27,19 +27,51 @@ var gGlobals = new function()
 {
 	this.player = 0;
 	
+	this.level = 0;
 	this.nextlevel = 0;
 	this.countgifts = 0;
 	this.countgiftsoverall = 0;
+	this.lvlbl=0,this.lvlbr=0,this.lvlbt=0,this.lvlbd=0;
 };
+
+function gNextLevel() 
+{
+	gGlobals.level = gGlobals.nextlevel;
+	gRestart();
+}
+
+function gRestart() 
+{
+	// delete old lvl
+	while(wgMain.first_ent.next!=0)
+		wgMain.first_ent.next.destroy();
+	wgMain.first_ent = new wgEntity();
+	gGlobals.level();
+	gCalcGifts();
+	gGiftOutput();
+}
+
+function gCalcGifts() {
+	//Get Number of presents
+	var temp = wgTileMap.data.match(/11/g);
+	if(temp!=undefined&&temp.length>0) {
+		gGlobals.countgiftsoverall = temp.length;
+		gGlobals.countgifts = 0;
+	}
+	
+}
 
 function gFoundGift()
 {
 	//count
 	gGlobals.countgifts++;
-	
+	gGiftOutput();
+}
+
+function gGiftOutput() {
 	if(gGlobals.countgifts==gGlobals.countgiftsoverall) {
 		document.getElementById("counter").innerHTML = "Gratz! Alle Geschenke gefunden!<br/><button id=\"nextlevel\">N&auml;chstes Level Starten</button>";
-		document.getElementById("nextlevel").onclick = gGlobals.nextlevel;
+		document.getElementById("nextlevel").onclick = gNextLevel;
 	}
 	else
 		document.getElementById("counter").innerHTML = "Geschenke: "+gGlobals.countgifts+" / "+gGlobals.countgiftsoverall;
@@ -55,8 +87,9 @@ function main()
 	wgMain.initWebgine(gameevent);
 	
 	gIniTiles();
-	level1();
-	
+	//set start level
+	gGlobals.level = level0;
+	gRestart();
 	//wgAudio.playAudio("song0");
 	wgMain.mainLoop();
 }

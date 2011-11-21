@@ -41,15 +41,25 @@ function aPlayer()
 
 aPlayer.prototype.onUpdate = function(ts)
 {
+	if(this.health < 0)
+		return;
+	
+	//kill out of level
+	if(this.ent.object.pos.x<gGlobals.lvlbl||this.ent.object.pos.x>gGlobals.lvlbr||this.ent.object.pos.y<gGlobals.lvlbd) {
+		this.health = 0;
+	}
+	
 	//killed
 	if(this.health == 0)
 	{
 		wgAudio.playSound("death");
 		this.health = -1;
 		this.ent.object.material.setAnimation(1, 0, 0, 0);
+		
+		document.getElementById("counter").innerHTML = "Game Over. Der Dieb konnte entkommen.<br/><button id=\"retry\">Erneut Spielen</button>";
+		document.getElementById("retry").onclick = gRestart;
 	}
-	if(this.health <= 0)
-		return;
+	
 	
 	//movement
 	var input = (wgKeyboard.right-wgKeyboard.left);
