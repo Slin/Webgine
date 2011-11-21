@@ -61,16 +61,15 @@ aPlayer.prototype.onUpdate = function(ts)
 	}
 	else
 	{
-		if((this.onIce <= 0 || input == 0))// && this.fallspeed == 0)
+		if((this.onIce <= 0 || input == 0) && this.fallspeed == 0)
 		{
 			this.speed = this.ordspeed;
 		}
 		else
 		{
-			if(this.falspeed == 0)
+			if(this.fallspeed == 0)
 			{
-				this.speed += 0.01*ts;
-				alert("ice");
+				this.speed += 0.002*ts;
 			}
 		}
 		if(collinfo.hit && Math.abs(collinfo.dist.x)-15 < this.speed*ts)
@@ -135,10 +134,10 @@ aPlayer.prototype.onUpdate = function(ts)
 	
 	if(this.fallspeed > 0.0)
 	{
-		collinfo = wgCollision.checkParallelQuadsList(this.ent.object.pos.x+this.ent.object.size.x*0.5-14, this.ent.object.pos.y+30, this.ent.object.pos.x+this.ent.object.size.x*0.5+14, this.ent.object.pos.y+this.ent.object.size.y, wgMain.first_ent, 0);
-		if(collinfo.hit != 0)
+		collinfo = wgCollision.checkParallelQuadsList(this.ent.object.pos.x+this.ent.object.size.x*0.5-14, this.ent.object.pos.y+30, this.ent.object.pos.x+this.ent.object.size.x*0.5+14, this.ent.object.pos.y+800.0, wgMain.first_ent, 0);
+		if(collinfo.hit != 0 && collinfo.dist.y-70 < this.fallspeed*ts)
 		{
-			this.fallspeed = 0;
+			this.fallspeed = (collinfo.dist.y-70)/ts;
 		}
 	}
 	
