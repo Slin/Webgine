@@ -30,6 +30,9 @@ function aPlayer()
 	this.ordspeed = 0.3;
 	this.fallspeed = 0.0;
 	
+	this.lastspeed = 0;
+	this.lastfallspeed = 0;
+	
 	this.health = 100;
 	this.jump = 0;
 	this.onIce = 0;
@@ -55,6 +58,9 @@ aPlayer.prototype.onUpdate = function(ts)
 	}
 	if(this.health <= 0)
 		return;
+		
+	this.lastspeed = this.speed;
+	this.lastfallspeed = this.fallspeed;
 	
 	//movement
 	var input = (wgKeyboard.right-wgKeyboard.left);
@@ -134,7 +140,6 @@ aPlayer.prototype.onUpdate = function(ts)
 			this.jump = 1.0;
 		this.fallspeed = this.jump;
 		this.jump = 0;
-		this.lastdir = -100;
 	}
 	
 	if(this.fallspeed > 0.0)
