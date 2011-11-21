@@ -30,13 +30,14 @@ function level1() {
                                     ,group: 0}
                                );
   
-  wgTileMap.addTile(2, aSolid, { tex: "sample_0/worldatlas.png",
+  wgTileMap.addTile(2, aIce, { tex: "sample_0/worldatlas.png",
                                     texinfo: {cols:4, rows:4, width:256, height:256, set:13}
                                     ,group: 0
                                });
   
-  wgTileMap.addTile(4, aSolid, { tex: "sample_0/worldatlas.png",
-                                    texinfo: {cols:4, rows:4, width:256, height:256, set:5},
+  //tree
+  wgTileMap.addTile(4, aSolid, { tex: "sample_0/tree.png",
+                                    size: {x:64,y:128},
                                     group: 1
                                });
   

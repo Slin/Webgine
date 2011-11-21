@@ -27,9 +27,12 @@ function aPlayer()
 {
 	this.id = "aPlayer";
 	this.speed = 0.25;
+	this.ordspeed = 0.25;
 	this.fallspeed = 0.0;
 	
 	this.health = 100;
+	this.jump = 0;
+	this.onIce = 0;
 	
 	this.ent = 0;
 	
@@ -58,6 +61,18 @@ aPlayer.prototype.onUpdate = function(ts)
 	}
 	else
 	{
+		if((this.onIce <= 0 || input == 0))// && this.fallspeed == 0)
+		{
+			this.speed = this.ordspeed;
+		}
+		else
+		{
+			if(this.falspeed == 0)
+			{
+				this.speed += 0.01*ts;
+				alert("ice");
+			}
+		}
 		if(collinfo.hit && Math.abs(collinfo.dist.x)-15 < this.speed*ts)
 		{
 			this.ent.object.pos.x += input*(Math.abs(collinfo.dist.x)-14);
@@ -108,10 +123,13 @@ aPlayer.prototype.onUpdate = function(ts)
 	}
 	
 	//jumping
-	if(wgKeyboard.up && this.fallspeed == 0)
+	if((wgKeyboard.up || this.jump > 0) && this.fallspeed == 0)
 	{
 		this.ent.object.material.setAnimation(2, 3, 0.4, 0);
-		this.fallspeed = 1.0;
+		if(this.jump <= 0)
+			this.jump = 1.0;
+		this.fallspeed = this.jump;
+		this.jump = 0;
 		this.lastdir = -100;
 	}
 	
