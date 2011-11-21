@@ -72,6 +72,9 @@ function level1() {
 	
 	var test = new wgText();
 	test.set("welcome to lilly beta!",1000,-1600);
+	test.moveToFront();
+	
+	gGlobals.player.object.moveToFront();
 }
 
 function level2() {

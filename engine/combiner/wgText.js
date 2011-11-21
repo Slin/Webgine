@@ -64,4 +64,20 @@ wgText.prototype.set = function(text,x,y) {
         this.ltext[i].object.material.initAtlas(16, 8, 128, 64, 0, 0);
         this.ltext[i].object.material.setAtlas(this.string.charCodeAt(i));
     }
-}
+};
+
+wgText.prototype.moveToFront = function()
+{
+	for(var i=0;i<this.ltext.length;i++)
+	{
+		this.ltext[i].object.moveToFront();
+	}
+};
+
+wgText.prototype.moveToBack = function()
+{
+	for(var i=0;i<this.ltext.length;i++)
+	{
+		this.ltext[i].object.moveToBack();
+	}
+};

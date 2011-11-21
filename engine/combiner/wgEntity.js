@@ -59,7 +59,7 @@ wgEntity.prototype.addEntity = function(texfile, act,mode)
 
 wgEntity.prototype.destroy = function() 
 {
-  this.object.destroy();
+	this.object.destroy();
 	this.prev.next = this.next; 
 	this.next.prev = this.prev;
-}
+};

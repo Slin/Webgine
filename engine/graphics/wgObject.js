@@ -35,6 +35,28 @@ function wgObject()
     this.material = 0;
 }
 
+wgObject.prototype.moveToFront = function()
+{
+	var temp = this;
+	while(temp.next != 0)
+	{
+		temp = temp.next;
+	}
+	this.destroy();
+	this.prev = temp;
+	this.next = temp.next;
+	temp.next = this;
+};
+
+wgObject.prototype.moveToBack = function()
+{
+    this.destroy();
+	this.prev = wgRenderer.first_obj;
+	this.next = wgRenderer.first_obj.next;
+	wgRenderer.first_obj.next.prev = this;
+	wgRenderer.first_obj.next = this;
+};
+
 wgObject.prototype.addObject = function(texfile,mode)
 {
     var temp = new wgObject;
@@ -55,4 +77,4 @@ wgObject.prototype.destroy = function()
 {
 	this.prev.next = this.next; 
 	this.next.prev = this.prev;
-}
+};

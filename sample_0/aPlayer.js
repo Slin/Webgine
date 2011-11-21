@@ -39,6 +39,11 @@ function aPlayer()
 	this.lastdir = 0;
 }
 
+/*aPlayer.prototype.onInit = function()
+{
+	this.ent.object.moveToFront();
+}*/
+
 aPlayer.prototype.onUpdate = function(ts)
 {
 	//killed
