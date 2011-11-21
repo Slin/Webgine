@@ -60,10 +60,19 @@ function level0() {
 	wgTileMap.generate();
 	
 	//argh...to be fixed
-	//var t0,t1,t2,t3,t4,t5;
-	//t0=new wgText();t1=new wgText();t2=new wgText();t3=new wgText();t4=new wgText();
+	var t0,t1,t2,t3,t4,t5;
+	t0=new wgText();t1=new wgText();t2=new wgText();t3=new wgText();t4=new wgText();
 	
-	//t0.set("willkommen zu \"lilly rettet weihnachten'",1500,-2000);
+	t0.set("willkommen zu \"lilly rettet weihnachten\"",1400,-2020);
+	t0.moveToFront();
+	t1.set("der dieb ist da entlang ->",2200,-1750);
+	t1.moveToFront();
+	t2.set("springe mit (pfeiltaste oben)/w",2800,-2020);
+	t2.moveToFront();
+	t3.set("du musst alle geschenke einsammeln.",3200,-1750);
+	t3.moveToFront();
+	t4.set("eis macht dich schneller.",5600,-1750);
+	t4.moveToFront();
 	
 	//Set Next Level
 	gGlobals.nextlevel = level1;
@@ -75,15 +84,6 @@ function level1() {
 	
 	//Set Next Level
 	gGlobals.nextlevel = level2;
-<<<<<<< HEAD
-=======
-	
-	var test = new wgText();
-	test.set("welcome to lilly beta!",1000,-1600);
-	test.moveToFront();
-	
-	gGlobals.player.object.moveToFront();
->>>>>>> efb895b9a09562c368753d3ce95b46b41a182817
 }
 
 function level2() {

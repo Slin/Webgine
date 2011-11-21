@@ -49,6 +49,7 @@ function gRestart()
 	gGlobals.level();
 	gCalcGifts();
 	gGiftOutput();
+	gGlobals.player.object.moveToFront();
 }
 
 function gCalcGifts() {

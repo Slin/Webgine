@@ -68,15 +68,10 @@ aPlayer.prototype.onUpdate = function(ts)
 		document.getElementById("counter").innerHTML = "Game Over. Der Dieb konnte entkommen.<br/><button id=\"retry\">Erneut Spielen</button>";
 		document.getElementById("retry").onclick = gRestart;
 	}
-<<<<<<< HEAD
 	
-=======
-	if(this.health <= 0)
-		return;
-		
 	this.lastspeed = this.speed;
 	this.lastfallspeed = this.fallspeed;
->>>>>>> efb895b9a09562c368753d3ce95b46b41a182817
+
 	
 	//movement
 	var input = (wgKeyboard.right-wgKeyboard.left);
