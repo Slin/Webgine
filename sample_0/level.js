@@ -75,6 +75,15 @@ function level1() {
 	
 	//Set Next Level
 	gGlobals.nextlevel = level2;
+<<<<<<< HEAD
+=======
+	
+	var test = new wgText();
+	test.set("welcome to lilly beta!",1000,-1600);
+	test.moveToFront();
+	
+	gGlobals.player.object.moveToFront();
+>>>>>>> efb895b9a09562c368753d3ce95b46b41a182817
 }
 
 function level2() {

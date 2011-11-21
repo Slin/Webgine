@@ -71,7 +71,7 @@ aEnemy.prototype.onUpdate = function(ts)
 	}
 	this.ent.object.pos.y += this.fallspeed*ts;
 	
-	//kill player
+	//kill player or get killed
 	var dir = {x : gGlobals.player.object.pos.x-this.ent.object.pos.x, y : gGlobals.player.object.pos.y-this.ent.object.pos.y};
 	var dist = dir.x*dir.x+dir.y*dir.y;
 	dist = Math.sqrt(dist);
@@ -83,6 +83,7 @@ aEnemy.prototype.onUpdate = function(ts)
 			gGlobals.player.action.health = 0;
 		}else
 		{
+			gGlobals.player.jump = 1.0;
 			this.health = 0;
 		}
 	}

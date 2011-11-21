@@ -30,6 +30,10 @@ function aPlayer()
 	this.ordspeed = 0.3;
 	this.fallspeed = 0.0;
 	
+	this.lastspeed = 0;
+	this.lastfallspeed = 0;
+	this.jumpkey = 0;
+	
 	this.health = 100;
 	this.jump = 0;
 	this.onIce = 0;
@@ -38,6 +42,11 @@ function aPlayer()
 	
 	this.lastdir = 0;
 }
+
+/*aPlayer.prototype.onInit = function()
+{
+	this.ent.object.moveToFront();
+}*/
 
 aPlayer.prototype.onUpdate = function(ts)
 {
@@ -59,7 +68,15 @@ aPlayer.prototype.onUpdate = function(ts)
 		document.getElementById("counter").innerHTML = "Game Over. Der Dieb konnte entkommen.<br/><button id=\"retry\">Erneut Spielen</button>";
 		document.getElementById("retry").onclick = gRestart;
 	}
+<<<<<<< HEAD
 	
+=======
+	if(this.health <= 0)
+		return;
+		
+	this.lastspeed = this.speed;
+	this.lastfallspeed = this.fallspeed;
+>>>>>>> efb895b9a09562c368753d3ce95b46b41a182817
 	
 	//movement
 	var input = (wgKeyboard.right-wgKeyboard.left);
@@ -132,15 +149,19 @@ aPlayer.prototype.onUpdate = function(ts)
 	}
 	
 	//jumping
-	if((wgKeyboard.up || this.jump > 0) && this.fallspeed == 0)
+	if(((wgKeyboard.up && this.jumpkey == 0) || this.jump > 0) && this.fallspeed == 0)
 	{
 		this.ent.object.material.setAnimation(2, 3, 0.4, 0);
 		if(this.jump <= 0)
 			this.jump = 1.0;
 		this.fallspeed = this.jump;
 		this.jump = 0;
-		this.lastdir = -100;
+		this.jumpkey = 1.0;
+		this.lastdir *= 1.1;
 	}
+	
+	if(this.jumpkey != 0 && !wgKeyboard.up && this.fallspeed == 0)
+		this.jumpkey = 0;
 	
 	if(this.fallspeed > 0.0)
 	{
