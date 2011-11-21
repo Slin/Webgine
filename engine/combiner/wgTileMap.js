@@ -35,8 +35,8 @@ var wgTileMap = new function()
     this.height;
     
     // dimension of a box
-    this.dimx = 64;
-    this.dimy = 64;
+    this.dimx = 75;
+    this.dimy = 75;
     
     this.enemy = new Array();
     
@@ -52,13 +52,6 @@ var wgTileMap = new function()
         var row = 0, col = 0;
         var tile, args;
 
-		/**
-        if(this.width*this.height!=this.data.length*2+4) {
-          alert("Error: Level data is corrupt.");
-          return;
-        }
-        **/
-		
 		var tdata = this.data.split(" ");
         this.width = tdata[0];
 		this.height = tdata[1];
@@ -67,6 +60,11 @@ var wgTileMap = new function()
 		for(var i = 0; i < tdata.length; i++) {
 			tdata[i]=parseInt(tdata[i]);
 		}
+		
+        if(this.width*this.height!=tdata.length) {
+          alert("Error: Level data is corrupt.");
+          return;
+        }
 		
         for(var i = 0; i < tdata.length; i++)
         {
@@ -102,11 +100,14 @@ var wgTileMap = new function()
                 
 				
 				var func = new (this.tiles[tdata[i]][1])();
-					
-                tile = wgMain.first_ent.addEntity(args.tex, func);
+				
                 
-				if(func.id=="aPlayer")
+                
+				if(func.id=="aPlayer") {
+					tile = wgMain.first_ent.addEntity(args.tex, func);
 					gGlobals.player = tile;
+				} else
+					tile = wgMain.first_ent.addEntity(args.tex, func,1);
 				
                 tile.object.pos.x = this.offset.x-col*this.dimx*-1;
                 tile.object.pos.y = this.offset.y-row*this.dimy;
@@ -128,6 +129,9 @@ var wgTileMap = new function()
 				if(args.size) {
 					tile.object.size.x = args.size.x;
 					tile.object.size.y = args.size.y;
+				} else {
+					tile.object.size.x = this.dimx;
+					tile.object.size.y = this.dimy;
 				}
             }
             

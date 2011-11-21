@@ -1,0 +1,38 @@
+body {
+margin:0;
+padding:0;
+}
+
+#content {
+  margin: 0 auto;
+  margin-top: 50px;
+  position: relative;
+  width: 960px;
+}
+
+#wgCanvas {
+  margin: 0 auto;
+  position: relative;
+  border:1px solid black;
+}
+
+#content:hover {
+  cursor: default;
+}
+
+#counter {
+  width: 350px;
+  height: 50px;
+  z-index: 0;
+  position: absolute;
+  left: 40px;
+  top: 40px;
+  font-family: comic sans ms, verdana, arial;
+}
+
+button {
+  font-family: comic sans ms, verdana, arial;
+  border: 1px dotted black;
+  color: #f7f7f7;
+  background-color: #121212;
+}

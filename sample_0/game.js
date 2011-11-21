@@ -26,7 +26,24 @@
 var gGlobals = new function()
 {
 	this.player = 0;
+	
+	this.nextlevel = 0;
+	this.countgifts = 0;
+	this.countgiftsoverall = 0;
 };
+
+function gFoundGift()
+{
+	//count
+	gGlobals.countgifts++;
+	
+	if(gGlobals.countgifts==gGlobals.countgiftsoverall) {
+		document.getElementById("counter").innerHTML = "Gratz! Alle Geschenke gefunden!<br/><button id=\"nextlevel\">N&auml;chstes Level Starten</button>";
+		document.getElementById("nextlevel").onclick = gGlobals.nextlevel;
+	}
+	else
+		document.getElementById("counter").innerHTML = "Geschenke: "+gGlobals.countgifts+" / "+gGlobals.countgiftsoverall;
+}
 
 function gameevent(ts)
 {
@@ -37,10 +54,9 @@ function main()
 {
 	wgMain.initWebgine(gameevent);
 	
+	gIniTiles();
 	level1();
 	
-	wgAudio.playAudio("song0");
-	var test = new wgText();
-	test.set("lilly beta");
+	//wgAudio.playAudio("song0");
 	wgMain.mainLoop();
 }

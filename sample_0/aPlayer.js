@@ -26,8 +26,8 @@
 function aPlayer()
 {
 	this.id = "aPlayer";
-	this.speed = 0.25;
-	this.ordspeed = 0.25;
+	this.speed = 1;
+	this.ordspeed = 0.3;
 	this.fallspeed = 0.0;
 	
 	this.health = 100;
@@ -90,7 +90,7 @@ aPlayer.prototype.onUpdate = function(ts)
 		{
 			if(this.lastdir != input)
 			{
-				this.ent.object.material.setAnimation(2, 9, 0.12, 1);
+				this.ent.object.material.setAnimation(2, 9, .19, 1);
 				if(input < 0)
 					this.ent.object.material.inverttexx = 1.0;
 				else
@@ -145,5 +145,6 @@ aPlayer.prototype.onUpdate = function(ts)
 	this.ent.object.pos.y += this.fallspeed*ts;
 		
 	//update Camera
-	wgCamera.update(this.ent.object.pos.x,this.ent.object.pos.y);
+	if(this.health)
+		wgCamera.update(this.ent.object.pos.x,this.ent.object.pos.y);
 };
