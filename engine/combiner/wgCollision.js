@@ -91,6 +91,14 @@ var wgCollision = new function()
 		{
 			if(tempent.object != 0 && tempent.group == group)
 			{
+				//TODO: remove this hacky optimization...
+				if((tempent.object.pos.x > Math.max(fromx, tox) || tempent.object.pos.x+tempent.object.size.x < Math.min(fromx, tox)) ||
+					(tempent.object.pos.y > Math.max(fromy, toy) || tempent.object.pos.y+tempent.object.size.y < Math.min(fromy, toy)))
+					{
+						tempent = tempent.next;
+						continue;
+					}
+				
 				tempinfo = this.checkParallelQuads(fromx, fromy, tox, toy, tempent.object);
 				if(tempinfo.hit != 0)
 				{

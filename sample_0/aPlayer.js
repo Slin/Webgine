@@ -23,11 +23,18 @@
 //	OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 //	THE SOFTWARE.
 
+var PL_LAUFSPEED = 0.4;
+var PL_GRAVITY = 0.004;
+var PL_JUMPFORCE = 1.1;
+var PL_ICEACCELERATION = 0.002;
+var PL_BUMPERFORCE = 2.0;
+
+
 function aPlayer()
 {
 	this.id = "aPlayer";
-	this.speed = 1;
-	this.ordspeed = 0.3;
+	this.speed = 0.0;
+	this.ordspeed = PL_LAUFSPEED;
 	this.fallspeed = 0.0;
 	
 	this.lastspeed = 0;
@@ -91,7 +98,7 @@ aPlayer.prototype.onUpdate = function(ts)
 		{
 			if(this.fallspeed == 0)
 			{
-				this.speed += 0.002*ts;
+				this.speed += PL_ICEACCELERATION*ts;
 			}
 		}
 		if(collinfo.hit && Math.abs(collinfo.dist.x)-15 < this.speed*ts)
@@ -129,7 +136,7 @@ aPlayer.prototype.onUpdate = function(ts)
 	collinfo = wgCollision.checkParallelQuadsList(this.ent.object.pos.x+this.ent.object.size.x*0.5-14, this.ent.object.pos.y+30, this.ent.object.pos.x+this.ent.object.size.x*0.5+14, this.ent.object.pos.y-10000, wgMain.first_ent, 0);
 	if(-collinfo.dist.y > 32 || collinfo.hit == 0)
 	{
-		this.fallspeed -= ts*0.0035;
+		this.fallspeed -= ts*PL_GRAVITY;
 	}else
 	{
 		if(this.fallspeed <= 0)
@@ -148,7 +155,7 @@ aPlayer.prototype.onUpdate = function(ts)
 	{
 		this.ent.object.material.setAnimation(2, 3, 0.4, 0);
 		if(this.jump <= 0)
-			this.jump = 1.0;
+			this.jump = PL_JUMPFORCE;
 		this.fallspeed = this.jump;
 		this.jump = 0;
 		this.jumpkey = 1.0;

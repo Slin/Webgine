@@ -39,8 +39,18 @@ var wgRenderer = new function()
         wgMain.gl.disable(wgMain.gl.DEPTH_TEST);
         
         var tempobj = wgRenderer.first_obj.next;
+		var counter = 0;
         while(tempobj != 0)
         {
+			//TODO: remove hacky culling
+			var pos = {x: Math.floor(tempobj.pos.x-wgCamera.pos.x), y: Math.floor(tempobj.pos.y-wgCamera.pos.y)};
+			if(pos.x+tempobj.size.x < -canvassizex*0.5 || pos.y+tempobj.size.y < -canvassizey*0.5 || pos.x > canvassizex*0.5 || pos.y > canvassizey*0.5)
+			{
+				tempobj = tempobj.next;
+				continue;
+			}
+		
+			counter += 1;
             tempobj.material.updateAnimation(ts);
             
             wgMain.gl.useProgram(tempobj.material.shader);
@@ -50,7 +60,7 @@ var wgRenderer = new function()
             wgMain.gl.uniform1i(tempobj.material.shader.texloc, 0);
             
             wgMain.gl.uniform3f(tempobj.material.shader.projloc, canvassizex, canvassizey, scalefactor/2.0);
-            wgMain.gl.uniform4f(tempobj.material.shader.objloc, Math.floor(tempobj.pos.x-wgCamera.pos.x), Math.floor(tempobj.pos.y-wgCamera.pos.y), tempobj.size.x, tempobj.size.y);
+            wgMain.gl.uniform4f(tempobj.material.shader.objloc, pos.x, pos.y, tempobj.size.x, tempobj.size.y);
             
             wgMain.gl.uniform4f(tempobj.material.shader.atlasloc, tempobj.material.atlas.width, tempobj.material.atlas.height, tempobj.material.atlas.posx, tempobj.material.atlas.posy);
             wgMain.gl.uniform1f(tempobj.material.shader.inverttexx, tempobj.material.inverttexx);
