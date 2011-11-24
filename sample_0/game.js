@@ -27,6 +27,7 @@ var gGlobals = new function()
 {
 	this.player = 0;
 	
+	this.timer = 0;
 	this.level = 0;
 	this.nextlevel = 0;
 	this.countgifts = 0;
@@ -52,6 +53,7 @@ function gRestart()
 	gCalcGifts();
 	gGiftOutput();
 	gGlobals.player.object.moveToFront();
+	gGlobals.timer = 0;
 }
 
 function gCalcGifts() {
@@ -83,7 +85,11 @@ function gGiftOutput() {
 
 function gameevent(ts)
 {
-	
+	if(gGlobals.countgifts==gGlobals.countgiftsoverall)
+		return;
+
+	gGlobals.timer += ts/1000.0;
+	document.getElementById("timer").innerHTML = "Time: "+Math.round(gGlobals.timer*1000.0)/1000.0;
 }
 
 function main()

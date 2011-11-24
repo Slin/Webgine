@@ -63,15 +63,15 @@ function level0() {
 	var t0,t1,t2,t3,t4,t5;
 	t0=new wgText();t1=new wgText();t2=new wgText();t3=new wgText();t4=new wgText();
 	
-	t0.set("willkommen zu \"lilly rettet weihnachten\"",1400,-2020);
+	t0.set("willkommen zu \"lilly rettet weihnachten\"",300,-2020);
 	t0.moveToFront();
-	t1.set("der dieb ist da entlang ->",2200,-1750);
+	t1.set("der dieb ist da entlang ->",1100,-1750);
 	t1.moveToFront();
-	t2.set("springe mit (pfeiltaste oben)/w",2800,-2020);
+	t2.set("springe mit (pfeiltaste oben)/w",1700,-2020);
 	t2.moveToFront();
-	t3.set("du musst alle geschenke einsammeln.",3200,-1750);
+	t3.set("du musst alle geschenke einsammeln.",2100,-1750);
 	t3.moveToFront();
-	t4.set("eis macht dich schneller.",5600,-1750);
+	t4.set("eis macht dich schneller.",4500,-1750);
 	t4.moveToFront();
 	
 	//Set Next Level

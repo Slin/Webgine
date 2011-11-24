@@ -25,7 +25,19 @@ padding:0;
   height: 50px;
   z-index: 0;
   position: absolute;
+  text-align: left;
   left: 40px;
+  top: 40px;
+  font-family: comic sans ms, verdana, arial;
+}
+
+#timer {
+  width: 350px;
+  height: 50px;
+  z-index: 0;
+  position: absolute;
+  text-align: left;
+  left: 800px;
   top: 40px;
   font-family: comic sans ms, verdana, arial;
 }
