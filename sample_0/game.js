@@ -42,6 +42,8 @@ function gNextLevel()
 
 function gRestart() 
 {
+	wgKeyboard.onEnter = 0;
+	
 	// delete old lvl
 	while(wgMain.first_ent.next!=0)
 		wgMain.first_ent.next.destroy();
@@ -73,6 +75,7 @@ function gGiftOutput() {
 	if(gGlobals.countgifts==gGlobals.countgiftsoverall) {
 		document.getElementById("counter").innerHTML = "Gratz! Alle Geschenke gefunden!<br/><button id=\"nextlevel\">N&auml;chstes Level Starten</button>";
 		document.getElementById("nextlevel").onclick = gNextLevel;
+		wgKeyboard.onEnter = gNextLevel;
 	}
 	else
 		document.getElementById("counter").innerHTML = "Geschenke: "+gGlobals.countgifts+" / "+gGlobals.countgiftsoverall;
@@ -91,6 +94,7 @@ function main()
 	//set start level
 	gGlobals.level = level0;
 	gRestart();
+	wgKeyboard.onEntf = gRestart;
 	//wgAudio.playAudio("song0");
 	wgMain.mainLoop();
 }

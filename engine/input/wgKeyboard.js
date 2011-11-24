@@ -29,6 +29,12 @@ var wgKeyboard = new function()
     this.up = 0;
     this.right = 0;
     this.down = 0;
+	this.enter = 0;
+	this.space = 0;
+	this.entf = 0;
+	
+	this.onEnter = 0;
+	this.onEntf = 0;
 
     this.keyDown = function(event)
     {
@@ -59,6 +65,20 @@ var wgKeyboard = new function()
             case 68: //d
                 wgKeyboard.right = 1;
                 break;
+				
+			case 13: //enter
+				if(wgKeyboard.onEnter != 0)
+					wgKeyboard.onEnter();
+				wgKeyboard.enter = 1;
+				break;
+			case 46: //entf
+				if(wgKeyboard.onEntf != 0)
+					wgKeyboard.onEntf();
+				wgKeyboard.entf = 1;
+				break;
+			case 32: //space
+				wgKeyboard.space = 1;
+				break;
                 
             default:
                 break;
@@ -94,6 +114,16 @@ var wgKeyboard = new function()
             case 68: //d
                 wgKeyboard.right = 0;
                 break;
+				
+			case 13: //enter
+				wgKeyboard.enter = 0;
+				break;
+			case 46: //entf
+				wgKeyboard.entf = 0;
+				break;
+			case 32: //space
+				wgKeyboard.space = 0;
+				break;
                 
             default:
                 break;

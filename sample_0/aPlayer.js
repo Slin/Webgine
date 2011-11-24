@@ -28,6 +28,7 @@ var PL_GRAVITY = 0.004;
 var PL_JUMPFORCE = 1.1;
 var PL_ICEACCELERATION = 0.002;
 var PL_BUMPERFORCE = 2.0;
+var PL_ENEMYJUMPFORCE = 1.0;
 
 
 function aPlayer()
@@ -74,6 +75,7 @@ aPlayer.prototype.onUpdate = function(ts)
 		
 		document.getElementById("counter").innerHTML = "Game Over. Der Dieb konnte entkommen.<br/><button id=\"retry\">Erneut Spielen</button>";
 		document.getElementById("retry").onclick = gRestart;
+		wgKeyboard.onEnter = gRestart;
 	}
 	
 	this.lastspeed = this.speed;
@@ -119,10 +121,6 @@ aPlayer.prototype.onUpdate = function(ts)
 			if(this.lastdir != input)
 			{
 				this.ent.object.material.setAnimation(2, 9, .19, 1);
-				if(input < 0)
-					this.ent.object.material.inverttexx = 1.0;
-				else
-					this.ent.object.material.inverttexx = 0.0;
 				this.lastdir = input;
 			}
 		}else
@@ -130,6 +128,14 @@ aPlayer.prototype.onUpdate = function(ts)
 			this.lastdir = input;
 			this.ent.object.material.setAnimation(0, 0, 0, 0);
 		}
+	}
+	
+	if(input != 0)
+	{
+		if(input < 0)
+			this.ent.object.material.inverttexx = 1.0;
+		else
+			this.ent.object.material.inverttexx = 0.0;
 	}
 	
 	//gravity
@@ -151,10 +157,12 @@ aPlayer.prototype.onUpdate = function(ts)
 	}
 	
 	//jumping
-	if(((wgKeyboard.up && this.jumpkey == 0) || this.jump > 0) && this.fallspeed == 0)
+	if(((wgKeyboard.up && this.jumpkey == 0) || Math.abs(this.jump) > 0) && (this.fallspeed == 0 || this.jump < 0))
 	{
 		this.ent.object.material.setAnimation(2, 3, 0.4, 0);
-		if(this.jump <= 0)
+		if(this.jump < 0)
+			this.jump *= -1;
+		if(this.jump == 0)
 			this.jump = PL_JUMPFORCE;
 		this.fallspeed = this.jump;
 		this.jump = 0;

@@ -72,18 +72,18 @@ aEnemy.prototype.onUpdate = function(ts)
 	this.ent.object.pos.y += this.fallspeed*ts;
 	
 	//kill player or get killed
-	var dir = {x : gGlobals.player.object.pos.x-this.ent.object.pos.x, y : gGlobals.player.object.pos.y-this.ent.object.pos.y};
+	var dir = {x : gGlobals.player.object.pos.x+48-this.ent.object.pos.x-32, y : gGlobals.player.object.pos.y-this.ent.object.pos.y};
 	var dist = dir.x*dir.x+dir.y*dir.y;
 	dist = Math.sqrt(dist);
 	dir.y /= dist;
-	if(dist < 64 && gGlobals.player.action.health > 0)
+	if(dist < 45 && gGlobals.player.action.health > 0)
 	{
-		if(dir.y < 0.5)
+		if(dir.y < 0.2)
 		{
 			gGlobals.player.action.health = 0;
 		}else
 		{
-			gGlobals.player.jump = 1.0;
+			gGlobals.player.action.jump = -PL_ENEMYJUMPFORCE;
 			this.health = 0;
 		}
 	}
