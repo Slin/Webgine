@@ -59,10 +59,12 @@ var wgShader = new function()
 				
 			var fShaderQuellcode = "precision mediump float;"+
 				"uniform lowp sampler2D tex0;"+
+				"uniform lowp vec4 color;"+
 				"varying mediump vec2 texcoord0;"+
 				"void main()"+
 				"{"+
-				"    gl_FragColor = texture2D(tex0, texcoord0);"+
+				"    gl_FragColor = texture2D(tex0, texcoord0)*color;"+
+				"	 gl_FragColor.rgb *= gl_FragColor.a;"+
 				"}";
 
 			var id = wgMain.gl.createProgram();
@@ -78,6 +80,7 @@ var wgShader = new function()
 			id.atlasloc = wgMain.gl.getUniformLocation(id, "atlasinfo");
 			id.inverttexx = wgMain.gl.getUniformLocation(id, "inverttexcoordx");
 			id.texloc = wgMain.gl.getUniformLocation(id, "tex0");
+			id.colorloc = wgMain.gl.getUniformLocation(id, "color");
 			
 			wgResource.addResource("shader", id);
 		}

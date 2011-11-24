@@ -26,12 +26,20 @@
 
 var wgTexture = new function()
 {
+	this.isPowerOfTwo = function(x)
+	{
+		return (x&(x-1)) == 0;
+	};
+
     this.getTexture = function(filename,mode)
     {
         if(!wgResource.getResource(filename))
 		{
             //erstellen und laden einer Textur...
             var texid = wgMain.gl.createTexture();
+			texid.size = {x: 1, y: 1};
+			wgResource.addResource(filename, texid);
+			
             var image = new Image();
             
             image.onload = function()
@@ -46,9 +54,20 @@ var wgTexture = new function()
                     wgMain.gl.texParameteri(wgMain.gl.TEXTURE_2D, wgMain.gl.TEXTURE_MAG_FILTER, wgMain.gl.LINEAR);
                     wgMain.gl.texParameteri(wgMain.gl.TEXTURE_2D, wgMain.gl.TEXTURE_MIN_FILTER, wgMain.gl.LINEAR);
                 }
-                wgMain.gl.texParameteri(wgMain.gl.TEXTURE_2D, wgMain.gl.TEXTURE_WRAP_S, wgMain.gl.CLAMP_TO_EDGE);
-                wgMain.gl.texParameteri(wgMain.gl.TEXTURE_2D, wgMain.gl.TEXTURE_WRAP_T, wgMain.gl.CLAMP_TO_EDGE);
+				
+				if(wgTexture.isPowerOfTwo(image.width) && wgTexture.isPowerOfTwo(image.height))
+				{
+					wgMain.gl.texParameteri(wgMain.gl.TEXTURE_2D, wgMain.gl.TEXTURE_WRAP_S, wgMain.gl.REPEAT);
+					wgMain.gl.texParameteri(wgMain.gl.TEXTURE_2D, wgMain.gl.TEXTURE_WRAP_T, wgMain.gl.CLAMP_TO_EDGE);
+				}else
+				{
+					wgMain.gl.texParameteri(wgMain.gl.TEXTURE_2D, wgMain.gl.TEXTURE_WRAP_S, wgMain.gl.CLAMP_TO_EDGE);
+					wgMain.gl.texParameteri(wgMain.gl.TEXTURE_2D, wgMain.gl.TEXTURE_WRAP_T, wgMain.gl.CLAMP_TO_EDGE);
+				}
+				
+				texid.size = {x: image.width, y: image.height};
                 
+				
                 wgMain.gl.texImage2D(wgMain.gl.TEXTURE_2D, 0, wgMain.gl.RGBA, wgMain.gl.RGBA, wgMain.gl.UNSIGNED_BYTE, image);
                 wgMain.gl.bindTexture(wgMain.gl.TEXTURE_2D, null);
             }
@@ -60,7 +79,6 @@ var wgTexture = new function()
             }
             
             image.src = filename;
-            wgResource.addResource(filename, texid);
         }
         
         return wgResource.getResource(filename);

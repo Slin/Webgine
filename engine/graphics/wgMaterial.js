@@ -31,6 +31,7 @@ function wgMaterial()
 	this.atlas = {posx : 0, posy : 0, width : 1.0, height : 1.0, columns : 1, rows : 1};
 	this.animation = {curr: 0, from : 0, to : 0, range : 0, speed : 0, time : 0, cycle : 0};
 	this.inverttexx = 0;
+	this.color = {r: 1.0, g: 1.0, b: 1.0, a: 1.0};
 }
 
 wgMaterial.prototype.initAtlas = function(imagesx, imagesy, texx, texy, areax, areay)

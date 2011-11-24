@@ -65,7 +65,7 @@ var wgMain = new function()
     this.initWebgine = function(event)
     {
         // canvas ist die "Leinwand" auf die gezeichnet werden kann
-        this.canvas = document.getElementById("wgCanvas", {alpha : false});
+        this.canvas = document.getElementById("wgCanvas");//, {alpha : false});
         wgKeyboard.initKeyboard();
         this.gl = WebGLUtils.setupWebGL(this.canvas);
         WebGLDebugUtils.makeDebugContext(this.gl, this.throwOnGLError);

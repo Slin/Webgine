@@ -26,6 +26,8 @@
 var wgRenderer = new function()
 {
     this.first_obj = new wgObject();
+	this.texture = 0;
+	this.shader = 0;
 
     this.render = function(ts)
     {
@@ -34,7 +36,7 @@ var wgRenderer = new function()
         wgMain.gl.clearColor(0.5, 0.7, 0.8, 1.0);
         wgMain.gl.clear(wgMain.gl.COLOR_BUFFER_BIT|wgMain.gl.DEPTH_BUFFER_BIT);
         
-        wgMain.gl.blendFunc(wgMain.gl.SRC_ALPHA, wgMain.gl.ONE_MINUS_SRC_ALPHA);
+        wgMain.gl.blendFunc(wgMain.gl.ONE, wgMain.gl.ONE_MINUS_SRC_ALPHA);
         wgMain.gl.enable(wgMain.gl.BLEND);
         wgMain.gl.disable(wgMain.gl.DEPTH_TEST);
         
@@ -53,17 +55,26 @@ var wgRenderer = new function()
 			counter += 1;
             tempobj.material.updateAnimation(ts);
             
-            wgMain.gl.useProgram(tempobj.material.shader);
+			if(this.shader != tempobj.material.shader)
+			{
+				wgMain.gl.useProgram(tempobj.material.shader);
+				this.shader = tempobj.material.shader;
+			}
             
-            wgMain.gl.activeTexture(wgMain.gl.TEXTURE0);
-            wgMain.gl.bindTexture(wgMain.gl.TEXTURE_2D, tempobj.material.texture);
-            wgMain.gl.uniform1i(tempobj.material.shader.texloc, 0);
+			if(this.texture != tempobj.material.texture)
+			{
+				wgMain.gl.activeTexture(wgMain.gl.TEXTURE0);
+				wgMain.gl.bindTexture(wgMain.gl.TEXTURE_2D, tempobj.material.texture);
+				wgMain.gl.uniform1i(tempobj.material.shader.texloc, 0);
+				this.texture = tempobj.material.texture;
+			}
             
             wgMain.gl.uniform3f(tempobj.material.shader.projloc, canvassizex, canvassizey, scalefactor/2.0);
             wgMain.gl.uniform4f(tempobj.material.shader.objloc, pos.x, pos.y, tempobj.size.x, tempobj.size.y);
             
             wgMain.gl.uniform4f(tempobj.material.shader.atlasloc, tempobj.material.atlas.width, tempobj.material.atlas.height, tempobj.material.atlas.posx, tempobj.material.atlas.posy);
             wgMain.gl.uniform1f(tempobj.material.shader.inverttexx, tempobj.material.inverttexx);
+			wgMain.gl.uniform4f(tempobj.material.shader.colorloc, tempobj.material.color.r, tempobj.material.color.g, tempobj.material.color.b, tempobj.material.color.a);
 			
             wgMain.gl.bindBuffer(wgMain.gl.ARRAY_BUFFER, tempobj.mesh);
             wgMain.gl.vertexAttribPointer(tempobj.material.shader.posloc, 2, wgMain.gl.FLOAT, false, 0, 0);
