@@ -54,6 +54,12 @@ function gRestart()
 	gGiftOutput();
 	gGlobals.player.object.moveToFront();
 	gGlobals.timer = 0;
+	
+	if(document.getElementById("infobig").style.display == 'block') {
+		document.getElementById("infobig").style.display = 'none';
+		document.getElementById("timer").style.display = 'block';
+		document.getElementById("counter").style.display = 'block';
+	}
 }
 
 function gCalcGifts() {
@@ -75,21 +81,25 @@ function gFoundGift()
 
 function gGiftOutput() {
 	if(gGlobals.countgifts==gGlobals.countgiftsoverall) {
-		document.getElementById("counter").innerHTML = "Gratz! Alle Geschenke gefunden!<br/><button id=\"nextlevel\">N&auml;chstes Level Starten</button>";
+		document.getElementById("infobig").innerHTML = "<h2>Gratulation!</h2><br/>Du hast alle Geschenke gefunden in einer Zeit von nur <span>"+Math.round(gGlobals.timer*100)/100+" Sekunden</span>.<br/><br/><button id=\"restart\">Neuer Versuch</button> <button id=\"nextlevel\">N&auml;chstes Level</button>";
+		document.getElementById("infobig").style.display = 'block';
+		document.getElementById("timer").style.display = 'none';
+		document.getElementById("counter").style.display = 'none';		
 		document.getElementById("nextlevel").onclick = gNextLevel;
+		document.getElementById("restart").onclick = gRestart;
 		wgKeyboard.onEnter = gNextLevel;
 	}
 	else
-		document.getElementById("counter").innerHTML = "Geschenke: "+gGlobals.countgifts+" / "+gGlobals.countgiftsoverall;
+		document.getElementById("counter").innerHTML = "<img src=\"sample_0/present01.png\"/> "+gGlobals.countgifts+" / "+gGlobals.countgiftsoverall;
 }
 
 function gameevent(ts)
 {
 	if(gGlobals.countgifts==gGlobals.countgiftsoverall)
 		return;
-
+	
 	gGlobals.timer += ts/1000.0;
-	document.getElementById("timer").innerHTML = "Time: "+Math.round(gGlobals.timer*1000.0)/1000.0;
+	document.getElementById("timer").innerHTML = Math.round(gGlobals.timer*100.0)/100.0;
 }
 
 function main()

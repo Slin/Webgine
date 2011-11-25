@@ -21,18 +21,39 @@ function gIniTiles() {
                                    {tex: "sample_0/worldatlas.png",
                                     texinfo: {cols:4, rows:4, width:256, height:256, set:6}   //6right
                                     ,group: 0},
-                                   {tex: "sample_0/worldatlas.png",
-                                    texinfo: {cols:4, rows:4, width:256, height:256, set:1}   //7def
+									{tex: "sample_0/worldatlas.png",
+                                    texinfo: {cols:4, rows:4, width:256, height:256, set:5}   //7topsingle
+                                    ,group: 0},
+									{tex: "sample_0/worldatlas.png",
+                                    texinfo: {cols:4, rows:4, width:256, height:256, set:9}   //8bottom
+                                    ,group: 0},
+									{tex: "sample_0/worldatlas.png",
+                                    texinfo: {cols:4, rows:4, width:256, height:256, set:11}   //9topbottom
+                                    ,group: 0},
+									{tex: "sample_0/worldatlas.png",
+                                    texinfo: {cols:4, rows:4, width:256, height:256, set:14}   //10topbottomleft
+                                    ,group: 0},
+									{tex: "sample_0/worldatlas.png",
+                                    texinfo: {cols:4, rows:4, width:256, height:256, set:15}   //11topbottomright
+                                    ,group: 0},
+									{tex: "sample_0/worldatlas.png",
+                                    texinfo: {cols:4, rows:4, width:256, height:256, set:12}   //12bottomleft
+                                    ,group: 0},
+									{tex: "sample_0/worldatlas.png",
+                                    texinfo: {cols:4, rows:4, width:256, height:256, set:13}   //13bottomright
+                                    ,group: 0},
+									{tex: "sample_0/worldatlas.png",
+                                    texinfo: {cols:4, rows:4, width:256, height:256, set:10}   //14single
+                                    ,group: 0},
+									{tex: "sample_0/worldatlas.png",
+                                    texinfo: {cols:4, rows:4, width:256, height:256, set:8}   //15leftright
                                     ,group: 0},
                                    {tex: "sample_0/worldatlas.png",
-                                    texinfo: {cols:4, rows:4, width:256, height:256, set:7}  //8def2
+                                    texinfo: {cols:4, rows:4, width:256, height:256, set:1}   //16def
                                     ,group: 0}
                                );
   
-  wgTileMap.addTile(2, aIce, { tex: "sample_0/worldatlas.png",
-                                    texinfo: {cols:4, rows:4, width:256, height:256, set:13}
-                                    ,group: 0
-                               });
+  wgTileMap.addTile(2, aIce, { tex: "sample_0/ice.png" });
   
   //tree
   wgTileMap.addTile(4, aSolid, { tex: "sample_0/tree.png",

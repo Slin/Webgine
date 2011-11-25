@@ -1,6 +1,6 @@
 body {
-margin:0;
-padding:0;
+  margin:0;
+  padding:0;
 }
 
 #content {
@@ -21,29 +21,89 @@ padding:0;
 }
 
 #counter {
-  width: 350px;
-  height: 50px;
   z-index: 0;
   position: absolute;
   text-align: left;
   left: 40px;
   top: 40px;
-  font-family: comic sans ms, verdana, arial;
+  font-family: georgia, verdana, arial;
+  font-size: 25px;
+  padding: 7px;
+  padding-right: 11px;
+  background: #232323;
+  color: #fefefe;
+  border: 1px solid 222222;
+  -moz-border-radius: 4px;
+  -webkit-border-radius: 4px;
+  -khtml-border-radius: 4px;
+  border-radius: 4px;
+  opacity: .9;
 }
 
-#timer {
-  width: 350px;
-  height: 50px;
+#counter img {
+  margin:0;
+  padding:0;
+  padding-right: 4px;
+  border: 0;
+  float: left;
+}
+
+#infobig {
   z-index: 0;
   position: absolute;
   text-align: left;
-  left: 800px;
+  display: none;
+  left: 350px;
+  top: 40%;
+  width: 260px;
+  font-family: verdana, arial;
+  font-size: 12px;
+  padding: 7px;
+  background: #232323;
+  color: #fefefe;
+  border: 1px solid 222222;
+  -moz-border-radius: 4px;
+  -webkit-border-radius: 4px;
+  -khtml-border-radius: 4px;
+  border-radius: 4px;
+  opacity: .9;
+}
+#infobig h2 {
+  font-family: georgia, verdana, arial;
+  margin: 0;
+  font-size: 20px;
+}
+
+#infobig span {
+  
+  color: #fefefe;
+  font-size: 14px;
+}
+
+#timer {
+  width: 50px;
+  z-index: 0;
+  position: absolute;
+  text-align: left;
+  left: 860px;
   top: 40px;
-  font-family: comic sans ms, verdana, arial;
+  font-family: georgia, verdana, arial;
+  padding: 7px;
+  padding-left: 11px;
+  background: #232323;
+  color: #fefefe;
+  border: 1px solid 222222;
+  -moz-border-radius: 4px;
+  -webkit-border-radius: 4px;
+  -khtml-border-radius: 4px;
+  border-radius: 4px;
+  opacity: .9;
 }
 
 button {
-  font-family: comic sans ms, verdana, arial;
+  font-family: verdana, arial;
+  font-size: 11px;
+  padding: 3px;
   border: 1px dotted black;
   color: #f7f7f7;
   background-color: #121212;

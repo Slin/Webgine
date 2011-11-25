@@ -29,21 +29,29 @@ var wgCamera = new function()
     this.dir = 0;
     
     this.update = function(x,y) {
+	
 		if(this.pos.x==0||this.pos.y==0) {
 			this.pos.x=x;
 			this.pos.y=y;
 		}
 	
+        if(wgKeyboard.left)
+          this.dir=-1;
         
-        if(y>gGlobals.lvlbd+300)
-          this.pos.y=y;
-        
-        if(wgKeyboard.left&&this.dir>-100)
-          this.dir-=5;
-        
-        if(wgKeyboard.right&&this.dir<100)
-          this.dir+=5;
-        
-          this.pos.x=x+this.dir;
+        if(wgKeyboard.right)
+          this.dir=1;
+
+		// bottom border
+        if(y>gGlobals.lvlbd+400)
+			if(y-this.pos.y>this.pos.y-800) {
+				this.pos.y=y;
+			}
+		
+		if(x <= gGlobals.lvlbl+600)		  // left border
+          this.pos.x=gGlobals.lvlbl+600;
+		else if(x >= gGlobals.lvlbr+600)  // right border
+          this.pos.x=gGlobals.lvlbr+600;
+		else
+		  this.pos.x=x+this.dir;
     }
 };

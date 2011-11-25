@@ -77,30 +77,53 @@ var wgTileMap = new function()
             args = new Array();
             
             if(this.tiles[tdata[i]]!=undefined) {
-                
-                //there may not only be one texture but multiple textures: top,topleft,topright,left,right,default
-                if(this.tiles[tdata[i]].length>=7) {
+                if(this.tiles[tdata[i]].length>=15) {
                     
                     // choose the right tile, depending on neighbours
-                    if((!tdata[(row-1)*this.width+(col)] && !tdata[(row)*this.width+(col-1)]) || !tdata[(row)*this.width+(col-1)]&&this.tiles[tdata[(row-1)*this.width+(col)]]!=this.tiles[tdata[(row)*this.width+(col)]])
+					//document.getElementById("info").innerHTML+=tdata[i]+"-"+"left"+tdata[(row)*this.width+(col-1)]+"right"+tdata[(row)*this.width+(col+1)]+"up"+tdata[(row-1)*this.width+(col)]+"dn"+tdata[(row+1)*this.width+(col)]+"<br/>";
+					
+					if(!tdata[(row-1)*this.width+(col)] && !tdata[(row+1)*this.width+(col)] && !tdata[(row)*this.width+(col+1)] && !tdata[(row)*this.width+(col-1)])
+                      args = this.tiles[tdata[i]][14];   //single
+					else if(!tdata[(row-1)*this.width+(col)] && !tdata[(row)*this.width+(col+1)] && !tdata[(row)*this.width+(col-1)])
+                      args = this.tiles[tdata[i]][7];   //topsingle
+					
+					else if(!tdata[(row-1)*this.width+(col)] && !tdata[(row+1)*this.width+(col)] && !tdata[(row)*this.width+(col-1)])
+                      args = this.tiles[tdata[i]][10];   //topbottomleft
+					else if(!tdata[(row-1)*this.width+(col)] && !tdata[(row+1)*this.width+(col)] && !tdata[(row)*this.width+(col+1)])
+                      args = this.tiles[tdata[i]][11];   //topbottomright
+					
+                    else if(!tdata[(row-1)*this.width+(col)] && !tdata[(row+1)*this.width+(col)])
+                      args = this.tiles[tdata[i]][9];   //topbottom
+					else if((!tdata[(row-1)*this.width+(col)] && !tdata[(row)*this.width+(col-1)]) || !tdata[(row)*this.width+(col-1)]&&this.tiles[tdata[(row-1)*this.width+(col)]]!=this.tiles[tdata[(row)*this.width+(col)]])
                       args = this.tiles[tdata[i]][2];   //topleft
                     else if((!tdata[(row-1)*this.width+(col)] && !tdata[(row)*this.width+(col+1)]) || !tdata[(row)*this.width+(col+1)]&&this.tiles[tdata[(row-1)*this.width+(col)]]!=this.tiles[tdata[(row)*this.width+(col)]])
                       args = this.tiles[tdata[i]][4];   //topright
                     else if(!tdata[(row-1)*this.width+(col)] || this.tiles[tdata[(row-1)*this.width+(col)]]!=this.tiles[tdata[(row)*this.width+(col)]])
                       args = this.tiles[tdata[i]][3];   //top
+					else if(!tdata[(row+1)*this.width+(col)] && !tdata[(row)*this.width+(col-1)])
+                      args = this.tiles[tdata[i]][12];   //bottomleft
+					else if(!tdata[(row+1)*this.width+(col)] && !tdata[(row)*this.width+(col+1)])
+                      args = this.tiles[tdata[i]][13];   //bottomright
+					else if(!tdata[(row+1)*this.width+(col)])
+                      args = this.tiles[tdata[i]][8];   //bottom
+					else if(!tdata[(row)*this.width+(col-1)] && !tdata[(row)*this.width+(col+1)])
+                      args = this.tiles[tdata[i]][15];   //leftright
                     else if(!tdata[(row)*this.width+(col-1)])
                       args = this.tiles[tdata[i]][5];   //left
                     else if(!tdata[(row)*this.width+(col+1)])
                       args = this.tiles[tdata[i]][6];   //right
-                    else if(this.tiles[tdata[i]].length>7) {
-                      var min=7;
+					
+					
+                    else if(this.tiles[tdata[i]].length>16) {
+                      var min=16;
                       var max=this.tiles[tdata[i]].length;
                       var rand = Math.floor(Math.random()*(max-min))+min;
                       
                       args = this.tiles[tdata[i]][rand];   // random default tiles
                     }
+					
                     else
-                      args = this.tiles[tdata[i]][7];   //default
+                     args = this.tiles[tdata[i]][16];   //default
                 } else
                     args = this.tiles[tdata[i]][2];
                 
