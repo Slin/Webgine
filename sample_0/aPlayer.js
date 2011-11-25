@@ -73,7 +73,7 @@ aPlayer.prototype.onUpdate = function(ts)
 		this.health = -1;
 		this.ent.object.material.setAnimation(1, 0, 0, 0);
 		
-		document.getElementById("infobig").innerHTML = "<h2>Gameover</h2>Der Dieb ist entkommen und Weihnachten wurde ruiniert!<br/><br/><center><button id=\"retry\">Erneut Spielen</button></center>";
+		document.getElementById("infobig").innerHTML = "<h2>Game Over</h2>Der Dieb ist entkommen und Weihnachten wurde ruiniert!<br/><br/><center><button id=\"retry\">Erneut Spielen</button></center>";
 		document.getElementById("infobig").style.display = 'block';
 		document.getElementById("timer").style.display = 'none';
 		document.getElementById("counter").style.display = 'none';
