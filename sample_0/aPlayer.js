@@ -143,7 +143,7 @@ aPlayer.prototype.onUpdate = function(ts)
 	}
 	
 	//gravity
-	collinfo = wgCollision.checkParallelQuadsList(this.ent.object.pos.x+this.ent.object.size.x*0.5-14, this.ent.object.pos.y+30, this.ent.object.pos.x+this.ent.object.size.x*0.5+14, this.ent.object.pos.y-10000, wgMain.first_ent, 0);
+	collinfo = wgCollision.checkParallelQuadsList(this.ent.object.pos.x+this.ent.object.size.x*0.5-14, this.ent.object.pos.y+30, this.ent.object.pos.x+this.ent.object.size.x*0.5+14, this.ent.object.pos.y-1000, wgMain.first_ent, 0);
 	if(-collinfo.dist.y > 32 || collinfo.hit == 0)
 	{
 		this.fallspeed -= ts*PL_GRAVITY;
