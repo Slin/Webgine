@@ -87,13 +87,17 @@ var wgCollision = new function()
 		var tempent = ents;
 		var collinfo = new wgCollInfo();
 		var tempinfo = 0;
+		var maxx = Math.max(fromx, tox);
+		var minx = Math.min(fromx, tox);
+		var maxy = Math.max(fromy, toy);
+		var miny = Math.min(fromy, toy);
 		while(tempent != 0)
 		{
 			if(tempent.object != 0 && tempent.group == group)
 			{
 				//TODO: remove this hacky optimization...
-				if((tempent.object.pos.x > Math.max(fromx, tox) || tempent.object.pos.x+tempent.object.size.x < Math.min(fromx, tox)) ||
-					(tempent.object.pos.y > Math.max(fromy, toy) || tempent.object.pos.y+tempent.object.size.y < Math.min(fromy, toy)))
+				if(	(tempent.object.pos.x > maxx || tempent.object.pos.x+tempent.object.size.x < minx) ||
+					(tempent.object.pos.y > maxy || tempent.object.pos.y+tempent.object.size.y < miny))
 					{
 						tempent = tempent.next;
 						continue;

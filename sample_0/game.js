@@ -129,8 +129,35 @@ function main()
 	wgMain.initWebgine(gameevent);
 	
 	gIniTiles();
-	//set start level
+	
 	gGlobals.level = level0;
+	
+	if(document.getElementById("level") != null)
+	{
+		switch(document.getElementById("level").value)
+		{
+			case 0:
+				gGlobals.level = level0;
+				break;
+			
+			case 1:
+				gGlobals.level = level0;
+				break;
+				
+			case 2:
+				gGlobals.level = level0;
+				break;
+				
+			case 15:
+				gGlobals.level = level0;
+				break;
+				
+			case 16:
+				gGlobals.level = level0;
+				break;
+		}
+	}
+	
 	gRestart();
 	wgKeyboard.onEntf = gRestart;
 	//wgAudio.playAudio("song0");
