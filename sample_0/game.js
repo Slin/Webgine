@@ -134,26 +134,26 @@ function main()
 	
 	if(document.getElementById("level") != null)
 	{
-		switch(document.getElementById("level").value)
+		switch(parseInt(document.getElementById("level").value))
 		{
 			case 0:
 				gGlobals.level = level0;
 				break;
 			
 			case 1:
-				gGlobals.level = level0;
+				gGlobals.level = level1;
 				break;
 				
 			case 2:
-				gGlobals.level = level0;
+				gGlobals.level = level2;
 				break;
 				
 			case 15:
-				gGlobals.level = level0;
+				gGlobals.level = level15;
 				break;
 				
 			case 16:
-				gGlobals.level = level0;
+				gGlobals.level = level16;
 				break;
 		}
 	}
