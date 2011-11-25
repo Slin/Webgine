@@ -119,6 +119,7 @@ function gTest()
 	wgTileMap.generate();
 	gCalcGifts();
 	gGiftOutput();
+	gGlobals.timer = 0;
 	//gGlobals.player.object.moveToFront();
 	wgCamera.update(player.pos.x,player.pos.y);
 }
