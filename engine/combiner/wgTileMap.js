@@ -55,6 +55,7 @@ var wgTileMap = new function()
 		var tdata = this.data.split(" ");
         this.width = tdata[0];
 		this.height = tdata[1];
+		
 		tdata = tdata.slice(2,tdata.length);
 
 		for(var i = 0; i < tdata.length; i++) {
@@ -79,40 +80,62 @@ var wgTileMap = new function()
             if(this.tiles[tdata[i]]!=undefined) {
                 if(this.tiles[tdata[i]].length>=15) {
                     
-                    // choose the right tile, depending on neighbours
-					//document.getElementById("info").innerHTML+=tdata[i]+"-"+"left"+tdata[(row)*this.width+(col-1)]+"right"+tdata[(row)*this.width+(col+1)]+"up"+tdata[(row-1)*this.width+(col)]+"dn"+tdata[(row+1)*this.width+(col)]+"<br/>";
+					var cr = (row)*this.width+(col);
+					var up = (row-1)*this.width+(col);
+					var dn = (row+1)*this.width+(col);
+					var lt = (row)*this.width+(col-1);
+					var rt = (row)*this.width+(col+1);
 					
-					if(!tdata[(row-1)*this.width+(col)] && !tdata[(row+1)*this.width+(col)] && !tdata[(row)*this.width+(col+1)] && !tdata[(row)*this.width+(col-1)])
-                      args = this.tiles[tdata[i]][14];   //single
-					else if(!tdata[(row-1)*this.width+(col)] && !tdata[(row)*this.width+(col+1)] && !tdata[(row)*this.width+(col-1)])
-                      args = this.tiles[tdata[i]][7];   //topsingle
+					var upbro=0,dnbro=0,ltbro=0,rtbro=0;
 					
-					else if(!tdata[(row-1)*this.width+(col)] && !tdata[(row+1)*this.width+(col)] && !tdata[(row)*this.width+(col-1)])
-                      args = this.tiles[tdata[i]][10];   //topbottomleft
-					else if(!tdata[(row-1)*this.width+(col)] && !tdata[(row+1)*this.width+(col)] && !tdata[(row)*this.width+(col+1)])
-                      args = this.tiles[tdata[i]][11];   //topbottomright
+					if(this.tiles[tdata[(row-1)*this.width+(col)]] != undefined && this.tiles[tdata[(row-1)*this.width+(col)]][2].bro) 
+						upbro = this.tiles[tdata[(row-1)*this.width+(col)]][2].bro;
+					else
+						upbro = 0;
 					
-                    else if(!tdata[(row-1)*this.width+(col)] && !tdata[(row+1)*this.width+(col)])
-                      args = this.tiles[tdata[i]][9];   //topbottom
-					else if((!tdata[(row-1)*this.width+(col)] && !tdata[(row)*this.width+(col-1)]) || !tdata[(row)*this.width+(col-1)]&&this.tiles[tdata[(row-1)*this.width+(col)]]!=this.tiles[tdata[(row)*this.width+(col)]])
-                      args = this.tiles[tdata[i]][2];   //topleft
-                    else if((!tdata[(row-1)*this.width+(col)] && !tdata[(row)*this.width+(col+1)]) || !tdata[(row)*this.width+(col+1)]&&this.tiles[tdata[(row-1)*this.width+(col)]]!=this.tiles[tdata[(row)*this.width+(col)]])
-                      args = this.tiles[tdata[i]][4];   //topright
-                    else if(!tdata[(row-1)*this.width+(col)] || this.tiles[tdata[(row-1)*this.width+(col)]]!=this.tiles[tdata[(row)*this.width+(col)]])
-                      args = this.tiles[tdata[i]][3];   //top
-					else if(!tdata[(row+1)*this.width+(col)] && !tdata[(row)*this.width+(col-1)])
-                      args = this.tiles[tdata[i]][12];   //bottomleft
-					else if(!tdata[(row+1)*this.width+(col)] && !tdata[(row)*this.width+(col+1)])
-                      args = this.tiles[tdata[i]][13];   //bottomright
-					else if(!tdata[(row+1)*this.width+(col)])
-                      args = this.tiles[tdata[i]][8];   //bottom
-					else if(!tdata[(row)*this.width+(col-1)] && !tdata[(row)*this.width+(col+1)])
-                      args = this.tiles[tdata[i]][15];   //leftright
-                    else if(!tdata[(row)*this.width+(col-1)])
-                      args = this.tiles[tdata[i]][5];   //left
-                    else if(!tdata[(row)*this.width+(col+1)])
-                      args = this.tiles[tdata[i]][6];   //right
+					if(this.tiles[tdata[(row+1)*this.width+(col)]] != undefined && this.tiles[tdata[(row+1)*this.width+(col)]][2].bro)
+						dnbro = this.tiles[tdata[(row+1)*this.width+(col)]][2].bro;
+					else
+						dnbro = 0;
 					
+					if(this.tiles[tdata[(row)*this.width+(col-1)]] != undefined && this.tiles[tdata[(row)*this.width+(col-1)]][2].bro)
+						ltbro = this.tiles[tdata[(row)*this.width+(col-1)]][2].bro;
+					else
+						ltbro = 0;
+					
+					if(this.tiles[tdata[(row)*this.width+(col+1)]] != undefined && this.tiles[tdata[(row)*this.width+(col+1)]][2].bro)
+						rtbro = this.tiles[tdata[(row)*this.width+(col+1)]][2].bro;
+					else
+						rtbro = 0;
+					
+					if(tdata[up]!=tdata[cr] && tdata[dn]!=tdata[cr] && tdata[rt]!=tdata[cr] && tdata[lt]!=tdata[cr])
+                      args = this.tiles[tdata[i]][15];   //single
+					else if(tdata[up]!=tdata[cr] && tdata[rt]!=tdata[cr] && tdata[lt]!=tdata[cr])
+                      args = this.tiles[tdata[i]][8];   //topsingle
+					else if(tdata[up]!=tdata[cr] && tdata[dn]!=tdata[cr] && tdata[lt]!=tdata[cr])
+                      args = this.tiles[tdata[i]][11];   //topbottomleft
+					else if(tdata[up]!=tdata[cr] && tdata[dn]!=tdata[cr] && tdata[rt]!=tdata[cr])
+                      args = this.tiles[tdata[i]][12];   //topbottomright
+                    else if(tdata[up]!=tdata[cr] && tdata[dn]!=tdata[cr] && tdata[cr]!=upbro)
+                      args = this.tiles[tdata[i]][10];   //topbottom
+					else if((tdata[up]!=tdata[cr] && tdata[lt]!=tdata[cr]) && tdata[cr]!=ltbro)
+                      args = this.tiles[tdata[i]][3];   //topleft
+                    else if((tdata[up]!=tdata[cr] && tdata[rt]!=tdata[cr]) && tdata[cr]!=rtbro)
+                      args = this.tiles[tdata[i]][5];   //topright
+                    else if(tdata[up]!=tdata[cr] && tdata[cr]!=upbro)
+                      args = this.tiles[tdata[i]][4];   //top
+					else if(tdata[dn]!=tdata[cr] && tdata[lt]!=tdata[cr])
+                      args = this.tiles[tdata[i]][13];   //bottomleft
+					else if(tdata[dn]!=tdata[cr] && tdata[rt]!=tdata[cr])
+                      args = this.tiles[tdata[i]][14];   //bottomright
+					else if(tdata[dn]!=tdata[cr])
+                      args = this.tiles[tdata[i]][9];   //bottom
+					else if(tdata[lt]!=tdata[cr] && tdata[rt]!=tdata[cr])
+                      args = this.tiles[tdata[i]][16];   //leftright
+                    else if(tdata[lt]!=tdata[cr])
+                      args = this.tiles[tdata[i]][6];   //left
+                    else if(tdata[rt]!=tdata[cr])
+                      args = this.tiles[tdata[i]][7];   //right
 					
                     else if(this.tiles[tdata[i]].length>16) {
                       var min=16;
