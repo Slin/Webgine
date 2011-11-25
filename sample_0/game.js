@@ -102,6 +102,27 @@ function gameevent(ts)
 	document.getElementById("timer").innerHTML = Math.round(gGlobals.timer*100.0)/100.0;
 }
 
+function gTestIni() {
+	document.getElementById("dev").innerHTML = "<br/>Testumgebung<br/><textarea id=\"testlevel\" rows=\"3\" cols=\"100\"></textarea><br/><br/><button id=\"test\">Test Level</button> <button id=\"nextlvl\">Next Level</button>";
+	document.getElementById("test").onclick = gTest;
+	document.getElementById("nextlvl").onclick = gNextLevel;
+}
+
+function gTest()
+{
+	// delete old lvl
+	while(wgMain.first_ent.next!=0)
+		wgMain.first_ent.next.destroy();
+	wgMain.first_ent = new wgEntity();
+
+	wgTileMap.data = document.getElementById("testlevel").value;
+	wgTileMap.generate();
+	gCalcGifts();
+	gGiftOutput();
+	//gGlobals.player.object.moveToFront();
+	wgCamera.update(player.pos.x,player.pos.y);
+}
+
 function main()
 {
 	wgMain.initWebgine(gameevent);
@@ -112,5 +133,9 @@ function main()
 	gRestart();
 	wgKeyboard.onEntf = gRestart;
 	//wgAudio.playAudio("song0");
+	
+	// Enable Testenv
+	gTestIni();
+	
 	wgMain.mainLoop();
 }
