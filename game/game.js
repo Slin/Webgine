@@ -153,7 +153,7 @@ function main()
 				gGlobals.level = level_0_0;
 				break;
 			
-			case 1:
+/*			case 1:
 				gGlobals.level = level_1_0;
 				break;
 				
@@ -167,7 +167,7 @@ function main()
 				
 			case 16:
 				gGlobals.level = level_16_0;
-				break;
+				break;*/
 		}
 	}
 	
