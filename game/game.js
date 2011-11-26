@@ -102,7 +102,7 @@ function gameevent(ts)
 	document.getElementById("timer").innerHTML = Math.round(gGlobals.timer*100.0)/100.0;
 }
 
-function gTestIni() {
+function gTestInit() {
 	document.getElementById("dev").innerHTML = "<br/>Testumgebung<br/><textarea id=\"testlevel\" rows=\"3\" cols=\"100\"></textarea><br/><br/><button id=\"test\">Test Level</button> <button id=\"nextlvl\">Next Level</button>";
 	document.getElementById("test").onclick = gTest;
 	document.getElementById("nextlvl").onclick = gNextLevel;
@@ -163,7 +163,7 @@ function main()
 	//wgAudio.playAudio("song0");
 	
 	// Enable Testenv
-	gTestIni();
+	//gTestInit();
 	
 	wgMain.mainLoop();
 }
