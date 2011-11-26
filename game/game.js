@@ -90,7 +90,7 @@ function gGiftOutput() {
 		wgKeyboard.onEnter = gNextLevel;
 	}
 	else
-		document.getElementById("counter").innerHTML = "<img src=\"sample_0/present01.png\"/> "+gGlobals.countgifts+" / "+gGlobals.countgiftsoverall;
+		document.getElementById("counter").innerHTML = "<img src=\"game/present01.png\"/> "+gGlobals.countgifts+" / "+gGlobals.countgiftsoverall;
 }
 
 function gameevent(ts)

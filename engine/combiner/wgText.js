@@ -26,7 +26,7 @@
 
 function wgText()
 {
-    this.texture = "sample_0/font01.png";
+    this.texture = 0;
     this.dimx = 16;
     this.dimy = 16;
 
@@ -37,6 +37,12 @@ function wgText()
 }
 
 wgText.prototype.set = function(text,x,y) {
+
+	if(this.texture == 0)
+	{
+		alert("No font texture specified to display \""+text+"\" with.");
+		return;
+	}
 
     this.string = text;
     if(x!=0&&y!=0) {
