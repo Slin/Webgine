@@ -159,14 +159,6 @@ function main()
 				
 			case 2:
 				gGlobals.level = level_2_0;
-				break;
-				
-			case 15:
-				gGlobals.level = level_15_0;
-				break;
-				
-			case 16:
-				gGlobals.level = level_16_0;
 				break;*/
 		}
 	}
