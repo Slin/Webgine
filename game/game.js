@@ -83,7 +83,7 @@ function gGiftOutput() {
 	if(gGlobals.countgifts==gGlobals.countgiftsoverall) {
 		if(gGlobals.nextlevel == 0)
 		{
-			if(gGlobals.level == level_0_0)
+			if(gGlobals.level == level_0_1)
 			{
 				document.getElementById("infobig").innerHTML = "<h2>Gratulation!</h2><br/>Du hast alle Geschenke gefunden in einer Zeit von nur <span>"+Math.round(gGlobals.timer*100)/100+" Sekunden</span>.<br/><br/><b>Du hast alle bisher spielbaren Levels gespielt, ab 1. Dezember gibt es mehr!</b><br/><br/><button id=\"restart\">Neuer Versuch</button> <button id=\"nextlevel\">Erneut spielen</button>";
 			}else
