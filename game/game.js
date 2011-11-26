@@ -81,7 +81,20 @@ function gFoundGift()
 
 function gGiftOutput() {
 	if(gGlobals.countgifts==gGlobals.countgiftsoverall) {
-		document.getElementById("infobig").innerHTML = "<h2>Gratulation!</h2><br/>Du hast alle Geschenke gefunden in einer Zeit von nur <span>"+Math.round(gGlobals.timer*100)/100+" Sekunden</span>.<br/><br/><button id=\"restart\">Neuer Versuch</button> <button id=\"nextlevel\">N&auml;chstes Level</button>";
+		if(gGlobals.nextlevel == 0)
+		{
+			if(gGlobals.level == level_0_0)
+			{
+				document.getElementById("infobig").innerHTML = "<h2>Gratulation!</h2><br/>Du hast alle Geschenke gefunden in einer Zeit von nur <span>"+Math.round(gGlobals.timer*100)/100+" Sekunden</span>.<br/><br/><b>Du hast alle bisher spielbaren Levels gespielt, ab 1. Dezember gibt es mehr!</b><br/><br/><button id=\"restart\">Neuer Versuch</button> <button id=\"nextlevel\">Erneut spielen</button>";
+			}else
+			{
+				document.getElementById("infobig").innerHTML = "<h2>Gratulation!</h2><br/>Du hast alle Geschenke gefunden in einer Zeit von nur <span>"+Math.round(gGlobals.timer*100)/100+" Sekunden</span>.<br/><br/><b>Du hast alle bisher spielbaren Levels gespielt, morgen gibt es mehr!</b><br/><br/><button id=\"restart\">Neuer Versuch</button> <button id=\"nextlevel\">Erneut spielen</button>";
+			}
+			gGlobals.nextlevel = level_0_0;
+		}else
+		{
+			document.getElementById("infobig").innerHTML = "<h2>Gratulation!</h2><br/>Du hast alle Geschenke gefunden in einer Zeit von nur <span>"+Math.round(gGlobals.timer*100)/100+" Sekunden</span>.<br/><br/><button id=\"restart\">Neuer Versuch</button> <button id=\"nextlevel\">N&auml;chstes Level</button>";
+		}
 		document.getElementById("infobig").style.display = 'block';
 		document.getElementById("timer").style.display = 'none';
 		document.getElementById("counter").style.display = 'none';		
@@ -130,30 +143,30 @@ function main()
 	
 	gIniTiles();
 	
-	gGlobals.level = level0;
+	gGlobals.level = level_0_0;
 	
 	if(document.getElementById("level") != null)
 	{
 		switch(parseInt(document.getElementById("level").value))
 		{
 			case 0:
-				gGlobals.level = level0;
+				gGlobals.level = level_0_0;
 				break;
 			
 			case 1:
-				gGlobals.level = level1;
+				gGlobals.level = level_1_0;
 				break;
 				
 			case 2:
-				gGlobals.level = level2;
+				gGlobals.level = level_2_0;
 				break;
 				
 			case 15:
-				gGlobals.level = level15;
+				gGlobals.level = level_15_0;
 				break;
 				
 			case 16:
-				gGlobals.level = level16;
+				gGlobals.level = level_16_0;
 				break;
 		}
 	}

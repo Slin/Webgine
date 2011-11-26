@@ -76,7 +76,7 @@ function gIniTiles() {
 }
 
 
-function level0() {
+function level_0_0() {
 	wgMain.first_ent.addEntity("game/backgroundatlas.png", new aBackground(0.2, 0.8, -0.6));
 	wgMain.first_ent.addEntity("game/backgroundatlas.png", new aBackground(0.4, 0.5, -0.3));
 	wgMain.first_ent.addEntity("game/backgroundatlas.png", new aBackground(0.6, 0.2, 0.0));
@@ -90,22 +90,22 @@ function level0() {
 	t0=new wgText();t1=new wgText();t2=new wgText();t3=new wgText();t4=new wgText();
 	t0.texture = t1.texture = t2.texture = t3.texture = t4.texture = "game/font01.png";
 	
-	t0.set("willkommen zu \"lilly rettet weihnachten\"",300,-2020);
+	t0.set("willkommen zu \"lilly rettet weihnachten\"",250,-2020);
 	t0.moveToFront();
-	t1.set("der dieb ist da entlang ->",1100,-1750);
+	t1.set("der dieb ist da entlang ->",1050,-1750);
 	t1.moveToFront();
-	t2.set("springe mit (pfeiltaste oben)/w",1700,-2020);
+	t2.set("springe mit (pfeiltaste oben)/w",1650,-2020);
 	t2.moveToFront();
 	t3.set("du musst alle geschenke einsammeln.",2100,-1750);
 	t3.moveToFront();
-	t4.set("eis macht dich schneller.",4500,-1750);
+	t4.set("eis macht dich schneller.",4450,-1750);
 	t4.moveToFront();
 	
 	//Set Next Level
-	gGlobals.nextlevel = level1;
+	gGlobals.nextlevel = level_0_1;
 }
 
-function level1() {
+function level_0_1() {
 	wgMain.first_ent.addEntity("game/backgroundatlas.png", new aBackground(0.2, 0.8, -0.6));
 	wgMain.first_ent.addEntity("game/backgroundatlas.png", new aBackground(0.4, 0.5, -0.3));
 	wgMain.first_ent.addEntity("game/backgroundatlas.png", new aBackground(0.6, 0.2, 0.0));
@@ -115,10 +115,10 @@ function level1() {
 	wgTileMap.generate();
 	
 	//Set Next Level
-	gGlobals.nextlevel = level2;
+	gGlobals.nextlevel = 0;
 }
 
-function level2() {
+function level_2_0() {
 	wgMain.first_ent.addEntity("game/backgroundatlas.png", new aBackground(0.2, 0.8, -0.6));
 	wgMain.first_ent.addEntity("game/backgroundatlas.png", new aBackground(0.4, 0.5, -0.3));
 	wgMain.first_ent.addEntity("game/backgroundatlas.png", new aBackground(0.6, 0.2, 0.0));
@@ -128,10 +128,10 @@ function level2() {
 	wgTileMap.generate();
 	
 	//Set Next Level
-	gGlobals.nextlevel = level15;
+	gGlobals.nextlevel = 0;
 }
 
-function level15() {
+function level_15_0() {
 	wgMain.first_ent.addEntity("game/backgroundatlas.png", new aBackground(0.2, 0.8, -0.6));
 	wgMain.first_ent.addEntity("game/backgroundatlas.png", new aBackground(0.4, 0.5, -0.3));
 	wgMain.first_ent.addEntity("game/backgroundatlas.png", new aBackground(0.6, 0.2, 0.0));
@@ -141,10 +141,10 @@ function level15() {
 	wgTileMap.generate();
 	
 	//Set Next Level
-	gGlobals.nextlevel = level16;
+	gGlobals.nextlevel = 0;
 }
 
-function level16() {
+function level_16_0() {
 	wgMain.first_ent.addEntity("game/backgroundatlas.png", new aBackground(0.2, 0.8, -0.6));
 	wgMain.first_ent.addEntity("game/backgroundatlas.png", new aBackground(0.4, 0.5, -0.3));
 	wgMain.first_ent.addEntity("game/backgroundatlas.png", new aBackground(0.6, 0.2, 0.0));
@@ -154,5 +154,5 @@ function level16() {
 	wgTileMap.generate();
 	
 	//Set Next Level
-	gGlobals.nextlevel = level0;
+	gGlobals.nextlevel = 0;
 }
