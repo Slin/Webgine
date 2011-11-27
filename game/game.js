@@ -107,7 +107,7 @@ function gGiftOutput() {
 		document.getElementById("counter").innerHTML = "<img src=\"game/present01.png\"/> "+gGlobals.countgifts+" / "+gGlobals.countgiftsoverall;
 }
 
-var musicplaying = "song0";
+var musicplaying = "song1";
 function toggleMusic()
 {
 	if(musicplaying != 0)
@@ -118,8 +118,8 @@ function toggleMusic()
 	}else
 	{
 		document.getElementById("music").src = "game/stop_icon.png";
-		wgAudio.playAudio("song0", 1);
-		musicplaying = "song0";
+		wgAudio.playAudio("song1", 1);
+		musicplaying = "song1";
 	}
 }
 
@@ -128,13 +128,13 @@ function toggleSound()
 {
 	if(audioplaying == 1)
 	{
-		wgAudio.muteAudio("song0");
+		wgAudio.muteAudio("song1");
 		document.getElementById("sound").src = "game/unmute_icon.png";
 		wgAudio.muteSounds();
 		audioplaying = 0;
 	}else
 	{
-		wgAudio.unmuteAudio("song0");
+		wgAudio.unmuteAudio("song1");
 		document.getElementById("sound").src = "game/mute_icon.png";
 		wgAudio.unmuteSounds();
 		audioplaying = 1;
@@ -200,7 +200,7 @@ function main()
 	
 	gRestart();
 	wgKeyboard.onEntf = gRestart;
-	wgAudio.playAudio("song0", 1);
+	wgAudio.playAudio("song1", 1);
 	
 	// Enable Testenv
 	//gTestInit();
