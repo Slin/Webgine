@@ -32,7 +32,7 @@ body {
   padding-right: 11px;
   background: #232323;
   color: #fefefe;
-  border: 1px solid 222222;
+  border: 1px solid #222222;
   -moz-border-radius: 4px;
   -webkit-border-radius: 4px;
   -khtml-border-radius: 4px;
@@ -61,7 +61,7 @@ body {
   padding: 7px;
   background: #232323;
   color: #fefefe;
-  border: 1px solid 222222;
+  border: 1px solid #222222;
   -moz-border-radius: 4px;
   -webkit-border-radius: 4px;
   -khtml-border-radius: 4px;
@@ -92,7 +92,7 @@ body {
   padding-left: 11px;
   background: #232323;
   color: #fefefe;
-  border: 1px solid 222222;
+  border: 1px solid #222222;
   -moz-border-radius: 4px;
   -webkit-border-radius: 4px;
   -khtml-border-radius: 4px;

@@ -40,6 +40,8 @@ var wgAudio = new function()
 	
 	this.playAudio = function(name, loop)
 	{
+		if(!document.getElementById(name))
+			return;
 		document.getElementById(name).play();
 		
 		if(loop != 0)
