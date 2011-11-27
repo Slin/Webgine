@@ -164,7 +164,7 @@ aPlayer.prototype.onUpdate = function(ts)
 	}
 	
 	//jumping
-	if(((wgKeyboard.up && this.jumpkey == 0) || Math.abs(this.jump) > 0) && (this.fallspeed == 0 || this.jump < 0))
+	if((((wgKeyboard.up||wgKeyboard.space) && this.jumpkey == 0) || Math.abs(this.jump) > 0) && (this.fallspeed == 0 || this.jump < 0))
 	{
 		this.ent.object.material.setAnimation(2, 3, 0.4, 0);
 		if(this.jump < 0)
