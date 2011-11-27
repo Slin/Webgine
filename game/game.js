@@ -112,24 +112,30 @@ function toggleMusic()
 {
 	if(musicplaying != 0)
 	{
+		document.getElementById("music").src = "game/play_icon.png";
 		wgAudio.stopAudio(musicplaying);
 		musicplaying = 0;
 	}else
 	{
+		document.getElementById("music").src = "game/stop_icon.png";
 		wgAudio.playAudio("song0", 1);
 		musicplaying = "song0";
 	}
 }
 
 var audioplaying = 1;
-function toggleAudio()
+function toggleSound()
 {
 	if(audioplaying == 1)
 	{
+		wgAudio.muteAudio("song0");
+		document.getElementById("sound").src = "game/unmute_icon.png";
 		wgAudio.muteSounds();
 		audioplaying = 0;
 	}else
 	{
+		wgAudio.unmuteAudio("song0");
+		document.getElementById("sound").src = "game/mute_icon.png";
 		wgAudio.unmuteSounds();
 		audioplaying = 1;
 	}

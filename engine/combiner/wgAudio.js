@@ -53,6 +53,16 @@ var wgAudio = new function()
 		document.getElementById(name).removeEventListener('ended', loopAudio, false);
 	};
 	
+	this.muteAudio = function(name)
+	{
+		document.getElementById(name).muted = true;
+	}
+	
+	this.unmuteAudio = function(name)
+	{
+		document.getElementById(name).muted = false;
+	}
+	
 	this.muteSounds = function()
 	{
 		for(i = 0; i < this.channels.length; i++)
