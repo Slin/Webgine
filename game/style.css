@@ -69,13 +69,13 @@ body {
   opacity: .9;
 }
 #infobig h2 {
+  color: #000000
   font-family: georgia, verdana, arial;
   margin: 0;
   font-size: 20px;
 }
 
 #infobig span {
-  
   color: #fefefe;
   font-size: 14px;
 }
