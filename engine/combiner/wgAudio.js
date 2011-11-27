@@ -35,9 +35,7 @@ var wgAudio = new function()
 	
 	function loopAudio()
 	{
-		alert(this.currentTime);
 		this.currentTime = 0.0;
-		alert(this.currentTime);
 	}
 	
 	this.playAudio = function(name, loop)
