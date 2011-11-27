@@ -92,6 +92,7 @@ aPlayer.prototype.onUpdate = function(ts)
 	
 	if(collinfo.hit && Math.abs(collinfo.dist.x)-15 < 0)
 	{
+		this.speed = this.ordspeed;
 		input = 0;
 	}
 	else
@@ -109,6 +110,7 @@ aPlayer.prototype.onUpdate = function(ts)
 		}
 		if(collinfo.hit && Math.abs(collinfo.dist.x)-15 < this.speed*ts)
 		{
+			this.speed = this.ordspeed;
 			this.ent.object.pos.x += input*(Math.abs(collinfo.dist.x)-14);
 		}
 		else
