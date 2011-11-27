@@ -54,6 +54,7 @@ function gRestart()
 	gGiftOutput();
 	gGlobals.player.object.moveToFront();
 	gGlobals.timer = 0;
+	wgCamera.set(gGlobals.player.object.pos.x,gGlobals.player.object.pos.y);
 	
 	if(document.getElementById("infobig").style.display == 'block') {
 		document.getElementById("infobig").style.display = 'none';

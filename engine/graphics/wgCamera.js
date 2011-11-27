@@ -27,31 +27,50 @@ var wgCamera = new function()
 {
     this.pos = {x: 0, y: 0};
     this.dir = 0;
+	this.look = 0;
     
-    this.update = function(x,y) {
+	this.set = function(x,y) {
+		this.pos.x=x;
+		this.pos.y=y;
+	}
 	
-		if(this.pos.x==0||this.pos.y==0) {
-			this.pos.x=x;
-			this.pos.y=y;
-		}
+    this.update = function(x,y) {
 	
         if(wgKeyboard.left)
           this.dir=-1;
         
         if(wgKeyboard.right)
           this.dir=1;
-
-		// bottom border
-        if(y>gGlobals.lvlbd+400)
-			if(y-this.pos.y>this.pos.y-800) {
-				this.pos.y=y;
-			}
 		
-		if(x <= gGlobals.lvlbl+600)		  // left border
-          this.pos.x=gGlobals.lvlbl+600;
-		else if(x >= gGlobals.lvlbr+600)  // right border
-          this.pos.x=gGlobals.lvlbr+600;
-		else
-		  this.pos.x=x+this.dir;
+		if(wgKeyboard.up)
+          this.look=0;
+        
+        if(wgKeyboard.down)
+          this.look=-200;
+				
+		var diffx = x-this.pos.x+(200*this.dir);
+		var diffy = y-this.pos.y+this.look;
+		
+		if(diffx>0&&diffx<1||diffx<0&&diffx>-1)
+			diffx = 0;
+			
+		if(diffx>0)
+			this.pos.x += diffx/100*PL_LAUFSPEED*wgTimer.timestep;
+		else if(diffx<0)
+			this.pos.x += diffx/100*PL_LAUFSPEED*wgTimer.timestep;
+		
+		if(diffy>100)
+			this.pos.y += diffy/100*PL_LAUFSPEED*wgTimer.timestep;
+		else if(diffy<-100)
+			this.pos.y += diffy/100*PL_LAUFSPEED*wgTimer.timestep;
+		
+		if(this.pos.x <= gGlobals.lvlbl+600)		// left border
+			this.pos.x = gGlobals.lvlbl+600;
+		else if(this.pos.x >= gGlobals.lvlbr+600)	// right border
+			this.pos.x = gGlobals.lvlbr+600;
+		
+		if(this.pos.y <= gGlobals.lvlbd+400)		// left border
+			this.pos.y = gGlobals.lvlbd+400;
+		
     }
 };

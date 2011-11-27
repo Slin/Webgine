@@ -112,15 +112,15 @@ var wgTileMap = new function()
                       args = this.tiles[tdata[i]][15];   //single
 					else if(tdata[up]!=tdata[cr] && tdata[rt]!=tdata[cr] && tdata[lt]!=tdata[cr])
                       args = this.tiles[tdata[i]][8];   //topsingle
-					else if(tdata[up]!=tdata[cr] && tdata[dn]!=tdata[cr] && tdata[lt]!=tdata[cr])
+					else if(tdata[up]!=tdata[cr] && tdata[dn]!=tdata[cr] && tdata[lt]!=tdata[cr] && tdata[cr]!=upbro)
                       args = this.tiles[tdata[i]][11];   //topbottomleft
-					else if(tdata[up]!=tdata[cr] && tdata[dn]!=tdata[cr] && tdata[rt]!=tdata[cr])
+					else if(tdata[up]!=tdata[cr] && tdata[dn]!=tdata[cr] && tdata[rt]!=tdata[cr] && tdata[cr]!=upbro)
                       args = this.tiles[tdata[i]][12];   //topbottomright
                     else if(tdata[up]!=tdata[cr] && tdata[dn]!=tdata[cr] && tdata[cr]!=upbro)
                       args = this.tiles[tdata[i]][10];   //topbottom
-					else if((tdata[up]!=tdata[cr] && tdata[lt]!=tdata[cr]) && tdata[cr]!=ltbro)
+					else if((tdata[up]!=tdata[cr] && tdata[lt]!=tdata[cr]) && tdata[cr]!=ltbro && tdata[cr]!=upbro)
                       args = this.tiles[tdata[i]][3];   //topleft
-                    else if((tdata[up]!=tdata[cr] && tdata[rt]!=tdata[cr]) && tdata[cr]!=rtbro)
+                    else if((tdata[up]!=tdata[cr] && tdata[rt]!=tdata[cr]) && tdata[cr]!=rtbro && tdata[cr]!=upbro)
                       args = this.tiles[tdata[i]][5];   //topright
                     else if(tdata[up]!=tdata[cr] && tdata[cr]!=upbro)
                       args = this.tiles[tdata[i]][4];   //top
