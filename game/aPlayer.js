@@ -62,7 +62,8 @@ aPlayer.prototype.onUpdate = function(ts)
 		return;
 	
 	//kill out of level
-	if(this.ent.object.pos.x<gGlobals.lvlbl||this.ent.object.pos.x>gGlobals.lvlbr||this.ent.object.pos.y<gGlobals.lvlbd) {
+	if(this.ent.object.pos.x<gGlobals.lvlbl||this.ent.object.pos.x>gGlobals.lvlbr||this.ent.object.pos.y<gGlobals.lvlbd)
+	{
 		this.health = 0;
 	}
 	

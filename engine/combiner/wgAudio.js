@@ -29,18 +29,30 @@ var wgAudio = new function()
 	this.channels = new Array();
 	for(i = 0; i < this.maxchannels; i++)
 	{
-		this.channels[i] = {audio : new Audio(), finished : -1};
+		this.channels[i] = new Audio();
+		this.channels[i].finished = -1;
 	}
-
-	this.playAudio = function(name)
+	
+	function loopAudio()
+	{
+		alert(this.currentTime);
+		this.currentTime = 0.0;
+		alert(this.currentTime);
+	}
+	
+	this.playAudio = function(name, loop)
 	{
 		document.getElementById(name).play();
+		
+		if(loop != 0)
+			document.getElementById(name).addEventListener('ended', loopAudio, false);
 	};
 	
 	this.stopAudio = function(name)
 	{
 		document.getElementById(name).pause();
 		document.getElementById(name).currentTime = 0;
+		document.getElementById(name).removeEventListener('ended', loopAudio, false);
 	};
 	
 	this.playSound = function(name)
@@ -62,9 +74,9 @@ var wgAudio = new function()
 				}
 				
 				this.channels[i].finished = time.getTime()+document.getElementById(name).duration*1000;
-				this.channels[i].audio.src = source;
-				this.channels[i].audio.load();
-				this.channels[i].audio.play();
+				this.channels[i].src = source;
+				this.channels[i].load();
+				this.channels[i].play();
 				break;
 			}
 		}

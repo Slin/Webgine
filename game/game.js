@@ -165,7 +165,7 @@ function main()
 	
 	gRestart();
 	wgKeyboard.onEntf = gRestart;
-	//wgAudio.playAudio("song0");
+	wgAudio.playAudio("song0", 1);
 	
 	// Enable Testenv
 	//gTestInit();
