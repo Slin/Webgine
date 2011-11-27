@@ -106,6 +106,34 @@ function gGiftOutput() {
 		document.getElementById("counter").innerHTML = "<img src=\"game/present01.png\"/> "+gGlobals.countgifts+" / "+gGlobals.countgiftsoverall;
 }
 
+var musicplaying = "song0";
+function toggleMusic()
+{
+	if(musicplaying != 0)
+	{
+		wgAudio.stopAudio(musicplaying);
+		musicplaying = 0;
+	}else
+	{
+		wgAudio.playAudio("song0", 1);
+		musicplaying = "song0";
+	}
+}
+
+var audioplaying = 1;
+function toggleAudio()
+{
+	if(audioplaying == 1)
+	{
+		wgAudio.muteSounds();
+		audioplaying = 0;
+	}else
+	{
+		wgAudio.unmuteSounds();
+		audioplaying = 1;
+	}
+}
+
 function gameevent(ts)
 {
 	if(gGlobals.countgifts==gGlobals.countgiftsoverall)
