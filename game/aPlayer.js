@@ -177,7 +177,7 @@ aPlayer.prototype.onUpdate = function(ts)
 		this.lastdir *= 1.1;
 	}
 	
-	if(this.jumpkey != 0 && !wgKeyboard.up && this.fallspeed == 0)
+	if(this.jumpkey != 0 && !(wgKeyboard.up||wgKeyboard.space) && this.fallspeed == 0)
 		this.jumpkey = 0;
 	
 	if(this.fallspeed > 0.0)
