@@ -28,10 +28,12 @@ var wgCamera = new function()
     this.pos = {x: 0, y: 0};
     this.dir = 0;
 	this.look = 0;
-    
+    this.speed = 1;
+	
 	this.set = function(x,y) {
 		this.pos.x=x;
 		this.pos.y=y;
+		this.speed = PL_LAUFSPEED*0.55;
 	}
 	
     this.update = function(x,y) {
@@ -55,14 +57,14 @@ var wgCamera = new function()
 			diffx = 0;
 			
 		if(diffx>0)
-			this.pos.x += diffx/100*PL_LAUFSPEED*wgTimer.timestep;
+			this.pos.x += diffx/100*this.speed*wgTimer.timestep;
 		else if(diffx<0)
-			this.pos.x += diffx/100*PL_LAUFSPEED*wgTimer.timestep;
+			this.pos.x += diffx/100*this.speed*wgTimer.timestep;
 		
 		if(diffy>100)
-			this.pos.y += diffy/100*PL_LAUFSPEED*wgTimer.timestep;
+			this.pos.y += diffy/100*this.speed*wgTimer.timestep;
 		else if(diffy<-100)
-			this.pos.y += diffy/100*PL_LAUFSPEED*wgTimer.timestep;
+			this.pos.y += diffy/100*this.speed*wgTimer.timestep;
 		
 		if(this.pos.x <= gGlobals.lvlbl+600)		// left border
 			this.pos.x = gGlobals.lvlbl+600;
