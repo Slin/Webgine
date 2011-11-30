@@ -33,10 +33,13 @@ var wgCamera = new function()
 	this.set = function(x,y) {
 		this.pos.x=x;
 		this.pos.y=y;
-		this.speed = PL_LAUFSPEED*0.55;
+		this.speed = PL_LAUFSPEED*0.73;
 	}
 	
     this.update = function(x,y) {
+	
+		if(gGlobals.player)
+			this.speed = gGlobals.player.action.speed*0.73;
 	
         if(wgKeyboard.left)
           this.dir=-1;
@@ -47,7 +50,7 @@ var wgCamera = new function()
 		if(wgKeyboard.up)
           this.look=0;
         
-        if(wgKeyboard.down)
+        if(wgKeyboard.down&&!wgKeyboard.up)
           this.look=-200;
 				
 		var diffx = x-this.pos.x+(200*this.dir);
@@ -61,7 +64,7 @@ var wgCamera = new function()
 		else if(diffx<0)
 			this.pos.x += diffx/100*this.speed*wgTimer.timestep;
 		
-		if(diffy>100)
+		if(diffy>0)
 			this.pos.y += diffy/100*this.speed*wgTimer.timestep;
 		else if(diffy<-100)
 			this.pos.y += diffy/100*this.speed*wgTimer.timestep;
