@@ -47,10 +47,10 @@ var wgCamera = new function()
         if(wgKeyboard.right)
           this.dir=1;
 		
-		if(wgKeyboard.up)
+		if(wgKeyboard.up || wgKeyboard.space)
           this.look=0;
         
-        if(wgKeyboard.down&&!wgKeyboard.up)
+        if(wgKeyboard.down&&!wgKeyboard.up&&!wgKeyboard.space)
           this.look=-200;
 				
 		var diffx = x-this.pos.x+(200*this.dir);
