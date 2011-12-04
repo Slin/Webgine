@@ -3,7 +3,14 @@ function gIniTiles() {
                                  texinfo: {cols:2, rows:2, width:256, height:256, set:0},
                                  texani: {from:0, to:3, speed:0.2, cycle:1},
                                  group: 1, 
-                                 atyp: 1
+                                 atype: 0
+                               });
+  
+  wgTileMap.addTile(14, aEnemy, { tex: "game/edtangry.png", 
+                                 texinfo: {cols:2, rows:2, width:256, height:256, set:0},
+                                 texani: {from:0, to:3, speed:0.4, cycle:1},
+                                 group: 1, 
+                                 atype: 1
                                });
   
   wgTileMap.addTile(1, aSolid, {}, {tex: "game/worldatlas.png",
