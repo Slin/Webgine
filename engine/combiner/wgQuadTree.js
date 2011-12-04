@@ -72,13 +72,38 @@ var wgQuadTree = new function()
 
 	wgBranch.prototype.insertEntity = function(ent, dynamic)
 	{
-/*		if(dynamic)
+		if(dynamic || this.children != 0)
 		{
 			this.objects.push(ent);
 		}else
 		{
+			var entrect = new wgRect();
+			entrect.posx = ent.object.pos.x;
+			entrect.posy = ent.object.pos.y;
+			entrect.sizex = ent.object.size.x;
+			entrect.sizey = ent.object.size.y;
 			
-		}*/
+			if(wgMath.rectInRect(entrect, this.children[0].area))
+			{
+				this.children[0].insertEntity(ent, dynamic);
+			}
+			else if(wgMath.rectInRect(entrect, this.children[1].area))
+			{
+				this.children[1].insertEntity(ent, dynamic);
+			}
+			else if(wgMath.rectInRect(entrect, this.children[2].area))
+			{
+				this.children[2].insertEntity(ent, dynamic);
+			}
+			else if(wgMath.rectInRect(entrect, this.children[3].area))
+			{
+				this.children[3].insertEntity(ent, dynamic);
+			}
+			else
+			{
+				this.objects.push(ent);
+			}
+		}
 	};
 
 	wgBranch.prototype.removeEntity = function(ent) 

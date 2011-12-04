@@ -195,6 +195,34 @@ function main()
 			case 2:
 				gGlobals.level = level_2_0;
 				break;
+				
+			case 3:
+				gGlobals.level = level_3_0;
+				break;
+				
+			case 4:
+				gGlobals.level = level_4_0;
+				break;
+				
+			case 5:
+				gGlobals.level = level_5_0;
+				break;
+				
+			case 6:
+				gGlobals.level = level_6_0;
+				break;
+				
+			case 7:
+				gGlobals.level = level_7_0;
+				break;
+				
+			case 8:
+				gGlobals.level = level_8_0;
+				break;
+				
+			case 9:
+				gGlobals.level = level_9_0;
+				break;
 		}
 	}
 	

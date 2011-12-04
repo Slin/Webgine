@@ -124,4 +124,47 @@ var wgCollision = new function()
 		
 		return collinfo;
 	};
+	
+	this.checkParallelQuadsTree = function(fromx, fromy, tox, toy, tree, group)
+	{
+		var tempent = ents;
+		var collinfo = new wgCollInfo();
+		var tempinfo = 0;
+		var maxx = Math.max(fromx, tox);
+		var minx = Math.min(fromx, tox);
+		var maxy = Math.max(fromy, toy);
+		var miny = Math.min(fromy, toy);
+		while(tempent != 0)
+		{
+			if(tempent.object != 0 && tempent.group == group)
+			{
+				//TODO: remove this hacky optimization...
+				if(	(tempent.object.pos.x > maxx || tempent.object.pos.x+tempent.object.size.x < minx) ||
+					(tempent.object.pos.y > maxy || tempent.object.pos.y+tempent.object.size.y < miny))
+					{
+						tempent = tempent.next;
+						continue;
+					}
+				
+				tempinfo = this.checkParallelQuads(fromx, fromy, tox, toy, tempent.object);
+				if(tempinfo.hit != 0)
+				{
+					if(collinfo.hit == 0)
+					{
+						collinfo = tempinfo;
+					}else
+					{
+						if(Math.sqrt(collinfo.dist.x*collinfo.dist.x+collinfo.dist.y*collinfo.dist.y) > Math.sqrt(tempinfo.dist.x*tempinfo.dist.x+tempinfo.dist.y*tempinfo.dist.y))
+						{
+//							alert("val1: "+(tempinfo.dist.x)+" val2: "+(tempinfo.dist.y));
+							collinfo = tempinfo;
+						}
+					}
+				}
+			}
+			tempent = tempent.next;
+		}
+		
+		return collinfo;
+	};
 };

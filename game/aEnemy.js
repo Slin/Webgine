@@ -26,17 +26,53 @@
 function aEnemy()
 {
 	this.speed = -0.1;
-	this.fallspeed = 0.0;
 	
 	this.type = 0;
 	
 	this.health = 100;
 	
 	this.ent = 0;
+	
+	this.initialized = 0;
 }
 
 aEnemy.prototype.onUpdate = function(ts)
 {
+	if(this.initialized == 3)
+	{
+		//place on ground
+		var collinfo = wgCollision.checkParallelQuadsList(this.ent.object.pos.x, this.ent.object.pos.y+30, this.ent.object.pos.x+this.ent.object.size.x, this.ent.object.pos.y-20000, wgMain.first_ent, 0);
+		if(collinfo.hit == 0)
+		{
+			this.ent.destroy();
+		}
+		else
+		{
+			this.ent.object.pos.y -= -collinfo.dist.y-30;
+		}
+		
+		collinfo = wgCollision.checkParallelQuadsList(this.ent.object.pos.x, this.ent.object.pos.y+10, this.ent.object.pos.x+100000, this.ent.object.pos.y+this.ent.object.size.y, wgMain.first_ent, 0);
+		if(collinfo.hit == 0)
+		{
+			this.ent.destroy();
+		}
+		else
+		{
+			this.maxx = this.ent.object.pos.x+collinfo.dist.x-this.ent.object.size.x;
+		}
+		
+		collinfo = wgCollision.checkParallelQuadsList(this.ent.object.pos.x, this.ent.object.pos.y+10, this.ent.object.pos.x-100000, this.ent.object.pos.y+this.ent.object.size.y, wgMain.first_ent, 0);
+		if(collinfo.hit == 0)
+		{
+			this.ent.destroy();
+		}
+		else
+		{
+			this.minx = this.ent.object.pos.x+collinfo.dist.x;
+		}
+	}
+	this.initialized += 1;
+
 	if(gGlobals.player == 0)
 		return;
 
@@ -47,29 +83,15 @@ aEnemy.prototype.onUpdate = function(ts)
 	}
 
 	//movement
-	var collinfo = wgCollision.checkParallelQuadsList(this.ent.object.pos.x+this.ent.object.size.x*0.5, this.ent.object.pos.y+10, this.ent.object.pos.x+this.ent.object.size.x*0.5+(this.ent.object.size.x*0.5+10)*((this.speed > 0)? 1.0:-1.0), this.ent.object.pos.y+this.ent.object.size.y, wgMain.first_ent, 0);
-	if(collinfo.hit != 0)
+	if(this.ent.object.pos.x > this.maxx)
 	{
-		this.speed *= -1;
+		this.speed = -0.1;
 	}
-	
+	if(this.ent.object.pos.x < this.minx)
+	{
+		this.speed = 0.1;
+	}
 	this.ent.object.pos.x += this.speed*ts;
-	
-	//gravity
-	collinfo = wgCollision.checkParallelQuadsList(this.ent.object.pos.x, this.ent.object.pos.y+30, this.ent.object.pos.x+this.ent.object.size.x, this.ent.object.pos.y-200, wgMain.first_ent, 0);
-	if(-collinfo.dist.y > 32 || collinfo.hit == 0)
-	{
-		this.fallspeed -= ts*0.01;
-	}else
-	{
-		this.ent.object.pos.y -= -collinfo.dist.y-30;
-		this.fallspeed = 0.0;
-	}
-	if(this.fallspeed < 0 && this.fallspeed*ts < (collinfo.dist.y+30) && collinfo.hit != 0)
-	{
-		this.fallspeed = (collinfo.dist.y+30)/ts;
-	}
-	this.ent.object.pos.y += this.fallspeed*ts;
 	
 	//kill player or get killed
 	var dir = {x : gGlobals.player.object.pos.x+48-this.ent.object.pos.x-32, y : gGlobals.player.object.pos.y-this.ent.object.pos.y};

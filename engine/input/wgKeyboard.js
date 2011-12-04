@@ -44,13 +44,13 @@ var wgKeyboard = new function()
                 wgKeyboard.left = 1;
                 break;
             case 38: // cursor hoch
-                wgKeyboard.up = 1;
+ //               wgKeyboard.up = 1;
                 break;
             case 39: // cursor rechts
                 wgKeyboard.right = 1;
                 break;
             case 40: // cursor runter
-                wgKeyboard.down = 1;
+//                wgKeyboard.down = 1;
                 break;
                
             case 87: //w
