@@ -38,7 +38,7 @@ function aEnemy()
 
 aEnemy.prototype.onUpdate = function(ts)
 {
-	if(this.initialized == 3)
+	if(this.initialized == 2)
 	{
 		//place on ground
 		var collinfo = wgCollision.checkParallelQuadsList(this.ent.object.pos.x, this.ent.object.pos.y+30, this.ent.object.pos.x+this.ent.object.size.x, this.ent.object.pos.y-20000, wgMain.first_ent, 0);
