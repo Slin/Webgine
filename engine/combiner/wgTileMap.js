@@ -156,7 +156,7 @@ var wgTileMap = new function()
 					tile = wgMain.first_ent.addEntity(args.tex, func);
 					gGlobals.player = tile;
 				} else
-					tile = wgMain.first_ent.addEntity(args.tex, func,1);
+					tile = wgMain.first_ent.addEntity(args.tex, func);
 				
                 tile.object.pos.x = -col*this.dimx*-1;
                 tile.object.pos.y = -row*this.dimy;
@@ -164,8 +164,9 @@ var wgTileMap = new function()
                 if(args.group)
                   tile.group = args.group;
                 
-                if(args.atype)
-                  tile.action.type = args.atype;
+                if(args.atype) {
+					tile.action.type = args.atype;
+				  }
                 
                 if(args.texinfo) {
                     tile.object.material.initAtlas(args.texinfo.cols, args.texinfo.rows, args.texinfo.width, args.texinfo.height, 0, 0);

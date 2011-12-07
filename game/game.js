@@ -223,6 +223,66 @@ function main()
 			case 9:
 				gGlobals.level = level_9_0;
 				break;
+				
+			case 10:
+				gGlobals.level = level_10_0;
+				break;
+				
+			case 11:
+				gGlobals.level = level_11_0;
+				break;
+				
+			case 12:
+				gGlobals.level = level_12_0;
+				break;
+				
+			case 13:
+				gGlobals.level = level_13_0;
+				break;
+				
+			case 14:
+				gGlobals.level = level_14_0;
+				break;
+				
+			case 15:
+				gGlobals.level = level_15_0;
+				break;
+				
+			case 16:
+				gGlobals.level = level_16_0;
+				break;
+				
+			case 17:
+				gGlobals.level = level_17_0;
+				break;
+				
+			case 18:
+				gGlobals.level = level_18_0;
+				break;
+				
+			case 19:
+				gGlobals.level = level_19_0;
+				break;
+				
+			case 20:
+				gGlobals.level = level_20_0;
+				break;
+				
+			case 21:
+				gGlobals.level = level_21_0;
+				break;
+				
+			case 22:
+				gGlobals.level = level_22_0;
+				break;
+				
+			case 23:
+				gGlobals.level = level_23_0;
+				break;
+				
+			case 24:
+				gGlobals.level = level_24_0;
+				break;
 		}
 	}
 	

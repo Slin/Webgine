@@ -51,24 +51,24 @@ aEnemy.prototype.onUpdate = function(ts)
 			this.ent.object.pos.y -= -collinfo.dist.y-30;
 		}
 		
-		collinfo = wgCollision.checkParallelQuadsList(this.ent.object.pos.x, this.ent.object.pos.y+10, this.ent.object.pos.x+100000, this.ent.object.pos.y+this.ent.object.size.y, wgMain.first_ent, 0);
+		collinfo = wgCollision.checkParallelQuadsList(this.ent.object.pos.x+this.ent.object.size.x*0.5, this.ent.object.pos.y+10, this.ent.object.pos.x+100000, this.ent.object.pos.y+this.ent.object.size.y, wgMain.first_ent, 0);
 		if(collinfo.hit == 0)
 		{
 			this.ent.destroy();
 		}
 		else
 		{
-			this.maxx = this.ent.object.pos.x+collinfo.dist.x-this.ent.object.size.x;
+			this.maxx = this.ent.object.pos.x+this.ent.object.size.x*0.5+collinfo.dist.x-this.ent.object.size.x;
 		}
 		
-		collinfo = wgCollision.checkParallelQuadsList(this.ent.object.pos.x, this.ent.object.pos.y+10, this.ent.object.pos.x-100000, this.ent.object.pos.y+this.ent.object.size.y, wgMain.first_ent, 0);
+		collinfo = wgCollision.checkParallelQuadsList(this.ent.object.pos.x+this.ent.object.size.x*0.5, this.ent.object.pos.y+10, this.ent.object.pos.x-100000, this.ent.object.pos.y+this.ent.object.size.y, wgMain.first_ent, 0);
 		if(collinfo.hit == 0)
 		{
 			this.ent.destroy();
 		}
 		else
 		{
-			this.minx = this.ent.object.pos.x+collinfo.dist.x;
+			this.minx = this.ent.object.pos.x+this.ent.object.size.x*0.5+collinfo.dist.x;
 		}
 	}
 	this.initialized += 1;
@@ -100,7 +100,7 @@ aEnemy.prototype.onUpdate = function(ts)
 	dir.y /= dist;
 	if(dist < 45 && gGlobals.player.action.health > 0)
 	{
-		if(dir.y < 0.2)
+		if(dir.y < 0.2 && gGlobals.player.action.fallspeed >= 0)
 		{
 			gGlobals.player.action.health = 0;
 		}else
