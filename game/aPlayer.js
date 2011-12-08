@@ -58,8 +58,10 @@ function aPlayer()
 
 aPlayer.prototype.onUpdate = function(ts)
 {
-	if(this.health < 0)
+	if(this.health < 0) {
+		this.ent.object.material.setAnimation(1, 0, 0, 0);
 		return;
+	}
 	
 	//kill out of level
 	if(this.ent.object.pos.x<gGlobals.lvlbl||this.ent.object.pos.x>gGlobals.lvlbr||this.ent.object.pos.y<gGlobals.lvlbd)
@@ -70,9 +72,9 @@ aPlayer.prototype.onUpdate = function(ts)
 	//killed
 	if(this.health == 0)
 	{
+		this.ent.object.material.setAnimation(1, 0, 0, 0);
 		wgAudio.playSound("death");
 		this.health = -1;
-		this.ent.object.material.setAnimation(1, 0, 0, 0);
 		
 		document.getElementById("infobig").innerHTML = "<h2>Game Over</h2>Der Dieb ist entkommen und Weihnachten wurde ruiniert!<br/><br/><center><button id=\"retry\">Erneut Spielen</button></center>";
 		document.getElementById("infobig").style.display = 'block';
