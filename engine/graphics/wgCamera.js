@@ -29,6 +29,7 @@ var wgCamera = new function()
     this.dir = 0;
 	this.look = 0;
     this.speed = 1;
+	this.speedy = 0.9;
 	
 	this.set = function(x,y) {
 		this.pos.x=x;
@@ -65,9 +66,9 @@ var wgCamera = new function()
 			this.pos.x += diffx/100*this.speed*wgTimer.timestep;
 		
 		if(diffy>0)
-			this.pos.y += diffy/100*this.speed*wgTimer.timestep;
+			this.pos.y += diffy/100*this.speedy*wgTimer.timestep;
 		else if(diffy<-100)
-			this.pos.y += diffy/100*this.speed*wgTimer.timestep;
+			this.pos.y += diffy/100*this.speedy*wgTimer.timestep;
 		
 		if(this.pos.x <= gGlobals.lvlbl+600)		// left border
 			this.pos.x = gGlobals.lvlbl+600;
