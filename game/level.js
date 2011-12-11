@@ -15,60 +15,101 @@ function gIniTiles() {
 							   
   wgTileMap.addTile(3, aJumper, { tex: "game/Sprungfeder.png", bro:1 });
   
-  wgTileMap.addTile(1, aSolid, {}, {tex: "game/worldatlas.png",
+  
+  wgTileMap.addTile(1, aSolid, {tl:{tex: "game/worldatlas.png",
                                     texinfo: {cols:4, rows:4, width:256, height:256, set:2},   //2topleft
                                     group: 0, render:1},
-                                   {tex: "game/worldatlas.png",
+                                   t:{tex: "game/worldatlas.png",
                                     texinfo: {cols:4, rows:4, width:256, height:256, set:0}   //3top
                                     ,group: 0},
-                                   {tex: "game/worldatlas.png",
+                                   tr:{tex: "game/worldatlas.png",
                                     texinfo: {cols:4, rows:4, width:256, height:256, set:3}   //4topright
                                     ,group: 0},
-                                   {tex: "game/worldatlas.png",
+                                   l:{tex: "game/worldatlas.png",
                                     texinfo: {cols:4, rows:4, width:256, height:256, set:4}   //5left
                                     ,group: 0},
-                                   {tex: "game/worldatlas.png",
+                                   r:{tex: "game/worldatlas.png",
                                     texinfo: {cols:4, rows:4, width:256, height:256, set:6}   //6right
                                     ,group: 0},
-									{tex: "game/worldatlas.png",
+									ts:{tex: "game/worldatlas.png",
                                     texinfo: {cols:4, rows:4, width:256, height:256, set:5}   //7topsingle
                                     ,group: 0},
-									{tex: "game/worldatlas.png",
+									b:{tex: "game/worldatlas.png",
                                     texinfo: {cols:4, rows:4, width:256, height:256, set:9}   //8bottom
                                     ,group: 0},
-									{tex: "game/worldatlas.png",
+									tb:{tex: "game/worldatlas.png",
                                     texinfo: {cols:4, rows:4, width:256, height:256, set:11}   //9topbottom
                                     ,group: 0},
-									{tex: "game/worldatlas.png",
+									tbl:{tex: "game/worldatlas.png",
                                     texinfo: {cols:4, rows:4, width:256, height:256, set:14}   //10topbottomleft
                                     ,group: 0},
-									{tex: "game/worldatlas.png",
+									tbr:{tex: "game/worldatlas.png",
                                     texinfo: {cols:4, rows:4, width:256, height:256, set:15}   //11topbottomright
                                     ,group: 0},
-									{tex: "game/worldatlas.png",
+									bl:{tex: "game/worldatlas.png",
                                     texinfo: {cols:4, rows:4, width:256, height:256, set:12}   //12bottomleft
                                     ,group: 0},
-									{tex: "game/worldatlas.png",
+									br:{tex: "game/worldatlas.png",
                                     texinfo: {cols:4, rows:4, width:256, height:256, set:13}   //13bottomright
                                     ,group: 0},
-									{tex: "game/worldatlas.png",
+									s:{tex: "game/worldatlas.png",
                                     texinfo: {cols:4, rows:4, width:256, height:256, set:10}   //14single
                                     ,group: 0},
-									{tex: "game/worldatlas.png",
+									lr:{tex: "game/worldatlas.png",
                                     texinfo: {cols:4, rows:4, width:256, height:256, set:8}   //15leftright
                                     ,group: 0},
-                                   {tex: "game/worldatlas.png",
+                                   d:{tex: "game/worldatlas.png",
                                     texinfo: {cols:4, rows:4, width:256, height:256, set:1}   //16def
-                                    ,group: 0}
+                                    ,group: 0},bro:2}
                                );
-  
-  wgTileMap.addTile(2, aIce, { tex: "game/ice.png", bro:1 });
+  /*
+  wgTileMap.addTile(1, aSolid, {s: new Array({tex: "game/worldatlas.png",
+                                    texinfo: {cols:4, rows:4, width:256, height:256, set:2}   //14single
+                                    ,group: 0},
+								{tex: "game/worldatlas.png",
+                                    texinfo: {cols:4, rows:4, width:256, height:256, set:3}   //14single
+                                    ,group: 0}),
+								d: new Array({tex: "game/worldatlas.png",
+                                    texinfo: {cols:4, rows:4, width:256, height:256, set:10}   //14single
+                                    ,group: 0},
+								{tex: "game/worldatlas.png",
+                                    texinfo: {cols:4, rows:4, width:256, height:256, set:12}   //14single
+                                    ,group: 0})
+                               });
+							  */
+  wgTileMap.addTile(2, aIce, { d:{tex: "game/ice.png",
+                                    texinfo: {cols:3, rows:2, width:192, height:128, set:2}},
+								t:{tex: "game/ice.png",
+                                    texinfo: {cols:3, rows:2, width:192, height:128, set:5}},
+								tl:{tex: "game/ice.png",
+                                    texinfo: {cols:3, rows:2, width:192, height:128, set:3}},
+								tr:{tex: "game/ice.png",
+                                    texinfo: {cols:3, rows:2, width:192, height:128, set:4}}, bro:1});
   
   //tree
-  wgTileMap.addTile(4, aSolid, { tex: "game/tree.png",
+  wgTileMap.addTile(4, aSolid, new Array({tex: "game/new_tree1.png",
                                     size: {x:64,y:128,rand:1,min:1,max:2},
                                     group: 1
-                               });
+                               }, {tex: "game/new_tree1a.png",
+                                    size: {x:64,y:128,rand:1,min:1,max:2},
+                                    group: 1
+                               }, {tex: "game/new_tree1b.png",
+                                    size: {x:64,y:128,rand:1,min:1,max:2},
+                                    group: 1
+                               }, {tex: "game/new_tree2.png",
+                                    size: {x:64,y:128,rand:1,min:1,max:2},
+                                    group: 1
+                               }, {tex: "game/new_tree2a.png",
+                                    size: {x:64,y:128,rand:1,min:1,max:2},
+                                    group: 1
+                               }, {tex: "game/new_tree2b.png",
+                                    size: {x:64,y:128,rand:1,min:1,max:2},
+                                    group: 1
+                               }, {tex: "game/new_tree3.png",
+                                    size: {x:64,y:128,rand:1,min:1,max:2},
+                                    group: 1
+                               }));
+  
   
   wgTileMap.addTile(5, aSolid, { tex: "game/zuckerstange.png",
                                     size: {x:64,y:128,rand:1,min:0.5,max:1},

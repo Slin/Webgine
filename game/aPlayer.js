@@ -192,8 +192,8 @@ aPlayer.prototype.onUpdate = function(ts)
 	}
 	
 	this.ent.object.pos.y += this.fallspeed*ts;
-		
+	
 	//update Camera
 	if(this.health)
-		wgCamera.update(this.ent.object.pos.x,this.ent.object.pos.y);
+		wgCamera.update(this.ent.object.pos.x,this.ent.object.pos.y,this.speed*0.73);
 };

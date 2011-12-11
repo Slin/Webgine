@@ -154,6 +154,8 @@ function gTestInit() {
 	document.getElementById("dev").innerHTML = "<br/>Testumgebung<br/><textarea id=\"testlevel\" rows=\"3\" cols=\"100\"></textarea><br/><br/><button id=\"test\">Test Level</button> <button id=\"nextlvl\">Next Level</button>";
 	document.getElementById("test").onclick = gTest;
 	document.getElementById("nextlvl").onclick = gNextLevel;
+	
+	wgAudio.stopAudio(musicplaying);
 }
 
 function gTest()
@@ -170,6 +172,7 @@ function gTest()
 	gGlobals.timer = 0;
 	//gGlobals.player.object.moveToFront();
 	wgCamera.update(player.pos.x,player.pos.y);
+	
 }
 
 function main()

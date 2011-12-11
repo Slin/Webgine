@@ -34,13 +34,11 @@ var wgCamera = new function()
 	this.set = function(x,y) {
 		this.pos.x=x;
 		this.pos.y=y;
-		this.speed = PL_LAUFSPEED*0.73;
 	}
 	
-    this.update = function(x,y) {
+    this.update = function(x,y,speed) {
 	
-		if(gGlobals.player)
-			this.speed = gGlobals.player.action.speed*0.73;
+		this.speed = speed;
 	
         if(wgKeyboard.left)
           this.dir=-1;

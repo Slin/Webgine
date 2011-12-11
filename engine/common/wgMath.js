@@ -31,6 +31,11 @@ function wgRect()
 	sizey = 0;
 }
 
+function wgRandom(min,max)
+{
+	return Math.random()*(max-min)+min;
+}
+
 var wgMath = new function()
 {
     this.posInRect = function(pos, rect)
