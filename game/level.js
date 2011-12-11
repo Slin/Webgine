@@ -62,21 +62,7 @@ function gIniTiles() {
                                     texinfo: {cols:4, rows:4, width:256, height:256, set:1}   //16def
                                     ,group: 0},bro:2}
                                );
-  /*
-  wgTileMap.addTile(1, aSolid, {s: new Array({tex: "game/worldatlas.png",
-                                    texinfo: {cols:4, rows:4, width:256, height:256, set:2}   //14single
-                                    ,group: 0},
-								{tex: "game/worldatlas.png",
-                                    texinfo: {cols:4, rows:4, width:256, height:256, set:3}   //14single
-                                    ,group: 0}),
-								d: new Array({tex: "game/worldatlas.png",
-                                    texinfo: {cols:4, rows:4, width:256, height:256, set:10}   //14single
-                                    ,group: 0},
-								{tex: "game/worldatlas.png",
-                                    texinfo: {cols:4, rows:4, width:256, height:256, set:12}   //14single
-                                    ,group: 0})
-                               });
-							  */
+
   wgTileMap.addTile(2, aIce, { d:{tex: "game/ice.png",
                                     texinfo: {cols:3, rows:2, width:192, height:128, set:2}},
 								t:{tex: "game/ice.png",
