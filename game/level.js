@@ -67,9 +67,11 @@ function gIniTiles() {
                                     texinfo: {cols:3, rows:2, width:192, height:128, set:2}},
 								t:{tex: "game/ice.png",
                                     texinfo: {cols:3, rows:2, width:192, height:128, set:5}},
-								tl:{tex: "game/ice.png",
+								td:{tex: "game/ice.png",
+                                    texinfo: {cols:3, rows:2, width:192, height:128, set:5}},
+								tdl:{tex: "game/ice.png",
                                     texinfo: {cols:3, rows:2, width:192, height:128, set:3}},
-								tr:{tex: "game/ice.png",
+								tdr:{tex: "game/ice.png",
                                     texinfo: {cols:3, rows:2, width:192, height:128, set:4}}, bro:1});
   
   //tree
