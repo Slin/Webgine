@@ -64,7 +64,7 @@ aPlayer.prototype.onUpdate = function(ts)
 	}
 	
 	//kill out of level
-	if(this.ent.object.pos.x<gGlobals.lvlbl||this.ent.object.pos.x>gGlobals.lvlbr||this.ent.object.pos.y<gGlobals.lvlbd)
+	if(this.ent.object.pos.x<wgCamera.lvlbl||this.ent.object.pos.x>wgCamera.lvlbr||this.ent.object.pos.y<wgCamera.lvlbd)
 	{
 		this.health = 0;
 	}
@@ -75,7 +75,7 @@ aPlayer.prototype.onUpdate = function(ts)
 		this.ent.object.material.setAnimation(1, 0, 0, 0);
 		wgAudio.playSound("death");
 		this.health = -1;
-		
+		if(gamemode) {
 		document.getElementById("infobig").innerHTML = "<h2>Game Over</h2>Der Dieb ist entkommen und Weihnachten wurde ruiniert!<br/><br/><center><button id=\"retry\">Erneut Spielen</button></center>";
 		document.getElementById("infobig").style.display = 'block';
 		document.getElementById("timer").style.display = 'none';
@@ -83,6 +83,7 @@ aPlayer.prototype.onUpdate = function(ts)
 		document.getElementById("retry").onclick = gRestart;
 		
 		wgKeyboard.onEnter = gRestart;
+		}
 	}
 	
 	this.lastspeed = this.speed;
@@ -195,5 +196,5 @@ aPlayer.prototype.onUpdate = function(ts)
 	
 	//update Camera
 	if(this.health)
-		wgCamera.update(this.ent.object.pos.x,this.ent.object.pos.y,this.speed*0.73);
+		wgCamera.update(this.speed*0.73);
 };

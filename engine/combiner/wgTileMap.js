@@ -29,7 +29,7 @@ var wgTileMap = new function()
 
     // Level Data Array
     this.data = 0;
-    
+    this.sdata = 0;
     this.offset = { x : 0, y : 0 };
     this.width;
     this.height;
@@ -54,20 +54,26 @@ var wgTileMap = new function()
 			return o;
 	}
 	
-    this.generate = function()
+    this.generate = function(mode)
     {
         var row = 0, col = 0;
         var tile, args;
 		
 		// get data from string
-		var tdata = this.data.split(" ");
+		if(!this.sdata)
+			var tdata = this.data.split(" ");
+		else
+			var tdata = this.sdata;
+		
         this.width = tdata[0];
 		this.height = tdata[1];
 		
 		tdata = tdata.slice(2,tdata.length);
-
-		for(var i = 0; i < tdata.length; i++) {
-			tdata[i]=parseInt(tdata[i]);
+		
+		if(!this.sdata) {
+			for(var i = 0; i < tdata.length; i++) {
+				tdata[i]=parseInt(tdata[i]);
+			}
 		}
 		
         if(this.width*this.height!=tdata.length) {
@@ -76,10 +82,16 @@ var wgTileMap = new function()
         }
 		
 		// calculate lvl borders
-		gGlobals.lvlbl = this.offset.x;
-		gGlobals.lvlbr = this.offset.x+this.dimx*this.width;
-		gGlobals.lvlbt = this.offset.y;
-		gGlobals.lvlbd = this.offset.y-this.dimy*this.height;
+		wgCamera.lvlbl = this.offset.x;
+		wgCamera.lvlbr = this.offset.x+this.dimx*this.width;
+		wgCamera.lvlbt = this.offset.y;
+		wgCamera.lvlbd = this.offset.y-this.dimy*this.height;
+		
+		if(!gamemode) {
+			wgCamera.lvlbl-=150;
+			wgCamera.lvlbr+=150;
+			wgCamera.lvlbd-=150;
+		}
 		
 		// parse data
         for(var i = 0; i < tdata.length; i++)
@@ -154,19 +166,23 @@ var wgTileMap = new function()
                     args = this.chooseRandomTile(this.tiles[tdata[i]][2]);
                 
 				
+				if(!gamemode) // level edit mode: set all blocks static without actors
+					var func = new aSolid();
+				else  
+					var func = new (this.tiles[tdata[i]][1])();                
 				
-				var func = new (this.tiles[tdata[i]][1])();                
 				// (hacky) Set Global Variable Player
 				if(func.id=="aPlayer") {
 					tile = wgMain.first_ent.addEntity(args.tex, func);
 					gGlobals.player = tile;
 				} else
-					tile = wgMain.first_ent.addEntity(args.tex, func);
+					tile = wgMain.first_ent.addEntity(args.tex, func,1);
 				
 				// position
                 tile.object.pos.x = -col*this.dimx*-1;
                 tile.object.pos.y = -row*this.dimy;
-                				
+                
+				
 				// parse tile arguments
                 if(args.group)
                   tile.group = args.group;

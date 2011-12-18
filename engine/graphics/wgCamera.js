@@ -31,13 +31,20 @@ var wgCamera = new function()
     this.speed = 1;
 	this.speedy = 0.9;
 	
+	this.follow = 0; // Camera follows this wgObject
+	
 	this.set = function(x,y) {
 		this.pos.x=x;
 		this.pos.y=y;
 	}
 	
-    this.update = function(x,y,speed) {
-	
+    this.update = function(speed) {
+		if(!this.follow)
+			return;
+		
+		x = this.follow.pos.x;
+		y = this.follow.pos.y;
+		
 		this.speed = speed;
 	
         if(wgKeyboard.left)
@@ -68,13 +75,13 @@ var wgCamera = new function()
 		else if(diffy<-100)
 			this.pos.y += diffy/100*this.speedy*wgTimer.timestep;
 		
-		if(this.pos.x <= gGlobals.lvlbl+600)		// left border
-			this.pos.x = gGlobals.lvlbl+600;
-		else if(this.pos.x >= gGlobals.lvlbr+600)	// right border
-			this.pos.x = gGlobals.lvlbr+600;
+		if(this.pos.x <= this.lvlbl+600)		// left border
+			this.pos.x = this.lvlbl+600;
+		else if(this.pos.x >= this.lvlbr+600)	// right border
+			this.pos.x = this.lvlbr+600;
 		
-		if(this.pos.y <= gGlobals.lvlbd+400)		// left border
-			this.pos.y = gGlobals.lvlbd+400;
+		if(this.pos.y <= this.lvlbd+400)		// left border
+			this.pos.y = this.lvlbd+400;
 		
     }
 };

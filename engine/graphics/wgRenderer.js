@@ -46,7 +46,7 @@ var wgRenderer = new function()
         {
 			//TODO: remove hacky culling
 			var pos = {x: Math.floor(tempobj.pos.x-wgCamera.pos.x), y: Math.floor(tempobj.pos.y-wgCamera.pos.y)};
-			if(pos.x+tempobj.size.x < -canvassizex*0.5 || pos.y+tempobj.size.y < -canvassizey*0.5 || pos.x > canvassizex*0.5 || pos.y > canvassizey*0.5)
+			if(pos.x+tempobj.size.x < -canvassizex*0.5*scalefactor || pos.y+tempobj.size.y < -canvassizey*0.5*scalefactor || pos.x > canvassizex*0.5*scalefactor || pos.y > canvassizey*0.5*scalefactor)
 			{
 				tempobj = tempobj.next;
 				continue;

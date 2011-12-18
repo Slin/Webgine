@@ -32,6 +32,11 @@ var wgKeyboard = new function()
 	this.enter = 0;
 	this.space = 0;
 	this.entf = 0;
+	this.ctrl = 0;
+	this.shift = 0;
+	this.mlft = 0;
+	this.mrgt = 0;
+	this.mmid = 0;
 	
 	this.onEnter = 0;
 	this.onEntf = 0;
@@ -79,7 +84,15 @@ var wgKeyboard = new function()
 			case 32: //space
 				wgKeyboard.space = 1;
 				break;
-                
+            
+			case 16:
+				wgKeyboard.shift = 1;
+				break;
+			
+			case 17:
+				wgKeyboard.ctrl = 1;
+				break;
+				
             default:
                 break;
         }
@@ -124,15 +137,50 @@ var wgKeyboard = new function()
 			case 32: //space
 				wgKeyboard.space = 0;
 				break;
-                
+			case 16:
+				wgKeyboard.shift = 0;
+				break;
+			case 17:
+				wgKeyboard.ctrl = 0;
+				break;
+			
             default:
                 break;
         }
     };
 
+	this.buttonDown = function(e) {
+		switch(e.button) {
+			case 0:	// left
+				wgKeyboard.mlft = 1;
+				break;
+			case 2:	// right
+				wgKeyboard.mrgt = 1;
+				break;
+			case 1: // middle button
+				wgKeyboard.mmid = 1;
+				break;
+		}
+	}
+	
+	this.buttonUp = function(e) {
+		switch(e.button) {
+			case 0:	// left
+				wgKeyboard.mlft = 0;
+				break;
+			case 2:	// right
+				wgKeyboard.mrgt = 0;
+				break;
+			case 1: // middle button
+				wgKeyboard.mmid = 0;
+				break;
+		}
+	}
     this.initKeyboard = function()
     {
         document.addEventListener("keydown", wgKeyboard.keyDown, false);
         document.addEventListener("keyup", wgKeyboard.keyUp, false);
+		document.addEventListener("mousedown", wgKeyboard.buttonDown, false);
+		document.addEventListener("mouseup", wgKeyboard.buttonUp, false);
     };
 };

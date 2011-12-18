@@ -26,6 +26,7 @@
 var scalefactor = 1;
 var canvassizex = 800;
 var canvassizey = 400;
+var gamemode = 1;
 
 var wgMain = new function()
 {

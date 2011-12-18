@@ -32,7 +32,8 @@ var gGlobals = new function()
 	this.nextlevel = 0;
 	this.countgifts = 0;
 	this.countgiftsoverall = 0;
-	this.lvlbl=0,this.lvlbr=0,this.lvlbt=0,this.lvlbd=0;
+	this.cursorposx = 0;
+	this.cursorposy = 0;
 };
 
 function gNextLevel() 
@@ -54,6 +55,7 @@ function gRestart()
 	gGiftOutput();
 	gGlobals.player.object.moveToFront();
 	gGlobals.timer = 0;
+	wgCamera.follow = gGlobals.player.object;
 	wgCamera.set(gGlobals.player.object.pos.x,gGlobals.player.object.pos.y);
 	
 	if(document.getElementById("infobig").style.display == 'block') {
@@ -81,7 +83,7 @@ function gFoundGift()
 }
 
 function gGiftOutput() {
-	if(gGlobals.countgifts==gGlobals.countgiftsoverall) {
+	if(gGlobals.countgifts==gGlobals.countgiftsoverall&&gamemode) {
 		if(gGlobals.nextlevel == 0)
 		{
 			if(gGlobals.level == level_0_1)
@@ -96,6 +98,7 @@ function gGiftOutput() {
 		{
 			document.getElementById("infobig").innerHTML = "<h2>Gratulation!</h2><br/>Du hast alle Geschenke gefunden in einer Zeit von nur <span>"+Math.round(gGlobals.timer*100)/100+" Sekunden</span>.<br/><br/><button id=\"restart\">Neuer Versuch</button> <button id=\"nextlevel\">N&auml;chstes Level</button>";
 		}
+		
 		document.getElementById("infobig").style.display = 'block';
 		document.getElementById("timer").style.display = 'none';
 		document.getElementById("counter").style.display = 'none';		
@@ -146,33 +149,50 @@ function gameevent(ts)
 	if(gGlobals.countgifts==gGlobals.countgiftsoverall)
 		return;
 	
+	if(gamemode) {
 	gGlobals.timer += ts/1000.0;
 	document.getElementById("timer").innerHTML = Math.round(gGlobals.timer*100.0)/100.0;
+	} else
+		gEdit.update(ts);
 }
 
 function gTestInit() {
-	document.getElementById("dev").innerHTML = "<br/>Testumgebung<br/><textarea id=\"testlevel\" rows=\"3\" cols=\"100\"></textarea><br/><br/><button id=\"test\">Test Level</button> <button id=\"nextlvl\">Next Level</button>";
+	document.getElementById("dev").innerHTML = "<br/>Testumgebung<br/><textarea id=\"testlevel\" rows=\"3\" cols=\"100\"></textarea><br/><br/><button id=\"test\">Test Level</button> <button id=\"nextlvl\">Next Level</button> <button id=\"edit\">edit</button>";
 	document.getElementById("test").onclick = gTest;
 	document.getElementById("nextlvl").onclick = gNextLevel;
+	document.getElementById("edit").onclick = function(){gEdit.init()};
 	
 	wgAudio.stopAudio(musicplaying);
+	
 }
 
 function gTest()
 {
+	
+	
 	// delete old lvl
 	while(wgMain.first_ent.next!=0)
 		wgMain.first_ent.next.destroy();
 	wgMain.first_ent = new wgEntity();
-
-	wgTileMap.data = document.getElementById("testlevel").value;
-	wgTileMap.generate();
-	gCalcGifts();
-	gGiftOutput();
-	gGlobals.timer = 0;
-	//gGlobals.player.object.moveToFront();
-	wgCamera.update(player.pos.x,player.pos.y);
 	
+	if(gamemode) {
+		wgTileMap.data = document.getElementById("testlevel").value;
+		wgTileMap.generate();
+	} else {
+		gamemode=1;
+		wgTileMap.generate();
+		gamemode=0;
+	}
+	
+	if(gamemode) {
+		gCalcGifts();
+		gGiftOutput();
+		gGlobals.timer = 0;
+		gGlobals.player.object.moveToFront();
+	}
+	
+	wgCamera.update(gGlobals.player.object.pos.x,gGlobals.player.object.pos.y);
+	wgCamera.follow = gGlobals.player.object;
 }
 
 function main()
@@ -293,8 +313,7 @@ function main()
 	wgKeyboard.onEntf = gRestart;
 	wgAudio.playAudio("song1", 1);
 	
-	// Enable Testenv
-	//gTestInit();
-	
+	// Enable Testenv and Level Editor
+	gTestInit();
 	wgMain.mainLoop();
 }
